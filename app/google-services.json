@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "660750456905",
+    "project_id": "kardioasystent",
+    "storage_bucket": "kardioasystent.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660750456905:android:ebb6ae8447c1c39bf6c798",
+        "android_client_info": {
+          "package_name": "com.example.myapplicationkardioasystent"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOtjLgERLI5BUKYv78NMc0Zp9CgmjguGE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
