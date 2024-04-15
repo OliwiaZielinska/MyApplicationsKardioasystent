@@ -32,7 +32,6 @@ class MainViewApp : AppCompatActivity() {
         // Obsługa przycisku "Wprowadź wynik pomiaru"
         wprowadzWynikPomiaruButton.setOnClickListener {
             openActivity()
-            //TU GENERALNIE powinno przenosić DO TEGO EnterMeasurment, ale no wiadomo że nie przenosi xd
         }
 
 
@@ -50,8 +49,7 @@ class MainViewApp : AppCompatActivity() {
 
         // Obsługa przycisku "Poradnik zdrowia"
         poradnikZdrowiaButton.setOnClickListener {
-            //TU GENERALNIE MUSIMY POTEM WSTAWIĆ POTEM PRZENIESIENIE DO OKNA Z PORADAMI ZDROWIA
-        // ALE TAKIEGO OKNA TEŻ JESZCZE NIE MAMY WIĘC TU NIC NIE WPISYWAŁAM
+            openActivity2()
         }
 
         wylogujSieButton.setOnClickListener {
@@ -63,6 +61,11 @@ class MainViewApp : AppCompatActivity() {
 //to teoretycznie powinno przenieść użytkownika do tej aktywności wprowadzenia pomiaru, ale no jak wiesz to nie do końca działa xd
     private fun openActivity() {
         val intent = Intent(this, EnterMeasurment::class.java)
+        startActivity(intent)
+    }
+
+    private fun openActivity2() {
+        val intent = Intent(this, HealthAdvices::class.java)
         startActivity(intent)
     }
 
