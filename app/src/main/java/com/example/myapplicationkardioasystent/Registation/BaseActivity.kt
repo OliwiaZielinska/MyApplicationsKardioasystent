@@ -1,7 +1,8 @@
-package com.example.myapplicationkardioasystent
+package com.example.myapplicationkardioasystent.Registation
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.myapplicationkardioasystent.R
 import com.google.android.material.snackbar.Snackbar
 
 open class BaseActivity : AppCompatActivity() {

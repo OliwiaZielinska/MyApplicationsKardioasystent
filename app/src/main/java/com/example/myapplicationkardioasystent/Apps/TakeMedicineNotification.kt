@@ -1,9 +1,10 @@
-package com.example.myapplicationkardioasystent
+package com.example.myapplicationkardioasystent.Apps
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplicationkardioasystent.R
 import com.google.android.material.textfield.TextInputEditText
 
 class TakeMedicineNotification : AppCompatActivity() {

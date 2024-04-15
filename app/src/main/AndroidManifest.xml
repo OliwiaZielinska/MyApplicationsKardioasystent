@@ -13,12 +13,13 @@
         android:theme="@style/Theme.MyApplicationKARDIOASYSTENT"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivityLogin"
+            android:name=".Registation.MainAc
+            tivityRegistration2"
             android:exported="false"
             android:theme="@style/Theme.MyApplicationKARDIOASYSTENT" />
-        <activity android:name=".SecondFragment" />
+        <activity android:name=".Registation.MainActivityRegistration1" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Login.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +29,7 @@
         </activity>
 
         <activity
-            android:name=".Second2Fragment"
+            android:name=".Login.ActivityMainLogin"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,7 +40,7 @@
 
 
         <activity
-            android:name=".MainViewApp"
+            android:name=".Apps.MainViewApp"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,7 +52,7 @@
 
 
         <activity
-            android:name=".EnterMeasurment"
+            android:name=".Apps.EnterMeasurment"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

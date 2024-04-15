@@ -5,7 +5,19 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
+    <string name="err_msg_enter_name">Please enter your name</string>
+    <string name="err_msg_enter_surname">Please enter your surname</string>
+    <string name="err_msg_enter_gender">Please enter your gender</string>
+    <string name="err_msg_enter_age">Please enter your age</string>
+    <string name="err_msg_enter_question">Please enter your question</string>
+    <string name="err_msg_enter_doctor_name">Please enter the doctor name</string>
+    <string name="err_msg_enter_time">Please enter the time</string>
+    <string name="err_msg_enter_email">Please enter your email</string>
+    <string name="err_msg_enter_password">Please enter your password</string>
+    <string name="err_msg_enter_morning_pulse">Please enter the morning pulse measurement</string>
+    <string name="err_msg_enter_midday_pulse">Please enter the midday pulse measurement</string>
+    <string name="err_msg_enter_evening_pulse">Please enter the evening pulse measurement</string>
+    <string name="login_successfull">You are logged in successfully</string>
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus

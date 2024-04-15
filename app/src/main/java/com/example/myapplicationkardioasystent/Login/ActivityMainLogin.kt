@@ -1,46 +1,38 @@
-package com.example.myapplicationkardioasystent
-
+package com.example.myapplicationkardioasystent.Login
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import com.example.myapplicationkardioasystent.Apps.MainViewApp
+import com.example.myapplicationkardioasystent.R
+import com.example.myapplicationkardioasystent.Registation.BaseActivity
 import com.google.firebase.auth.FirebaseAuth
 
-// LoginActivity dziedziczy po BaseActivity i implementuje interfejs OnClickListener
-class LoginActivity : BaseActivity(), View.OnClickListener {
+class ActivityMainLogin : BaseActivity(), View.OnClickListener {
 
-    // Deklaracje zmiennych dla pól widoku
-    private var inputEmail: EditText? = null
-    private var inputPassword: EditText? = null
-    private var loginButton: Button? = null
+    private var LoginNickInput: EditText? = null
+    private var LoginHasloInput: EditText? = null
+    private var LoginZalogujSieButton: Button? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        setContentView(R.layout.activity_main_login)
 
-        // Inicjalizacja pól widoku
-        inputEmail = findViewById(R.id.inputEmail)
-        inputPassword = findViewById(R.id.inputPassword2)
-        loginButton = findViewById(R.id.loginButton)
+        LoginNickInput = findViewById(R.id.editText)
+        LoginHasloInput = findViewById(R.id.LoginHasloInput)
+        LoginZalogujSieButton = findViewById(R.id.LoginZalogujSieButton)
 
-        // Ustawienie nasłuchiwacza kliknięć dla przycisku logowania
-        loginButton?.setOnClickListener {
-            logInRegisteredUser()
-        }
+        // Setting click listener to this class
+        LoginZalogujSieButton?.setOnClickListener(this)
     }
 
-    // Metoda obsługująca kliknięcia
     override fun onClick(view: View?) {
-        if (view != null) {
-            when (view.id) {
-                // Jeśli kliknięto registerTextViewClickable (przycisk przejścia do rejestracji), uruchom aktywność rejestracji
-                // aby TextView mogł być klikalny,nalezy ustawić właściwą funkcję w pliku xml.
-                R.id.registerTextViewClickable -> {
-                    val intent = Intent(this, RegisterActivity::class.java)
-                    startActivity(intent)
-                }
+        // Handle click event
+        when (view?.id) {
+            R.id.LoginZalogujSieButton -> {
+                logInRegisteredUser()
             }
         }
     }
@@ -48,11 +40,11 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     // Walidacja danych logowania
     private fun validateLoginDetails(): Boolean {
         return when {
-            TextUtils.isEmpty(inputEmail?.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(LoginNickInput?.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_email), true)
                 false
             }
-            TextUtils.isEmpty(inputPassword?.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(LoginHasloInput?.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_password), true)
                 false
             }
@@ -66,8 +58,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     // Logowanie zarejestrowanego użytkownika
     private fun logInRegisteredUser() {
         if (validateLoginDetails()) {
-            val email = inputEmail?.text.toString().trim() { it <= ' ' }
-            val password = inputPassword?.text.toString().trim() { it <= ' ' }
+            val email = LoginNickInput?.text.toString().trim() { it <= ' ' }
+            val password = LoginHasloInput?.text.toString().trim() { it <= ' ' }
 
             // Logowanie za pomocą FirebaseAuth
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
@@ -89,7 +81,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         val uid = user?.email.toString()
 
         //Przekazanie wartości uid
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, MainViewApp::class.java)
         intent.putExtra("uID", uid)
         startActivity(intent)
     }

@@ -5,164 +5,95 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".MainActivityLogin">
+    tools:context=".Login.ActivityMainLogin">
 
 
     <TextView
-        android:id="@+id/TextRejestracja1"
+        android:id="@+id/witajUzytkownikuText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="148dp"
-        android:text="PROCES REJESTRACJI PRZEBIEGŁ POMYŚLNIE"
-        android:textSize="16sp"
+        android:layout_marginTop="164dp"
+        android:text="WITAJ PONOWNIE !"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.463"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/TextRejestracja2"
+        android:id="@+id/LoginText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="OSTATNIM ETAPEM JEST ZAŁOŻENIE KONTA"
+        android:layout_marginTop="24dp"
+        android:text="WPROWADŹ NIC I HASŁO DO SWOJEGO KONTA"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextRejestracja1" />
+        app:layout_constraintTop_toBottomOf="@+id/witajUzytkownikuText" />
 
     <TextView
-        android:id="@+id/nickText"
+        android:id="@+id/loginNickText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="63dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="69dp"
         android:text="NICK"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/TextRejestracja2" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/nickInputRejestracja"
-        android:layout_width="183dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="56dp"
-        android:hint="Nick"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.187"
-        app:layout_constraintStart_toEndOf="@+id/nickText"
-        app:layout_constraintTop_toTopOf="@+id/TextRejestracja2" />
+        app:layout_constraintTop_toTopOf="@+id/LoginText2" />
 
     <TextView
-        android:id="@+id/TextHasloRejestracja"
+        android:id="@+id/LoginHasloText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="52dp"
         android:text="HASŁO"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nickText" />
+        app:layout_constraintTop_toBottomOf="@+id/loginNickText" />
 
     <EditText
-        android:id="@+id/hasloInputRejestracja"
-        android:layout_width="181dp"
-        android:layout_height="43dp"
+        android:id="@+id/editText"
+        android:layout_width="213dp"
+        android:layout_height="46dp"
         android:layout_marginTop="60dp"
+        android:hint="Nick"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/loginNickText"
+        app:layout_constraintTop_toTopOf="@+id/LoginText2"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/LoginHasloInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Hasło"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/TextHasloRejestracja"
-        app:layout_constraintTop_toTopOf="@+id/nickInputRejestracja" />
+        app:layout_constraintHorizontal_bias="0.416"
+        app:layout_constraintStart_toEndOf="@+id/LoginHasloText"
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
 
-    <TextView
-        android:id="@+id/TextRejestarcja3"
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="262dp"
+        android:layout_height="246dp"
+        android:src="@drawable/running_heart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/LoginZalogujSieButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="88dp"
-        android:text=" PODAJ PREFEROWANE GODZINY  WYKONYWANIA POMIARÓW"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.461"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/hasloInputRejestracja" />
-
-    <TextView
-        android:id="@+id/TextRejestracja4"
-        android:layout_width="43dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="64dp"
-        android:text="RANO"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/TextRejestarcja3" />
-
-    <TextView
-        android:id="@+id/TextRejetsracja5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="52dp"
-        android:text="POŁUDNIE"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/TextRejestracja4" />
-
-    <TextView
-        android:id="@+id/TextRejestracja6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:text="WIECZÓR"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextRejetsracja5" />
-
-    <EditText
-        android:id="@+id/ranoRejestracjaInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:ems="10"
-        android:inputType="time"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.584"
-        app:layout_constraintStart_toEndOf="@+id/TextRejestracja4"
-        app:layout_constraintTop_toTopOf="@+id/TextRejestarcja3" />
-
-    <EditText
-        android:id="@+id/PoludnieRejestracja"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="time"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.582"
-        app:layout_constraintStart_toEndOf="@+id/TextRejetsracja5"
-        app:layout_constraintTop_toBottomOf="@+id/ranoRejestracjaInput" />
-
-    <EditText
-        android:id="@+id/WieczorRejestracja"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="time"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.605"
-        app:layout_constraintStart_toEndOf="@+id/TextRejestracja6"
-        app:layout_constraintTop_toBottomOf="@+id/PoludnieRejestracja" />
-
-    <Button
-        android:id="@+id/zalozKontoButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="131dp"
-        android:backgroundTint="#EA8484"
-        android:text="ZAŁÓŻ KONTO"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:backgroundTint="#F67373"
+        android:text="ZALOGUJ SIĘ"
+        app:layout_constraintBottom_toTopOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/WieczorRejestracja"
+        app:layout_constraintTop_toTopOf="@+id/LoginHasloInput"
         app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

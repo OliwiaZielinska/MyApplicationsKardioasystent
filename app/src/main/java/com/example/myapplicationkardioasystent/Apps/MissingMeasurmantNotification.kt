@@ -1,12 +1,13 @@
-package com.example.myapplicationkardioasystent
+package com.example.myapplicationkardioasystent.Apps
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplicationkardioasystent.R
+import com.example.myapplicationkardioasystent.Registation.BaseActivity
 import com.google.android.material.textfield.TextInputEditText
 
 
-class MissingMeasurmantNotification : AppCompatActivity () {
+class MissingMeasurmantNotification : BaseActivity () {
 
 
     private lateinit var dataPomiaruInputText: TextInputEditText

@@ -1,8 +1,10 @@
-package com.example.myapplicationkardioasystent
+package com.example.myapplicationkardioasystent.Apps
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplicationkardioasystent.R
 
 
 class MainViewApp : AppCompatActivity() {
@@ -11,16 +13,17 @@ class MainViewApp : AppCompatActivity() {
     private lateinit var statystykiButton: Button
     private lateinit var ustawieniaButton: Button
     private lateinit var poradnikZdrowiaButton: Button
+    private var witajUzytkownikuText: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_view_app)
 
-        // Inicjalizacja elementów interfejsu użytkownika
         wprowadzWynikPomiaruButton = findViewById(R.id.wprowadzWynikPomiaruButton)
         statystykiButton = findViewById(R.id.statystykiButton)
         ustawieniaButton = findViewById(R.id.ustawieniaButton)
         poradnikZdrowiaButton = findViewById(R.id.poradnikZdrowiaButton)
+
 
         // Obsługa przycisku "Wprowadź wynik pomiaru"
         wprowadzWynikPomiaruButton.setOnClickListener {
@@ -51,5 +54,14 @@ class MainViewApp : AppCompatActivity() {
     private fun openActivity() {
         val intent = Intent(this, EnterMeasurment::class.java)
         startActivity(intent)
+    }
+
+    fun getUserId(userID: String) {
+        // Inicjalizacja elementów interfejsu użytkownika
+        val intent = intent
+
+        witajUzytkownikuText = findViewById(R.id.witajUzytkownikuText)
+        // Ustaw tekst powitalny, wykorzystując wartość userID
+        witajUzytkownikuText?.text = "Welcome ${userID}!"
     }
 }
