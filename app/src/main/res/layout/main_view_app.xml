@@ -52,18 +52,6 @@
         app:layout_constraintTop_toBottomOf="@+id/wprowadzWynikPomiaruButton" />
 
     <Button
-        android:id="@+id/ustawieniaButton"
-        android:layout_width="220dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="#F40606"
-        android:text="Ustawienia"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statystykiButton" />
-
-    <Button
         android:id="@+id/poradnikZdrowiaButton"
         android:layout_width="220dp"
         android:layout_height="53dp"
@@ -73,7 +61,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ustawieniaButton" />
+        app:layout_constraintTop_toBottomOf="@+id/statystykiButton" />
+
+    <Button
+        android:id="@+id/ustawieniaButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="#F40606"
+        android:text="Ustawienia"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.098"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/poradnikZdrowiaButton" />
 
     <ImageView
         android:id="@+id/dietaImageView"
@@ -83,7 +83,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/poradnikZdrowiaButton"
+        app:layout_constraintTop_toBottomOf="@+id/ustawieniaButton"
         app:srcCompat="@drawable/dieta" />
 
     <ImageView
@@ -96,5 +96,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dietaImageView"
         app:srcCompat="@drawable/sport" />
+
+    <Button
+        android:id="@+id/wylogujSieButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="66dp"
+        android:layout_marginBottom="87dp"
+        android:backgroundTint="#F40606"
+        android:text="Wyloguj się"
+        app:layout_constraintBottom_toBottomOf="@+id/dietaImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ustawieniaButton"
+        app:layout_constraintTop_toTopOf="@+id/poradnikZdrowiaButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

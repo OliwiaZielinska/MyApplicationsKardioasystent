@@ -31,25 +31,25 @@
         app:layout_constraintTop_toBottomOf="@+id/TextRejestracja1" />
 
     <TextView
-        android:id="@+id/nickText"
+        android:id="@+id/emailText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="92dp"
         android:layout_marginTop="63dp"
-        android:text="NICK"
+        android:text="EMAIL"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/TextRejestracja2" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/nickInputRejestracja"
+        android:id="@+id/emailInputRejestracja"
         android:layout_width="183dp"
         android:layout_height="42dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="56dp"
-        android:hint="Nick"
+        android:hint="Email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.187"
-        app:layout_constraintStart_toEndOf="@+id/nickText"
+        app:layout_constraintStart_toEndOf="@+id/emailText"
         app:layout_constraintTop_toTopOf="@+id/TextRejestracja2" />
 
     <TextView
@@ -60,7 +60,7 @@
         android:layout_marginTop="40dp"
         android:text="HASŁO"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nickText" />
+        app:layout_constraintTop_toBottomOf="@+id/emailText" />
 
     <EditText
         android:id="@+id/hasloInputRejestracja"
@@ -72,7 +72,7 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/TextHasloRejestracja"
-        app:layout_constraintTop_toTopOf="@+id/nickInputRejestracja" />
+        app:layout_constraintTop_toTopOf="@+id/emailInputRejestracja" />
 
     <TextView
         android:id="@+id/TextRejestarcja3"

@@ -2,7 +2,6 @@ package com.example.myapplicationkardioasystent.Login
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import com.example.myapplicationkardioasystent.Apps.MainViewApp
@@ -10,7 +9,7 @@ import com.example.myapplicationkardioasystent.R
 import com.example.myapplicationkardioasystent.Registation.BaseActivity
 import com.google.firebase.auth.FirebaseAuth
 
-class ActivityMainLogin : BaseActivity(), View.OnClickListener {
+class ActivityMainLogin : BaseActivity(){
 
     private var LoginNickInput: EditText? = null
     private var LoginHasloInput: EditText? = null
@@ -20,20 +19,13 @@ class ActivityMainLogin : BaseActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_login)
 
-        LoginNickInput = findViewById(R.id.editText)
+        LoginNickInput = findViewById(R.id.LoginEmailInput)
         LoginHasloInput = findViewById(R.id.LoginHasloInput)
         LoginZalogujSieButton = findViewById(R.id.LoginZalogujSieButton)
 
         // Setting click listener to this class
-        LoginZalogujSieButton?.setOnClickListener(this)
-    }
-
-    override fun onClick(view: View?) {
-        // Handle click event
-        when (view?.id) {
-            R.id.LoginZalogujSieButton -> {
-                logInRegisteredUser()
-            }
+        LoginZalogujSieButton?.setOnClickListener{
+            logInRegisteredUser()
         }
     }
 

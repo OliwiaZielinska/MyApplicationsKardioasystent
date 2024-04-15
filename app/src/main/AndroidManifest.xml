@@ -13,11 +13,26 @@
         android:theme="@style/Theme.MyApplicationKARDIOASYSTENT"
         tools:targetApi="31">
         <activity
-            android:name=".Registation.MainAc
-            tivityRegistration2"
-            android:exported="false"
-            android:theme="@style/Theme.MyApplicationKARDIOASYSTENT" />
-        <activity android:name=".Registation.MainActivityRegistration1" />
+            android:name=".Registation.BaseActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Registation.MainActivityRegistration2"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Registation.MainActivityRegistration1"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".Login.MainActivity"
             android:exported="true">
@@ -26,39 +41,34 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
 
         <activity
             android:name=".Login.ActivityMainLogin"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
 
 
         <activity
             android:name=".Apps.MainViewApp"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
-
-
 
         <activity
             android:name=".Apps.EnterMeasurment"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
     </application>
 

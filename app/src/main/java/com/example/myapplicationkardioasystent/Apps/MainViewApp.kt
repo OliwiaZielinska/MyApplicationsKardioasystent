@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplicationkardioasystent.Login.MainActivity
 import com.example.myapplicationkardioasystent.R
 
 
@@ -14,6 +15,8 @@ class MainViewApp : AppCompatActivity() {
     private lateinit var ustawieniaButton: Button
     private lateinit var poradnikZdrowiaButton: Button
     private var witajUzytkownikuText: TextView? = null
+    private lateinit var wylogujSieButton: Button
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +26,7 @@ class MainViewApp : AppCompatActivity() {
         statystykiButton = findViewById(R.id.statystykiButton)
         ustawieniaButton = findViewById(R.id.ustawieniaButton)
         poradnikZdrowiaButton = findViewById(R.id.poradnikZdrowiaButton)
+        wylogujSieButton = findViewById(R.id.wylogujSieButton)
 
 
         // Obsługa przycisku "Wprowadź wynik pomiaru"
@@ -48,6 +52,12 @@ class MainViewApp : AppCompatActivity() {
         poradnikZdrowiaButton.setOnClickListener {
             //TU GENERALNIE MUSIMY POTEM WSTAWIĆ POTEM PRZENIESIENIE DO OKNA Z PORADAMI ZDROWIA
         // ALE TAKIEGO OKNA TEŻ JESZCZE NIE MAMY WIĘC TU NIC NIE WPISYWAŁAM
+        }
+
+        wylogujSieButton.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 //to teoretycznie powinno przenieść użytkownika do tej aktywności wprowadzenia pomiaru, ale no jak wiesz to nie do końca działa xd

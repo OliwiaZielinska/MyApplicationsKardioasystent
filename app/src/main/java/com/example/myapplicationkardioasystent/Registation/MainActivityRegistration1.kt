@@ -39,37 +39,55 @@ class MainActivityRegistration1 : BaseActivity() {
     }
 
     private fun validateRegisterDetails(): Boolean {
-        return when {
-            TextUtils.isEmpty(imieInput?.text.toString().trim { it <= ' ' }) -> {
-                showErrorSnackBar(resources.getString(R.string.err_msg_enter_name), true)
-                false
-            }
-            TextUtils.isEmpty(nazwiskoInput?.text.toString().trim { it <= ' ' }) -> {
-                showErrorSnackBar(resources.getString(R.string.err_msg_enter_surname), true)
-                false
-            }
-            TextUtils.isEmpty(plecInput?.text.toString().trim { it <= ' ' }) -> {
-                showErrorSnackBar(resources.getString(R.string.err_msg_enter_gender), true)
-                false
-            }
-            TextUtils.isEmpty(wiekInput?.text.toString().trim { it <= ' ' }) -> {
-                showErrorSnackBar(resources.getString(R.string.err_msg_enter_age), true)
-                false
-            }
-            TextUtils.isEmpty(pytInput?.text.toString().trim { it <= ' ' }) -> {
-                showErrorSnackBar(resources.getString(R.string.err_msg_enter_question), true)
-                false
-            }
-            TextUtils.isEmpty(nazwaLekInput?.text.toString().trim { it <= ' ' }) -> {
-                showErrorSnackBar(resources.getString(R.string.err_msg_enter_doctor_name), true)
-                false
-            }
-            TextUtils.isEmpty(godzinaInput?.text.toString().trim { it <= ' ' }) -> {
-                showErrorSnackBar(resources.getString(R.string.err_msg_enter_time), true)
-                false
-            }
-            else -> true
+        val imie = imieInput?.text.toString().trim()
+        val nazwisko = nazwiskoInput?.text.toString().trim()
+        val plec = plecInput?.text.toString().trim()
+        val wiek = wiekInput?.text.toString().trim()
+        val pyt = pytInput?.text.toString().trim()
+        val nazwaLek = nazwaLekInput?.text.toString().trim()
+        val godzina = godzinaInput?.text.toString().trim()
+
+        if (TextUtils.isEmpty(imie)) {
+            showErrorSnackBar(resources.getString(R.string.err_msg_enter_name), true)
+            return false
         }
+
+        if (TextUtils.isEmpty(nazwisko)) {
+            showErrorSnackBar(resources.getString(R.string.err_msg_enter_surname), true)
+            return false
+        }
+
+        if (TextUtils.isEmpty(plec)) {
+            showErrorSnackBar(resources.getString(R.string.err_msg_enter_gender), true)
+            return false
+        }
+
+        if (TextUtils.isEmpty(wiek)) {
+            showErrorSnackBar(resources.getString(R.string.err_msg_enter_age), true)
+            return false
+        }
+
+        if (TextUtils.isEmpty(pyt)) {
+            showErrorSnackBar(resources.getString(R.string.err_msg_enter_question), true)
+            return false
+        }
+
+        if (pyt.equals("Tak", ignoreCase = true)) {
+            showErrorSnackBar(resources.getString(R.string.err_msg_enter_doctor_name), true)
+            return false
+        }
+
+        if (TextUtils.isEmpty(nazwaLek)) {
+            showErrorSnackBar(resources.getString(R.string.err_msg_enter_doctor_name), true)
+            return false
+        }
+
+        if (TextUtils.isEmpty(godzina)) {
+            showErrorSnackBar(resources.getString(R.string.err_msg_enter_time), true)
+            return false
+        }
+
+        return true
     }
 
     private fun registerUser() {

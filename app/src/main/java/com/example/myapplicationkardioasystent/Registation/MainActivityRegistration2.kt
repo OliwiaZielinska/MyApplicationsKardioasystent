@@ -3,7 +3,6 @@ package com.example.myapplicationkardioasystent.Registation
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
@@ -31,7 +30,7 @@ class MainActivityRegistration2 : BaseActivity() {
         setContentView(R.layout.activity_main_registration2)
 
         // Inicjalizacja elementów interfejsu użytkownika
-        nickInputRejestracja = findViewById(R.id.nickInputRejestracja)
+        nickInputRejestracja = findViewById(R.id.emailInputRejestracja)
         hasloInputRejestracja = findViewById(R.id.hasloInputRejestracja)
         RanoRejestracjaInput = findViewById(R.id.ranoRejestracjaInput)
         PoludnieRejestracja = findViewById(R.id.PoludnieRejestracja)
@@ -71,13 +70,6 @@ class MainActivityRegistration2 : BaseActivity() {
         }
     }
 
-    // Przejście do aktywności logowania
-    fun goToLogin(view: View) {
-        val intent = Intent(this, ActivityMainLogin::class.java)
-        startActivity(intent)
-        finish()
-    }
-
     // Rejestracja użytkownika
     private fun registerUser() {
         if (validateRegisterDetails()) {
@@ -94,6 +86,9 @@ class MainActivityRegistration2 : BaseActivity() {
 
                             // Wylogowanie użytkownika i zakończenie aktywności
                             FirebaseAuth.getInstance().signOut()
+                            finish()
+                            val intent = Intent(this, ActivityMainLogin::class.java)
+                            startActivity(intent)
                             finish()
                         } else {
                             showErrorSnackBar(task.exception!!.message.toString(), true)

@@ -31,12 +31,12 @@
         app:layout_constraintTop_toBottomOf="@+id/witajUzytkownikuText" />
 
     <TextView
-        android:id="@+id/loginNickText"
+        android:id="@+id/loginEmailText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
         android:layout_marginTop="69dp"
-        android:text="NICK"
+        android:text="EMAIL"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/LoginText2" />
 
@@ -48,16 +48,16 @@
         android:layout_marginTop="52dp"
         android:text="HASŁO"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginNickText" />
+        app:layout_constraintTop_toBottomOf="@+id/loginEmailText" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/LoginEmailInput"
         android:layout_width="213dp"
         android:layout_height="46dp"
         android:layout_marginTop="60dp"
-        android:hint="Nick"
+        android:hint="Email"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/loginNickText"
+        app:layout_constraintStart_toEndOf="@+id/loginEmailText"
         app:layout_constraintTop_toTopOf="@+id/LoginText2"
         tools:ignore="MissingConstraints" />
 
@@ -72,7 +72,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.416"
         app:layout_constraintStart_toEndOf="@+id/LoginHasloText"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/LoginEmailInput" />
 
     <ImageView
         android:id="@+id/imageView2"
