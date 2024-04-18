@@ -77,6 +77,16 @@ class MainActivityRegistration1 : BaseActivity() {
             return false
         }
 
+        if (pyt.equals("Nie", ignoreCase = true)) {
+            // Jeśli użytkownik nie przyjmuje leków, wyłącz możliwość edycji pól godziny i nazwy leku
+            godzinaInput.isEnabled = false
+            nazwaLekInput.isEnabled = false
+
+            // Bezpośrednio zwracamy true, ponieważ nie ma potrzeby walidacji pól godziny i nazwy leku
+            return true
+        }
+
+        // Sprawdzamy tylko wtedy, gdy użytkownik deklaruje, że przyjmuje leki
         if (TextUtils.isEmpty(nazwaLek)) {
             showErrorSnackBar(resources.getString(R.string.err_msg_enter_doctor_name), true)
             return false
@@ -89,6 +99,7 @@ class MainActivityRegistration1 : BaseActivity() {
 
         return true
     }
+
 
     private fun registerUser() {
         if (validateRegisterDetails()) {
