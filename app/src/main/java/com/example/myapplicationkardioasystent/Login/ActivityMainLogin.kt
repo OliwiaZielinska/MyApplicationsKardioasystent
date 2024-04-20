@@ -9,6 +9,11 @@ import com.example.myapplicationkardioasystent.R
 import com.example.myapplicationkardioasystent.Registation.BaseActivity
 import com.google.firebase.auth.FirebaseAuth
 
+/**
+ * Aktywność obsługująca logowanie użytkownika do aplikacji.
+ * Umozliwia użytkownikowi wprowadzenie danych logowania i autoryzacji za pomocą Firebase Authentication.
+ */
+
 class ActivityMainLogin : BaseActivity(){
 
     private var LoginNickInput: EditText? = null
@@ -29,7 +34,10 @@ class ActivityMainLogin : BaseActivity(){
         }
     }
 
-    // Walidacja danych logowania
+    /**
+     * Walidacja danych logowania
+     * @return True, jeśli dane logowania są poprawne, w przeciwnym razie False.
+     */
     private fun validateLoginDetails(): Boolean {
         return when {
             TextUtils.isEmpty(LoginNickInput?.text.toString().trim { it <= ' ' }) -> {
@@ -47,7 +55,9 @@ class ActivityMainLogin : BaseActivity(){
         }
     }
 
-    // Logowanie zarejestrowanego użytkownika
+    /**
+     * Logowanie zarejestrowanego użytkownika
+     */
     private fun logInRegisteredUser() {
         if (validateLoginDetails()) {
             val email = LoginNickInput?.text.toString().trim() { it <= ' ' }

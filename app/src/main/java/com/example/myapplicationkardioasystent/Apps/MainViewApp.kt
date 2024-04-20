@@ -7,7 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplicationkardioasystent.Login.MainActivity
 import com.example.myapplicationkardioasystent.R
 
-
+/**
+ *  Główna aktywność aplikacji, wyświetlająca interfejs użytkownika.
+ *  Umożliwia nawigację do różnych funkcji aplikacji.
+ */
 class MainViewApp : AppCompatActivity() {
 
     private lateinit var wprowadzWynikPomiaruButton: Button
@@ -58,12 +61,16 @@ class MainViewApp : AppCompatActivity() {
             finish()
         }
     }
-//to teoretycznie powinno przenieść użytkownika do tej aktywności wprowadzenia pomiaru, ale no jak wiesz to nie do końca działa xd
+    /**
+     * Metoda do otwarcia aktywności wprowadzania wyniku pomiaru.
+     */
     private fun openActivity() {
         val intent = Intent(this, EnterMeasurment::class.java)
         startActivity(intent)
     }
-
+    /**
+     * Metoda do otwarcia aktywności poradnika zdrowia.
+     */
     private fun openActivity2() {
         val intent = Intent(this, HealthAdvices::class.java)
         startActivity(intent)

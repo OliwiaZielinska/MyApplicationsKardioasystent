@@ -7,6 +7,10 @@ import android.widget.Button
 import android.widget.EditText
 import com.example.myapplicationkardioasystent.R
 
+/**
+ * Aktywność odpowiedzialna za rejestrację użytkownika do aplikacji - wprowadza dane użytownika oraz
+ * przekierowuje do kolejnego etapu rejestracji
+ */
 class MainActivityRegistration1 : BaseActivity() {
     private lateinit var imieInput:EditText
     private lateinit var nazwiskoInput:EditText
@@ -37,6 +41,11 @@ class MainActivityRegistration1 : BaseActivity() {
             registerUser()
         }
     }
+
+    /**
+     * Walidacja danych rejestracyjnych wprowadzonych przez użytkownika
+     * @return True, jeśli wszystkie pola zostały prawidłowo wypełnione, w przeciwnym razie zwraca False.
+     */
 
     private fun validateRegisterDetails(): Boolean {
         val imie = imieInput?.text.toString().trim()
@@ -100,14 +109,19 @@ class MainActivityRegistration1 : BaseActivity() {
         return true
     }
 
-
+    /**
+     * Metoda wywoływana po poprawnej walidacji danych rejestracji.
+     * Otwiera drugą aktywność rejestracji.
+     */
     private fun registerUser() {
         if (validateRegisterDetails()) {
             openActivity()
         }
     }
 
-    // Metoda do otwierania drugiej aktywności
+    /**
+     * Metoda służąca otwarciu drugiej aktywności rejestracji.
+     */
     private fun openActivity(){
         val intent = Intent(this, MainActivityRegistration2::class.java)
         startActivity(intent)

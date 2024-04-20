@@ -7,6 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplicationkardioasystent.R
 import com.google.android.material.textfield.TextInputEditText
 
+/**
+ * Aktywność odpowiedzialna za wyświetlanie powiadomienia o konieczności przyjęcia leku.
+ * Umożliwia użytkownikowi zamknięcie powiadomienia lub przypomnienie o przyjęciu leku później.
+ */
+
 class TakeMedicineNotification : AppCompatActivity() {
 
     private lateinit var nazwaLekuInputText: TextInputEditText
@@ -20,11 +25,10 @@ class TakeMedicineNotification : AppCompatActivity() {
         nazwaLekuInputText = findViewById(R.id.nazwaLekuInputText)
         godzinaLekuInputText = findViewById(R.id.godzinaLekuInputText)
 
-        // Tutaj możesz dodać kod obsługi przycisku "Zamknij powiadomienie"
+
         val buttonZamknijPowiadomienie = findViewById<Button>(R.id.zamknijPowiadomienieLekButton)
         buttonZamknijPowiadomienie.setOnClickListener {
             openActivity()
-           //zakładam że powinno to przenosić użytkownika do okna MainViewApp, ale można to potem zmodyfikować
         }
 
         // Tutaj obsługa przycisku "Przypomnij później"
@@ -34,8 +38,11 @@ class TakeMedicineNotification : AppCompatActivity() {
         }
     }
 
+    /**
+     * Metoda otwierania aktywności głównej.
+     */
+
     private fun openActivity() {
-        //to teoretycznie powinno przenieść użytkownika do tej aktywności powrotu do głównego okna, ale nie działa xd
             val intent = Intent(this, MainViewApp::class.java)
             startActivity(intent)
         }

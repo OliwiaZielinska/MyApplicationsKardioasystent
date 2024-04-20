@@ -6,6 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplicationkardioasystent.R
 import com.google.android.material.textfield.TextInputEditText
 
+/**
+ * Aktywność umożliwiająca wprowadzenie wyniku pomiaru.
+ * Umożliwia użytkownikowi zapisanie pomiaru i powrót do głównego widoku aplikacji.
+ */
 class EnterMeasurment : AppCompatActivity() {
 
 
@@ -28,10 +32,11 @@ class EnterMeasurment : AppCompatActivity() {
         val zapiszWynikPomiaruButton = findViewById<Button>(R.id.zapiszWynikPomiaruButton)
         zapiszWynikPomiaruButton.setOnClickListener {
             openActivity()
-            //zakładam że to ma przenosić użytkownika do głównego okna apki, ale mozna to potem zmienić, jak stwierdzimy, że chcemy inaczej
         }
     }
-    //to teoretycznie powinno przenieść użytkownika do tej aktywności powrotu do głównego okna, ale nie działa xd
+    /**
+     * Metoda do otwarcia głównego widoku aplikacji.
+     */
     private fun openActivity() {
         val intent = Intent(this, MainViewApp::class.java)
         startActivity(intent)

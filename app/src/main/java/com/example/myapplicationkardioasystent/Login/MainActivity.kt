@@ -7,6 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplicationkardioasystent.R
 import com.example.myapplicationkardioasystent.Registation.MainActivityRegistration1
 
+/**
+ * Główna aktywność mająca za zadanie obsługiwać ekran logowania i rejestracji.
+ * Umożliwia przejście do ekranu logowannia lub rejestracji.
+ */
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

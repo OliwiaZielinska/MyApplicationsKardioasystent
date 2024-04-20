@@ -14,7 +14,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 /**
- * A simple [Fragment] subclass as the second destination in the navigation.
+ * Klasa reprezentująca drugi etap rejestracji użytkownika.
+ * Zawiera ona formularz do wprowadzenia danych użytkownika oraz logikę rejestracji w Firebase Authentication.
  */
 class MainActivityRegistration2 : BaseActivity() {
 
@@ -43,7 +44,10 @@ class MainActivityRegistration2 : BaseActivity() {
         }
     }
 
-    // Walidacja danych rejestracji
+    /**
+     * Walidacja wprowadzonych danych rejestracji.
+     * @return True, jeśli wszystkie pola zostały wypełnione poprawnie, w przeciwnym razie False.
+     */
     private fun validateRegisterDetails(): Boolean {
         return when {
             TextUtils.isEmpty(nickInputRejestracja?.text.toString().trim{ it <= ' '}) -> {
@@ -70,7 +74,9 @@ class MainActivityRegistration2 : BaseActivity() {
         }
     }
 
-    // Rejestracja użytkownika
+    /**
+     * Rejestracja użytkownika w Firebase Authentication.
+     */
     private fun registerUser() {
         if (validateRegisterDetails()) {
             val login: String = nickInputRejestracja?.text.toString().trim() {it <= ' '}
