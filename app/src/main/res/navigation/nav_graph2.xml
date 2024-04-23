@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.example.myapplicationkardioasystent.Registation.MainActivityRegistration1"
+        android:name="com.example.myapplicationkardioasystent.registation.MainActivityRegistration1"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/activity_main_registration1">
 

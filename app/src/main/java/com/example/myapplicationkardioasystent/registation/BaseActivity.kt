@@ -1,4 +1,4 @@
-package com.example.myapplicationkardioasystent.Registation
+package com.example.myapplicationkardioasystent.registation
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat

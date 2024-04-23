@@ -1,12 +1,12 @@
-package com.example.myapplicationkardioasystent.Login
+package com.example.myapplicationkardioasystent.login
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
-import com.example.myapplicationkardioasystent.Apps.MainViewApp
 import com.example.myapplicationkardioasystent.R
-import com.example.myapplicationkardioasystent.Registation.BaseActivity
+import com.example.myapplicationkardioasystent.apps.MainViewApp
+import com.example.myapplicationkardioasystent.registation.BaseActivity
 import com.google.firebase.auth.FirebaseAuth
 
 /**
@@ -14,22 +14,22 @@ import com.google.firebase.auth.FirebaseAuth
  * Umozliwia użytkownikowi wprowadzenie danych logowania i autoryzacji za pomocą Firebase Authentication.
  */
 
-class ActivityMainLogin : BaseActivity(){
+open class ActivityMainLogin : BaseActivity(){
 
-    private var LoginNickInput: EditText? = null
-    private var LoginHasloInput: EditText? = null
-    private var LoginZalogujSieButton: Button? = null
+    private var loginEmailInput: EditText? = null
+    private var loginPasswordInput: EditText? = null
+    private var loginLogInButton: Button? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_login)
 
-        LoginNickInput = findViewById(R.id.LoginEmailInput)
-        LoginHasloInput = findViewById(R.id.LoginHasloInput)
-        LoginZalogujSieButton = findViewById(R.id.LoginZalogujSieButton)
+        loginEmailInput = findViewById(R.id.LoginEmailInput)
+        loginPasswordInput = findViewById(R.id.LoginPasswordInput)
+        loginLogInButton = findViewById(R.id.LoginLogInButton)
 
         // Setting click listener to this class
-        LoginZalogujSieButton?.setOnClickListener{
+        loginLogInButton?.setOnClickListener{
             logInRegisteredUser()
         }
     }
@@ -40,11 +40,11 @@ class ActivityMainLogin : BaseActivity(){
      */
     private fun validateLoginDetails(): Boolean {
         return when {
-            TextUtils.isEmpty(LoginNickInput?.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(loginEmailInput?.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_email), true)
                 false
             }
-            TextUtils.isEmpty(LoginHasloInput?.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(loginPasswordInput?.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_password), true)
                 false
             }
@@ -60,8 +60,8 @@ class ActivityMainLogin : BaseActivity(){
      */
     private fun logInRegisteredUser() {
         if (validateLoginDetails()) {
-            val email = LoginNickInput?.text.toString().trim() { it <= ' ' }
-            val password = LoginHasloInput?.text.toString().trim() { it <= ' ' }
+            val email = loginEmailInput?.text.toString().trim { it <= ' ' }
+            val password = loginPasswordInput?.text.toString().trim { it <= ' ' }
 
             // Logowanie za pomocą FirebaseAuth
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)

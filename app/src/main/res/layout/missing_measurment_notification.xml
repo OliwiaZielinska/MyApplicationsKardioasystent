@@ -44,7 +44,7 @@
         app:layout_constraintTop_toBottomOf="@+id/infoTextView" />
 
     <Button
-        android:id="@+id/wprowadzWynikPomiaruPowiadomienieButton"
+        android:id="@+id/enterTheMeasurementResultNotificationButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="269dp"
@@ -55,7 +55,7 @@
         app:layout_constraintTop_toBottomOf="@+id/infoTextView" />
 
     <Button
-        android:id="@+id/zamknijPowiadomienieButton"
+        android:id="@+id/closeNotificationButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
@@ -65,11 +65,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/wprowadzWynikPomiaruPowiadomienieButton"
+        app:layout_constraintTop_toBottomOf="@+id/enterTheMeasurementResultNotificationButton"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/dataPomiaruInputText"
+        android:id="@+id/dateOfMeasurementInputText"
         android:layout_width="230dp"
         android:layout_height="54dp"
         android:layout_marginTop="48dp"
@@ -80,7 +80,7 @@
         app:layout_constraintTop_toBottomOf="@+id/infoTextView" />
 
     <EditText
-        android:id="@+id/godzinaPomiaruInputText"
+        android:id="@+id/hourMeasurementInputText"
         android:layout_width="230dp"
         android:layout_height="54dp"
         android:layout_marginTop="112dp"

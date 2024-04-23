@@ -7,7 +7,7 @@
     android:background="@drawable/background">
 
     <TextView
-        android:id="@+id/wezLekText"
+        android:id="@+id/takeDrugText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="140dp"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/nazwaLekutext"
+        android:id="@+id/drugNameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
@@ -26,21 +26,21 @@
         android:text="NAZWA LEKU"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/wezLekText" />
+        app:layout_constraintTop_toBottomOf="@+id/takeDrugText" />
 
     <TextView
-        android:id="@+id/godzinaLekText"
+        android:id="@+id/hourDrugText"
         android:layout_width="86dp"
         android:layout_height="20dp"
         android:layout_marginTop="188dp"
         android:text="GODZINA"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/godzinaLekuInputText"
+        app:layout_constraintEnd_toStartOf="@+id/timeOfDrugInputText"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/wezLekText" />
+        app:layout_constraintTop_toBottomOf="@+id/takeDrugText" />
 
     <Button
-        android:id="@+id/zamknijPowiadomienieLekButton"
+        android:id="@+id/closeNotificationDrugButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="263dp"
@@ -50,11 +50,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/wezLekText"
+        app:layout_constraintTop_toBottomOf="@+id/takeDrugText"
         app:layout_constraintVertical_bias="0.112" />
 
     <Button
-        android:id="@+id/przypomnijPozniejButton"
+        android:id="@+id/remindLaterButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
@@ -64,11 +64,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/zamknijPowiadomienieLekButton"
+        app:layout_constraintTop_toBottomOf="@+id/closeNotificationDrugButton"
         app:layout_constraintVertical_bias="0.09" />
 
     <EditText
-        android:id="@+id/nazwaLekuInputText"
+        android:id="@+id/drugNameInputText"
         android:layout_width="217dp"
         android:layout_height="56dp"
         android:layout_marginStart="24dp"
@@ -77,16 +77,16 @@
         android:hint="Nazwa leku"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.833"
-        app:layout_constraintStart_toEndOf="@+id/nazwaLekutext"
-        app:layout_constraintTop_toBottomOf="@+id/wezLekText" />
+        app:layout_constraintStart_toEndOf="@+id/drugNameText"
+        app:layout_constraintTop_toBottomOf="@+id/takeDrugText" />
 
     <EditText
-        android:id="@+id/godzinaLekuInputText"
+        android:id="@+id/timeOfDrugInputText"
         android:layout_width="217dp"
         android:layout_height="56dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:hint="Godzina"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nazwaLekuInputText" />
+        app:layout_constraintTop_toBottomOf="@+id/drugNameInputText" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,9 +1,9 @@
-package com.example.myapplicationkardioasystent.Apps
+package com.example.myapplicationkardioasystent.apps
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import com.example.myapplicationkardioasystent.R
-import com.example.myapplicationkardioasystent.Registation.BaseActivity
+import com.example.myapplicationkardioasystent.registation.BaseActivity
 import com.google.android.material.textfield.TextInputEditText
 
 /**
@@ -22,17 +22,17 @@ class MissingMeasurmantNotification : BaseActivity () {
         setContentView(R.layout.missing_measurment_notification)
 
         // Inicjalizacja elementów interfejsu użytkownika
-        dataPomiaruInputText = findViewById(R.id.dataPomiaruInputText)
-        godzinaPomiaruInputText = findViewById(R.id.godzinaPomiaruInputText)
+        dataPomiaruInputText = findViewById(R.id.dateOfMeasurementInputText)
+        godzinaPomiaruInputText = findViewById(R.id.hourMeasurementInputText)
 
         // Tutaj obsługa przycisku "Wprowadź wynik pomiaru"
-        val buttonWprowadzWynik = findViewById<Button>(R.id.wprowadzWynikPomiaruPowiadomienieButton)
+        val buttonWprowadzWynik = findViewById<Button>(R.id.enterTheMeasurementResultNotificationButton)
         buttonWprowadzWynik.setOnClickListener {
             openActivity1()
         }
 
         // Tutaj obsługa przycisku "Zamknij powiadomienie"
-        val buttonZamknijPowiadomienie = findViewById<Button>(R.id.zamknijPowiadomienieButton)
+        val buttonZamknijPowiadomienie = findViewById<Button>(R.id.closeNotificationButton)
         buttonZamknijPowiadomienie.setOnClickListener {
             openActivity2()
         }

@@ -1,4 +1,4 @@
-package com.example.myapplicationkardioasystent.Apps
+package com.example.myapplicationkardioasystent.apps
 
 import android.content.Intent
 import android.os.Bundle
@@ -14,26 +14,26 @@ import com.google.android.material.textfield.TextInputEditText
 
 class TakeMedicineNotification : AppCompatActivity() {
 
-    private lateinit var nazwaLekuInputText: TextInputEditText
-    private lateinit var godzinaLekuInputText: TextInputEditText
+    private lateinit var drugNameInputText: TextInputEditText
+    private lateinit var timeOfDrugInputText: TextInputEditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
             setContentView(R.layout.take_medicament_notification)
 
         // Inicjalizacja elementów interfejsu użytkownika
-        nazwaLekuInputText = findViewById(R.id.nazwaLekuInputText)
-        godzinaLekuInputText = findViewById(R.id.godzinaLekuInputText)
+        drugNameInputText = findViewById(R.id.drugNameInputText)
+        timeOfDrugInputText = findViewById(R.id.timeOfDrugInputText)
 
 
-        val buttonZamknijPowiadomienie = findViewById<Button>(R.id.zamknijPowiadomienieLekButton)
-        buttonZamknijPowiadomienie.setOnClickListener {
+        val closeNotificationDrugButton = findViewById<Button>(R.id.closeNotificationDrugButton)
+        closeNotificationDrugButton.setOnClickListener {
             openActivity()
         }
 
         // Tutaj obsługa przycisku "Przypomnij później"
-        val buttonPrzypomnijPozniej = findViewById<Button>(R.id.przypomnijPozniejButton)
-        buttonPrzypomnijPozniej.setOnClickListener {
+        val remindLaterButton = findViewById<Button>(R.id.remindLaterButton)
+        remindLaterButton.setOnClickListener {
             //to powinno coś raczej robić, ale nie wiem jak zrobić, żeby jakby po jakimś czasie znowu przypominało
         }
     }

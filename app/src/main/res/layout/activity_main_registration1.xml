@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".Registation.MainActivityRegistration1">
+    tools:context=".registation.MainActivityRegistration1">
 
     <TextView
         android:id="@+id/textView10"
@@ -23,7 +23,7 @@
         app:layout_constraintVertical_bias="0.162" />
 
     <EditText
-        android:id="@+id/wiekInput"
+        android:id="@+id/ageInput"
         android:layout_width="184dp"
         android:layout_height="38dp"
         android:layout_marginTop="16dp"
@@ -33,21 +33,21 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toEndOf="@+id/wiekText"
-        app:layout_constraintTop_toBottomOf="@+id/nazwiskoInput" />
+        app:layout_constraintStart_toEndOf="@+id/ageText"
+        app:layout_constraintTop_toBottomOf="@+id/surnameInput" />
 
     <TextView
-        android:id="@+id/nazwiskoText"
+        android:id="@+id/surnameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="88dp"
         android:layout_marginTop="28dp"
         android:text="NAZWISKO"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imieText" />
+        app:layout_constraintTop_toBottomOf="@+id/nameText" />
 
     <EditText
-        android:id="@+id/imieInput"
+        android:id="@+id/nameInput"
         android:layout_width="192dp"
         android:layout_height="37dp"
         android:layout_marginTop="48dp"
@@ -59,7 +59,7 @@
         app:layout_constraintTop_toTopOf="@+id/textView10" />
 
     <EditText
-        android:id="@+id/nazwiskoInput"
+        android:id="@+id/surnameInput"
         android:layout_width="180dp"
         android:layout_height="36dp"
         android:layout_marginTop="24dp"
@@ -67,44 +67,44 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.347"
-        app:layout_constraintStart_toEndOf="@+id/nazwiskoText"
-        app:layout_constraintTop_toBottomOf="@+id/imieInput" />
+        app:layout_constraintStart_toEndOf="@+id/surnameText"
+        app:layout_constraintTop_toBottomOf="@+id/nameInput" />
 
     <TextView
-        android:id="@+id/wiekText"
+        android:id="@+id/ageText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="104dp"
         android:layout_marginTop="32dp"
         android:text="WIEK"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nazwiskoText" />
+        app:layout_constraintTop_toBottomOf="@+id/surnameText" />
 
     <TextView
-        android:id="@+id/imieText"
+        android:id="@+id/nameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="104dp"
         android:layout_marginTop="40dp"
         android:text="IMIĘ"
-        app:layout_constraintEnd_toStartOf="@+id/imieInput"
+        app:layout_constraintEnd_toStartOf="@+id/nameInput"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     <TextView
-        android:id="@+id/plecText"
+        android:id="@+id/sexText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:text="PŁEĆ"
-        app:layout_constraintEnd_toStartOf="@+id/plecInput"
+        app:layout_constraintEnd_toStartOf="@+id/sexInput"
         app:layout_constraintHorizontal_bias="0.694"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/wiekText" />
+        app:layout_constraintTop_toBottomOf="@+id/ageText" />
 
     <EditText
-        android:id="@+id/plecInput"
+        android:id="@+id/sexInput"
         android:layout_width="181dp"
         android:layout_height="38dp"
         android:layout_marginTop="28dp"
@@ -112,10 +112,10 @@
         android:hint="Płeć"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/wiekInput" />
+        app:layout_constraintTop_toBottomOf="@+id/ageInput" />
 
     <EditText
-        android:id="@+id/lekiPytanieInput"
+        android:id="@+id/medicationQuestionsInput"
         android:layout_width="293dp"
         android:layout_height="48dp"
         android:layout_marginTop="12dp"
@@ -124,21 +124,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.567"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pytText"
+        app:layout_constraintTop_toBottomOf="@+id/questionText"
         tools:ignore="DuplicateIds" />
 
     <TextView
-        android:id="@+id/pytText"
+        android:id="@+id/questionText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:text="CZY PRZYMUJESZ LEKI  KARDIOLOGICZNE?"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/plecInput" />
+        app:layout_constraintTop_toTopOf="@+id/sexInput" />
 
     <TextView
-        android:id="@+id/lekText"
+        android:id="@+id/medicationText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="82dp"
@@ -146,22 +146,22 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/lekiPytanieInput" />
+        app:layout_constraintTop_toTopOf="@+id/medicationQuestionsInput" />
 
     <TextView
-        android:id="@+id/lekNazwaInput"
+        android:id="@+id/medicationNamesText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="89dp"
         android:text="nazwa"
-        app:layout_constraintEnd_toStartOf="@+id/nazwaLekuInput"
+        app:layout_constraintEnd_toStartOf="@+id/medicationNamesInput"
         app:layout_constraintHorizontal_bias="0.59"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/lekText"
+        app:layout_constraintTop_toTopOf="@+id/medicationText"
         tools:ignore="MissingConstraints" />
 
     <EditText
-        android:id="@+id/nazwaLekuInput"
+        android:id="@+id/medicationNamesInput"
         android:layout_width="256dp"
         android:layout_height="33dp"
         android:layout_marginTop="68dp"
@@ -169,23 +169,23 @@
         android:hint="Nazwa leku"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/lekText"
+        app:layout_constraintTop_toTopOf="@+id/medicationText"
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/godzinaText"
+        android:id="@+id/timeOfTakingMedicineText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="54dp"
         android:text="godzina"
-        app:layout_constraintEnd_toStartOf="@+id/godzinaInput"
+        app:layout_constraintEnd_toStartOf="@+id/timeOfTakingMedicineInput"
         app:layout_constraintHorizontal_bias="0.457"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/lekNazwaInput"
+        app:layout_constraintTop_toTopOf="@+id/medicationNamesText"
         tools:ignore="MissingConstraints" />
 
     <EditText
-        android:id="@+id/godzinaInput"
+        android:id="@+id/timeOfTakingMedicineInput"
         android:layout_width="198dp"
         android:layout_height="37dp"
         android:layout_marginTop="58dp"
@@ -194,15 +194,15 @@
         android:hint="Godzina przyjęcia leku"
         android:inputType="time"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/zarejestrujSieButton"
+        app:layout_constraintBottom_toBottomOf="@+id/signInButtonRegistration"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.676"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/nazwaLekuInput"
+        app:layout_constraintTop_toTopOf="@+id/medicationNamesInput"
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/zarejestrujSieButton"
+        android:id="@+id/signInButtonRegistration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"

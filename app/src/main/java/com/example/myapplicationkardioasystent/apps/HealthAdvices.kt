@@ -1,4 +1,4 @@
-package com.example.myapplicationkardioasystent.Apps
+package com.example.myapplicationkardioasystent.apps
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -14,17 +14,14 @@ class HealthAdvices  : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.health_advices)
-
-
-        val buttonPowrot = findViewById<Button>(R.id.powrotPoradnikButton)
+        val backGuide = findViewById<Button>(R.id.backGuideButton)
 
         // Obsługa przycisku "Powrót"
-        buttonPowrot.setOnClickListener {
-            //powrót do głównego okna aplikacji
+        backGuide.setOnClickListener {
+            // Powrót do głównego okna aplikacji
             val intent = Intent(this, MainViewApp::class.java)
             startActivity(intent)
         }
-
     }
     /**
      * Metoda do otwarcia głównego widoku aplikacji.

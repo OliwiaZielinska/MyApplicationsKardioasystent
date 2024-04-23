@@ -7,7 +7,7 @@
     android:background="@drawable/background1">
 
     <TextView
-        android:id="@+id/witajUzytkownikuText"
+        android:id="@+id/helloUserText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="WITAJ NazwaUżytkownika !"
@@ -28,7 +28,7 @@
         tools:layout_editor_absoluteY="155dp" />
 
     <Button
-        android:id="@+id/wprowadzWynikPomiaruButton"
+        android:id="@+id/enterTheMeasurementResultButton"
         android:layout_width="220dp"
         android:layout_height="53dp"
         android:layout_marginTop="12dp"
@@ -40,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/calendarView" />
 
     <Button
-        android:id="@+id/statystykiButton"
+        android:id="@+id/statisticsButton"
         android:layout_width="220dp"
         android:layout_height="53dp"
         android:layout_marginTop="4dp"
@@ -49,10 +49,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/wprowadzWynikPomiaruButton" />
+        app:layout_constraintTop_toBottomOf="@+id/enterTheMeasurementResultButton" />
 
     <Button
-        android:id="@+id/poradnikZdrowiaButton"
+        android:id="@+id/healthGuideButton"
         android:layout_width="220dp"
         android:layout_height="53dp"
         android:layout_marginTop="8dp"
@@ -61,10 +61,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statystykiButton" />
+        app:layout_constraintTop_toBottomOf="@+id/statisticsButton" />
 
     <Button
-        android:id="@+id/ustawieniaButton"
+        android:id="@+id/settingsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -73,17 +73,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.098"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/poradnikZdrowiaButton" />
+        app:layout_constraintTop_toBottomOf="@+id/healthGuideButton" />
 
     <ImageView
-        android:id="@+id/dietaImageView"
+        android:id="@+id/dietImageView"
         android:layout_width="300dp"
         android:layout_height="80dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ustawieniaButton"
+        app:layout_constraintTop_toBottomOf="@+id/settingsButton"
         app:srcCompat="@drawable/dieta" />
 
     <ImageView
@@ -94,20 +94,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dietaImageView"
+        app:layout_constraintTop_toBottomOf="@+id/dietImageView"
         app:srcCompat="@drawable/sport" />
 
     <Button
-        android:id="@+id/wylogujSieButton"
+        android:id="@+id/logOutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="66dp"
         android:layout_marginBottom="87dp"
         android:backgroundTint="#F40606"
         android:text="Wyloguj się"
-        app:layout_constraintBottom_toBottomOf="@+id/dietaImageView"
+        app:layout_constraintBottom_toBottomOf="@+id/dietImageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ustawieniaButton"
-        app:layout_constraintTop_toTopOf="@+id/poradnikZdrowiaButton" />
+        app:layout_constraintStart_toEndOf="@+id/settingsButton"
+        app:layout_constraintTop_toTopOf="@+id/healthGuideButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

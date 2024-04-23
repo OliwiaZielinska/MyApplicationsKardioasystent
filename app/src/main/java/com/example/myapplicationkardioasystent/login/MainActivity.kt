@@ -1,11 +1,11 @@
-package com.example.myapplicationkardioasystent.Login
+package com.example.myapplicationkardioasystent.login
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplicationkardioasystent.R
-import com.example.myapplicationkardioasystent.Registation.MainActivityRegistration1
+import com.example.myapplicationkardioasystent.registation.MainActivityRegistration1
 
 /**
  * Główna aktywność mająca za zadanie obsługiwać ekran logowania i rejestracji.
@@ -18,15 +18,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main1)
 
         // Inicjalizacja elementów interfejsu użytkownika
-        val zalogujSieButtonKoniec = findViewById<Button>(R.id.zalogujSieButtonKoniec)
-        val zarejestrujSieButton1 = findViewById<Button>(R.id.zarejestrujSieButton1)
+        val logInButtonEnd = findViewById<Button>(R.id.logInButtonEnd)
+        val signUpButton1 = findViewById<Button>(R.id.signUpButton1)
 
         // Obsługa kliknięcia przycisku "Zarejestruj się"
-        zarejestrujSieButton1.setOnClickListener {
+        signUpButton1.setOnClickListener {
             val intent = Intent(this, MainActivityRegistration1::class.java)
             startActivity(intent)
         }
-        zalogujSieButtonKoniec.setOnClickListener {
+        logInButtonEnd.setOnClickListener {
             val intent = Intent(this, ActivityMainLogin::class.java)
             startActivity(intent)
         }

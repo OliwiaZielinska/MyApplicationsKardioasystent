@@ -29,7 +29,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
-        android:id="@+id/godzinaTextView"
+        android:id="@+id/hourTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
@@ -41,22 +41,22 @@
         app:layout_constraintTop_toBottomOf="@+id/dataTextView" />
 
     <TextView
-        android:id="@+id/cisnienieTextView"
+        android:id="@+id/bloodPressureTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="50dp"
         android:text="CIŚNIENIE"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/tetnoTextView"
-        app:layout_constraintEnd_toStartOf="@+id/cisnienieInputText"
+        app:layout_constraintBottom_toTopOf="@+id/pulseTextView"
+        app:layout_constraintEnd_toStartOf="@+id/bloodPressureInputText"
         app:layout_constraintHorizontal_bias="0.833"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/godzinaTextView"
+        app:layout_constraintTop_toBottomOf="@+id/hourTextView"
         app:layout_constraintVertical_bias="0.53" />
 
     <TextView
-        android:id="@+id/tetnoTextView"
+        android:id="@+id/pulseTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -67,7 +67,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/dataPomiaruInputText"
+        android:id="@+id/dateOfMeasurementInputText"
         android:layout_width="215dp"
         android:layout_height="52dp"
         android:layout_marginTop="57dp"
@@ -79,7 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/godzinaInputText"
+        android:id="@+id/hourInputText"
         android:layout_width="215dp"
         android:layout_height="52dp"
         android:layout_marginTop="8dp"
@@ -87,24 +87,24 @@
         android:hint="Godzina pomiaru"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/godzinaTextView"
-        app:layout_constraintTop_toBottomOf="@+id/dataPomiaruInputText" />
+        app:layout_constraintStart_toEndOf="@+id/hourTextView"
+        app:layout_constraintTop_toBottomOf="@+id/dateOfMeasurementInputText" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/cisnienieInputText"
+        android:id="@+id/bloodPressureInputText"
         android:layout_width="215dp"
         android:layout_height="52dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="15dp"
         android:hint="Ciśnienie"
-        app:layout_constraintBottom_toTopOf="@+id/tetnoInputText"
+        app:layout_constraintBottom_toTopOf="@+id/pulseInputText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/godzinaInputText"
+        app:layout_constraintTop_toBottomOf="@+id/hourInputText"
         app:layout_constraintVertical_bias="1.0" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/tetnoInputText"
+        android:id="@+id/pulseInputText"
         android:layout_width="215dp"
         android:layout_height="52dp"
         android:layout_marginTop="248dp"
@@ -112,11 +112,11 @@
         android:hint="Tętno"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/tetnoTextView"
+        app:layout_constraintStart_toEndOf="@+id/pulseTextView"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
-        android:id="@+id/zapiszWynikPomiaruButton"
+        android:id="@+id/recordMeasurementResultButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
@@ -136,7 +136,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tetnoInputText"
+        app:layout_constraintTop_toBottomOf="@+id/pulseInputText"
         app:srcCompat="@drawable/running_heart" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

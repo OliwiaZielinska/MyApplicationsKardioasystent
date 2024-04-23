@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".Registation.MainActivityRegistration2">
+    tools:context=".registation.MainActivityRegistration2">
 
 
     <TextView
-        android:id="@+id/TextRejestracja1"
+        android:id="@+id/TextRegistration1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="148dp"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/TextRejestracja2"
+        android:id="@+id/TextRegistration2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextRejestracja1" />
+        app:layout_constraintTop_toBottomOf="@+id/TextRegistration1" />
 
     <TextView
         android:id="@+id/emailText"
@@ -38,10 +38,10 @@
         android:layout_marginTop="63dp"
         android:text="EMAIL"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/TextRejestracja2" />
+        app:layout_constraintTop_toTopOf="@+id/TextRegistration2" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/emailInputRejestracja"
+        android:id="@+id/emailInputRegistration"
         android:layout_width="183dp"
         android:layout_height="42dp"
         android:layout_marginStart="40dp"
@@ -50,10 +50,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.187"
         app:layout_constraintStart_toEndOf="@+id/emailText"
-        app:layout_constraintTop_toTopOf="@+id/TextRejestracja2" />
+        app:layout_constraintTop_toTopOf="@+id/TextRegistration2" />
 
     <TextView
-        android:id="@+id/TextHasloRejestracja"
+        android:id="@+id/TextPasswordRegistration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="76dp"
@@ -63,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@+id/emailText" />
 
     <EditText
-        android:id="@+id/hasloInputRejestracja"
+        android:id="@+id/InputPasswordRegistration"
         android:layout_width="181dp"
         android:layout_height="43dp"
         android:layout_marginTop="60dp"
@@ -71,11 +71,11 @@
         android:hint="Hasło"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/TextHasloRejestracja"
-        app:layout_constraintTop_toTopOf="@+id/emailInputRejestracja" />
+        app:layout_constraintStart_toEndOf="@+id/TextPasswordRegistration"
+        app:layout_constraintTop_toTopOf="@+id/emailInputRegistration" />
 
     <TextView
-        android:id="@+id/TextRejestarcja3"
+        android:id="@+id/TextRegistration3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="88dp"
@@ -84,40 +84,40 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/hasloInputRejestracja" />
+        app:layout_constraintTop_toTopOf="@+id/InputPasswordRegistration" />
 
     <TextView
-        android:id="@+id/TextRejestracja4"
+        android:id="@+id/TextRegistration4"
         android:layout_width="43dp"
         android:layout_height="33dp"
         android:layout_marginStart="52dp"
         android:layout_marginTop="64dp"
         android:text="RANO"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/TextRejestarcja3" />
+        app:layout_constraintTop_toTopOf="@+id/TextRegistration3" />
 
     <TextView
-        android:id="@+id/TextRejetsracja5"
+        android:id="@+id/TextRegistration5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="52dp"
         android:text="POŁUDNIE"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/TextRejestracja4" />
+        app:layout_constraintTop_toTopOf="@+id/TextRegistration4" />
 
     <TextView
-        android:id="@+id/TextRejestracja6"
+        android:id="@+id/TextRegistration6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:text="WIECZÓR"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextRejetsracja5" />
+        app:layout_constraintTop_toBottomOf="@+id/TextRegistration5" />
 
     <EditText
-        android:id="@+id/ranoRejestracjaInput"
+        android:id="@+id/morningRegistrationInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
@@ -125,11 +125,11 @@
         android:inputType="time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.584"
-        app:layout_constraintStart_toEndOf="@+id/TextRejestracja4"
-        app:layout_constraintTop_toTopOf="@+id/TextRejestarcja3" />
+        app:layout_constraintStart_toEndOf="@+id/TextRegistration4"
+        app:layout_constraintTop_toTopOf="@+id/TextRegistration3" />
 
     <EditText
-        android:id="@+id/PoludnieRejestracja"
+        android:id="@+id/middayRegistrationInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -137,11 +137,11 @@
         android:inputType="time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.582"
-        app:layout_constraintStart_toEndOf="@+id/TextRejetsracja5"
-        app:layout_constraintTop_toBottomOf="@+id/ranoRejestracjaInput" />
+        app:layout_constraintStart_toEndOf="@+id/TextRegistration5"
+        app:layout_constraintTop_toBottomOf="@+id/morningRegistrationInput" />
 
     <EditText
-        android:id="@+id/WieczorRejestracja"
+        android:id="@+id/eveningRegistrationInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -149,11 +149,11 @@
         android:inputType="time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.605"
-        app:layout_constraintStart_toEndOf="@+id/TextRejestracja6"
-        app:layout_constraintTop_toBottomOf="@+id/PoludnieRejestracja" />
+        app:layout_constraintStart_toEndOf="@+id/TextRegistration6"
+        app:layout_constraintTop_toBottomOf="@+id/middayRegistrationInput" />
 
     <Button
-        android:id="@+id/zalozKontoButton"
+        android:id="@+id/creatingAccountButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="131dp"
@@ -163,6 +163,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/WieczorRejestracja"
+        app:layout_constraintTop_toTopOf="@+id/eveningRegistrationInput"
         app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

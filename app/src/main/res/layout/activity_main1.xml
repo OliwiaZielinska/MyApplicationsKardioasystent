@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".Login.MainActivity">
+    tools:context=".login.MainActivity">
 
     <TextView
         android:id="@+id/LayoutNameLogin1"
@@ -23,7 +23,7 @@
         app:layout_constraintVertical_bias="0.9" />
 
     <Button
-        android:id="@+id/zalogujSieButtonKoniec"
+        android:id="@+id/logInButtonEnd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="328dp"
@@ -35,14 +35,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/zarejestrujSieButton1"
+        android:id="@+id/signUpButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="260dp"
         android:layout_marginBottom="50dp"
         android:backgroundTint="#F40606"
         android:text="ZAREJESTRUJ SIĘ"
-        app:layout_constraintBottom_toTopOf="@+id/zalogujSieButtonKoniec"
+        app:layout_constraintBottom_toTopOf="@+id/logInButtonEnd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -56,7 +56,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/zalogujSieButtonKoniec"
+        app:layout_constraintTop_toBottomOf="@+id/logInButtonEnd"
         app:srcCompat="@drawable/running_heart" />
 
     <TextView
@@ -68,7 +68,7 @@
         android:textColor="#000000"
         android:textColorLink="#000000"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/zarejestrujSieButton1"
+        app:layout_constraintBottom_toTopOf="@+id/signUpButton1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"

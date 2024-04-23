@@ -1,4 +1,4 @@
-package com.example.myapplicationkardioasystent.Apps
+package com.example.myapplicationkardioasystent.apps
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -11,26 +11,24 @@ import com.google.android.material.textfield.TextInputEditText
  * Umożliwia użytkownikowi zapisanie pomiaru i powrót do głównego widoku aplikacji.
  */
 class EnterMeasurment : AppCompatActivity() {
-
-
-    private lateinit var dataPomiaruInputText: TextInputEditText
-    private lateinit var godzinaInputText: TextInputEditText
-    private lateinit var cisnienieInputText: TextInputEditText
-    private lateinit var tetnoInputText: TextInputEditText
+    private lateinit var dateOfMeasurementInputText: TextInputEditText
+    private lateinit var hourInputText: TextInputEditText
+    private lateinit var bloodPressureInputText: TextInputEditText
+    private lateinit var pulseInputText: TextInputEditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.enter_measurment_app)
 
         // Inicjalizacja elementów interfejsu użytkownika
-        dataPomiaruInputText = findViewById(R.id.dataPomiaruInputText)
-        godzinaInputText = findViewById(R.id.godzinaInputText)
-        cisnienieInputText = findViewById(R.id.cisnienieInputText)
-        tetnoInputText = findViewById(R.id.tetnoInputText)
+        dateOfMeasurementInputText = findViewById(R.id.dateOfMeasurementInputText)
+        hourInputText = findViewById(R.id.hourInputText)
+        bloodPressureInputText = findViewById(R.id.bloodPressureInputText)
+        pulseInputText = findViewById(R.id.pulseInputText)
 
         // Tutaj obsługa przycisku "Zapisz wynik pomiaru"
-        val zapiszWynikPomiaruButton = findViewById<Button>(R.id.zapiszWynikPomiaruButton)
-        zapiszWynikPomiaruButton.setOnClickListener {
+        val recordMeasurementResultButton = findViewById<Button>(R.id.recordMeasurementResultButton)
+        recordMeasurementResultButton.setOnClickListener {
             openActivity()
         }
     }

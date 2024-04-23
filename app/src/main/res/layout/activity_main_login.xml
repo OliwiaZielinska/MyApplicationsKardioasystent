@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".Login.ActivityMainLogin">
+    tools:context=".login.ActivityMainLogin">
 
 
     <TextView
-        android:id="@+id/witajUzytkownikuText"
+        android:id="@+id/helloUserText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="164dp"
@@ -28,7 +28,7 @@
         android:text="WPROWADŹ NIC I HASŁO DO SWOJEGO KONTA"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/witajUzytkownikuText" />
+        app:layout_constraintTop_toBottomOf="@+id/helloUserText" />
 
     <TextView
         android:id="@+id/loginEmailText"
@@ -41,7 +41,7 @@
         app:layout_constraintTop_toTopOf="@+id/LoginText2" />
 
     <TextView
-        android:id="@+id/LoginHasloText"
+        android:id="@+id/LoginPasswordText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
@@ -62,7 +62,7 @@
         tools:ignore="MissingConstraints" />
 
     <EditText
-        android:id="@+id/LoginHasloInput"
+        android:id="@+id/LoginPasswordInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -71,7 +71,7 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.416"
-        app:layout_constraintStart_toEndOf="@+id/LoginHasloText"
+        app:layout_constraintStart_toEndOf="@+id/LoginPasswordText"
         app:layout_constraintTop_toBottomOf="@+id/LoginEmailInput" />
 
     <ImageView
@@ -84,7 +84,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/LoginZalogujSieButton"
+        android:id="@+id/LoginLogInButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="88dp"
@@ -94,6 +94,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/LoginHasloInput"
+        app:layout_constraintTop_toTopOf="@+id/LoginPasswordInput"
         app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

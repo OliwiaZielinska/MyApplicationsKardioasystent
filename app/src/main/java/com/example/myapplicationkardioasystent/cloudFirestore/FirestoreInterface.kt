@@ -1,4 +1,4 @@
-package com.example.myapplicationkardioasystent.CloudFirestore
+package com.example.myapplicationkardioasystent.cloudFirestore
 /**
  * Interfejs FirestoreInterface służy do zdefiniowania operacji do interakcji z bazą danych Firestore.
  */
