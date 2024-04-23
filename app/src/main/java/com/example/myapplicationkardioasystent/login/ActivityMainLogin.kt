@@ -68,7 +68,7 @@ open class ActivityMainLogin : BaseActivity(){
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         showErrorSnackBar(resources.getString(R.string.login_successfull), false) // text zdefiniowany w res -> values -> strings.xml
-                        goToMainActivity()
+                        goToMainActivity(email)
                         finish()
                     } else {
                         showErrorSnackBar(task.exception!!.message.toString(), true)
@@ -78,13 +78,12 @@ open class ActivityMainLogin : BaseActivity(){
     }
 
     // Przejście do aktywności głównej
-    open fun goToMainActivity() {
+    open fun goToMainActivity(email: String) {
         val user = FirebaseAuth.getInstance().currentUser
-        val uid = user?.email.toString()
 
         //Przekazanie wartości uid
         val intent = Intent(this, MainViewApp::class.java)
-        intent.putExtra("uID", uid)
+        intent.putExtra("uID", email)
         startActivity(intent)
     }
 }

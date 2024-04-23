@@ -85,15 +85,17 @@ class FirestoreDatabaseOperations(private val db: FirebaseFirestore) : Firestore
      *
      * suspend - oznacza, ze funkcja moze byc zawieszana w korutynie
      * @param userId Identyfikator użytkownika.
+     * @param measurmentID Identyfikator nowego pomiaru ciśnienia i tętna.
      * @param measurment Obiekt klasy Measurment, który ma zostać dodany do bazy danych.
      */
 
-    override suspend fun addMeasurment(userId: String, measurment: Measurment) {
+    override suspend fun addMeasurment(userId: String, measurmentID:String,  measurment: Measurment) {
         try {
-            db.collection("measurments").document(userId).set(measurment).await()
+            db.collection("measurments").document(userId).collection("measurment").document(measurmentID).set(measurment).await()
         }catch (e: Exception) {
             // Dodawanie użytkownika błąd
-            Log.e("addMeasurment", "An error occurred while adding a measurement: $e")
+            Log.e("addMeasurment", "An error occurred while adding a measurment: $e")
         }
     }
+
 }

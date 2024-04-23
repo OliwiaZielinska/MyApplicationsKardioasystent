@@ -39,8 +39,9 @@ interface FirestoreInterface {
     /**
      * Suspend function do dodawania nowego rekordu (pomiaru ciśnienia i tętna) do bazy danych Firestore.
      *
-     * @param userId Identyfikator nowego użytkownika.
+     * @param userId Identyfikator użytkownika.
+     * @param measurmentID Identyfikator nowego pomiaru ciśnienia i tętna.
      * @param measurment Obiekt klasy Measurment, który ma zostać dodany do bazy danych.
      */
-    suspend fun addMeasurment(userId: String, measurment: Measurment)
+    suspend fun addMeasurment(userId: String, measurmentID: String, measurment: Measurment)
 }
