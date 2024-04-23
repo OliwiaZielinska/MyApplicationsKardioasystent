@@ -35,4 +35,12 @@ interface FirestoreInterface {
      * @param userId Identyfikator użytkownika, którego dane mają zostać usunięte.
      */
     suspend fun deleteUser(userId: String)
+
+    /**
+     * Suspend function do dodawania nowego rekordu (pomiaru ciśnienia i tętna) do bazy danych Firestore.
+     *
+     * @param userId Identyfikator nowego użytkownika.
+     * @param measurment Obiekt klasy Measurment, który ma zostać dodany do bazy danych.
+     */
+    suspend fun addMeasurment(userId: String, measurment: Measurment)
 }

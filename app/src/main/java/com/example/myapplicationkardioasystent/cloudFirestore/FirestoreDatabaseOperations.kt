@@ -27,7 +27,7 @@ class FirestoreDatabaseOperations(private val db: FirebaseFirestore) : Firestore
             db.collection("users").document(userId).set(user).await()
         }catch (e: Exception) {
             // Dodawanie użytkownika błąd
-            Log.e("addUser", "Wystąpił błąd podczas dodawania użytkownika: $e")
+            Log.e("addUser", "An error occurred while adding a user: $e")
         }
     }
 
@@ -61,7 +61,7 @@ class FirestoreDatabaseOperations(private val db: FirebaseFirestore) : Firestore
         try {
             db.collection("users").document(userId).set(updatedUser).await()
         } catch (e: Exception) {
-            Log.e("updateUser", "Wystąpił błąd podczas aktualizowania danych użytkownika: $e")
+            Log.e("updateUser", "An error occurred while updating user data: $e")
         }
     }
     /**
@@ -75,7 +75,25 @@ class FirestoreDatabaseOperations(private val db: FirebaseFirestore) : Firestore
         try {
             db.collection("users").document(userId).delete().await()
         } catch (e: Exception) {
-            Log.e("deleteUser", "Wystąpił błąd podczas usuwania użytkownika: $e")
+            Log.e("deleteUser", "An error occurred while deleting a user: $e")
+        }
+    }
+
+    /**
+     * Funkcja do dodawania nowego pomiaru ciśnienia krwi i tętna do bazy danych Firestore.
+     * Wykorzystuje mechanizm korutyn do wykonywania operacji asynchronicznych.
+     *
+     * suspend - oznacza, ze funkcja moze byc zawieszana w korutynie
+     * @param userId Identyfikator użytkownika.
+     * @param measurment Obiekt klasy Measurment, który ma zostać dodany do bazy danych.
+     */
+
+    override suspend fun addMeasurment(userId: String, measurment: Measurment) {
+        try {
+            db.collection("measurments").document(userId).set(measurment).await()
+        }catch (e: Exception) {
+            // Dodawanie użytkownika błąd
+            Log.e("addMeasurment", "An error occurred while adding a measurement: $e")
         }
     }
 }

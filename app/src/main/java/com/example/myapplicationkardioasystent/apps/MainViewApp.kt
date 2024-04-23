@@ -25,16 +25,21 @@ class MainViewApp : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_view_app)
 
+        val uID = intent.getStringExtra("uID")
+
         enterTheMeasurementResultButton = findViewById(R.id.enterTheMeasurementResultButton)
         statisticsButton = findViewById(R.id.statisticsButton)
         settingsButton = findViewById(R.id.settingsButton)
         healthGuideButton = findViewById(R.id.healthGuideButton)
         logOutButton = findViewById(R.id.logOutButton)
 
+        helloUserText = findViewById(R.id.helloUserText)
+        // Ustaw tekst powitalny, wykorzystując wartość userID
+        helloUserText?.text = "Welcome ${uID}!"
 
         // Obsługa przycisku "Wprowadź wynik pomiaru"
         enterTheMeasurementResultButton.setOnClickListener {
-            openActivity()
+            openActivity(uID.toString())
         }
 
 
@@ -66,8 +71,9 @@ class MainViewApp : AppCompatActivity() {
     /**
      * Metoda do otwarcia aktywności wprowadzania wyniku pomiaru.
      */
-    private fun openActivity() {
+    private fun openActivity(userID : String) {
         val intent = Intent(this, EnterMeasurment::class.java)
+        intent.putExtra("userID", userID)
         startActivity(intent)
     }
     /**
@@ -76,14 +82,5 @@ class MainViewApp : AppCompatActivity() {
     private fun openActivity2() {
         val intent = Intent(this, HealthAdvices::class.java)
         startActivity(intent)
-    }
-
-    fun getUserId(userID: String) {
-        // Inicjalizacja elementów interfejsu użytkownika
-        val intent = intent
-
-        helloUserText = findViewById(R.id.helloUserText)
-        // Ustaw tekst powitalny, wykorzystując wartość userID
-        helloUserText?.text = "Welcome ${userID}!"
     }
 }
