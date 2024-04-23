@@ -23,10 +23,16 @@ import com.google.firebase.firestore.PropertyName
  *
  */
 data class User(
-    @get:PropertyName("name") @set:PropertyName("name") var name: String = "",
-    @get:PropertyName("surname") @set:PropertyName("surname") var surname: String = "",
-    @get:PropertyName("sex") @set:PropertyName("sex") var sex: String = "",
-    @get:PropertyName("age") @set:PropertyName("age") var age: Int = 0,
-    @get:PropertyName("userId") @set:PropertyName("userId") var userId: String = ""
-
+    @get:PropertyName("imie") @set:PropertyName("imie") var imie: String = "",
+    @get:PropertyName("nazwisko") @set:PropertyName("nazwisko") var nazwisko: String = "",
+    @get:PropertyName("plec") @set:PropertyName("plec") var plec: String = "",
+    @get:PropertyName("wiek") @set:PropertyName("wiek") var wiek: String = "",
+    @get:PropertyName("pyt") @set:PropertyName("pyt") var pyt: String = "",
+    @get:PropertyName("nazwaLeku") @set:PropertyName("nazwaLeku") var nazwaLeku: String = "",
+    @get:PropertyName("godzina") @set:PropertyName("godzina") var godzina: String = "",
+    @get:PropertyName("login") @set:PropertyName("login") var login: String = "",
+    @get:PropertyName("haslo") @set:PropertyName("haslo") var haslo: String = "",
+    @get:PropertyName("rano") @set:PropertyName("rano") var rano: String = "",
+    @get:PropertyName("poludnie") @set:PropertyName("poludnie") var poludnie: String = "",
+    @get:PropertyName("wieczor") @set:PropertyName("wieczor") var wieczor: String = ""
 )

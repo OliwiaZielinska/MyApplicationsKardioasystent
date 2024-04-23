@@ -5,13 +5,23 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
+import com.example.myapplicationkardioasystent.CloudFirestore.FirestoreDatabaseOperations
 import com.example.myapplicationkardioasystent.R
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 
 /**
  * Aktywność odpowiedzialna za rejestrację użytkownika do aplikacji - wprowadza dane użytownika oraz
  * przekierowuje do kolejnego etapu rejestracji
  */
 class MainActivityRegistration1 : BaseActivity() {
+
+    // Referencja do obiektu FirebaseFirestore do interakcji z bazą danych Firestore
+    val db = Firebase.firestore
+
+    // Obiekt do obsługi operacji na bazie danych Firestore
+    private val dbOperations = FirestoreDatabaseOperations(db)
+
     private lateinit var imieInput:EditText
     private lateinit var nazwiskoInput:EditText
     private lateinit var plecInput:EditText
@@ -114,16 +124,31 @@ class MainActivityRegistration1 : BaseActivity() {
      * Otwiera drugą aktywność rejestracji.
      */
     private fun registerUser() {
+        val imie = imieInput?.text.toString().trim()
+        val nazwisko = nazwiskoInput?.text.toString().trim()
+        val plec = plecInput?.text.toString().trim()
+        val wiek = wiekInput?.text.toString().trim()
+        val pyt = pytInput?.text.toString().trim()
+        val nazwaLek = nazwaLekInput?.text.toString().trim()
+        val godzina = godzinaInput?.text.toString().trim()
+
         if (validateRegisterDetails()) {
-            openActivity()
+            openActivity(imie, nazwisko, plec, wiek, pyt, nazwaLek, godzina)
         }
     }
 
     /**
      * Metoda służąca otwarciu drugiej aktywności rejestracji.
      */
-    private fun openActivity(){
+    private fun openActivity(imie: String, nazwisko: String, plec:String, wiek: String, pyt: String, nazwaLek: String, godzina: String){
         val intent = Intent(this, MainActivityRegistration2::class.java)
+        intent.putExtra("imie", imie)
+        intent.putExtra("nazwisko", nazwisko)
+        intent.putExtra("plec", plec)
+        intent.putExtra("wiek", wiek)
+        intent.putExtra("pyt", pyt)
+        intent.putExtra("nazwaLek", nazwaLek)
+        intent.putExtra("godzina", godzina)
         startActivity(intent)
     }
 }

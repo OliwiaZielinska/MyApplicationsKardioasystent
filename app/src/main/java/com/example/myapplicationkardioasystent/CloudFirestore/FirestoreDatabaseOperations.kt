@@ -1,10 +1,8 @@
 package com.example.myapplicationkardioasystent.CloudFirestore
-import android.content.ContentValues.TAG
-import android.util.Log
 import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.toObject
 import kotlinx.coroutines.tasks.await
+
 /**
  * Klasa FirestoreDatabaseOperations implementuje interfejs FirestoreInterface
  * i zawiera metody do dodawania, pobierania, aktualizowania i usuwania danych użytkownika w bazie danych Firestore.
@@ -19,8 +17,8 @@ class FirestoreDatabaseOperations(private val db: FirebaseFirestore) : Firestore
      *  funkcja do dodawania nowego użytkownika do bazy danych Firestore.
      * Wykorzystuje mechanizm korutyn do wykonywania operacji asynchronicznych.
      * suspend - oznacza, ze funkcja moze byc zawieszana w korutynie
-     * @param studentId Identyfikator nowego użytkownika.
-     * @param student Obiekt klasy User, który ma zostać dodany do bazy danych.
+     * @param userId Identyfikator nowego użytkownika.
+     * @param user Obiekt klasy User, który ma zostać dodany do bazy danych.
      */
 
     override suspend fun addUser(userId: String, user: User) {
@@ -32,12 +30,12 @@ class FirestoreDatabaseOperations(private val db: FirebaseFirestore) : Firestore
     }
 
     /**
-     *      funkcja do pobierania danych studenta z bazy danych Firestore.
+     *      funkcja do pobierania danych użytkowika z bazy danych Firestore.
      *      * Wykorzystuje mechanizm korutyn do wykonywania operacji asynchronicznych.
      *      *
      *      * @param userId Identyfikator użytkownika, którego dane mają zostać pobrane.
      *      * @return Obiekt klasy User odpowiadający danym użytkownika z bazy danych,
-     *      * lub null, jeśli student o podanym identyfikatorze nie istnieje.
+     *      * lub null, jeśli użytkownik o podanym identyfikatorze nie istnieje.
      *      */
 
     override suspend fun getUser(userId: String): User? {
@@ -50,7 +48,7 @@ class FirestoreDatabaseOperations(private val db: FirebaseFirestore) : Firestore
     }
 
     /**
-     * funkcja do aktualizowania danych studenta w bazie danych Firestore.
+     * funkcja do aktualizowania danych użytkownika w bazie danych Firestore.
      * Wykorzystuje mechanizm korutyn do wykonywania operacji asynchronicznych.
      *
      * @param userId Identyfikator użytkownika, którego dane mają zostać zaktualizowane.
@@ -59,7 +57,7 @@ class FirestoreDatabaseOperations(private val db: FirebaseFirestore) : Firestore
 
     override suspend fun updateUser(userId: String, updatedUser: User) {
         try {
-            db.collection("students").document(userId).set(updatedUser).await()
+            db.collection("users").document(userId).set(updatedUser).await()
         } catch (e: Exception) {
             // tu trzeba dodać obsługę błędów
         }
