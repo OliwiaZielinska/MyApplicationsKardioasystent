@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+
+    <TextView
+        android:id="@+id/infoSettingsTextView"
+        android:layout_width="376dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="132dp"
+        android:text="TUTAJ MOŻESZ ZMIENIĆ USTAWIENIA DOTYCZĄCE PRZYJMOWANYCH LEKÓW"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/changeSettingsQuestionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="CZY PRZYJMUJESZ LEKI KARDIOLOGICZNE?"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/infoSettingsTextView" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/editSettingsTakNieTextInput"
+        android:layout_width="230dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="24dp"
+        android:hint="Tak/Nie"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/changeSettingsQuestionText" />
+
+    <TextView
+        android:id="@+id/editNamesAndHoursText"
+        android:layout_width="363dp"
+        android:layout_height="39dp"
+        android:layout_marginBottom="195dp"
+        android:text="WPROWADŹ NAZWY LEKÓW I PORY  ICH PRZYJMOWANIA PONIŻEJ"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/saveChangesButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editSettingsTakNieTextInput"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/editNamesettingsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginBottom="40dp"
+        android:text="nazwa"
+        app:layout_constraintBottom_toTopOf="@+id/editHourSettingsText"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/editHourSettingsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginBottom="156dp"
+        android:text="godzina"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/editNameSettingsInput"
+        android:layout_width="242dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="54dp"
+        android:hint="nazwa leku"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintStart_toEndOf="@+id/editNamesettingsText"
+        app:layout_constraintTop_toBottomOf="@+id/editNamesAndHoursText" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/editHourSettingsInput"
+        android:layout_width="239dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="43dp"
+        android:hint="godzina przyjmowania"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/saveChangesButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/editHourSettingsText" />
+
+    <Button
+        android:id="@+id/saveChangesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="52dp"
+        android:backgroundTint="#F69393"
+        android:text="ZAPISZ ZMIANY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
