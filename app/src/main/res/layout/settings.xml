@@ -28,7 +28,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/infoSettingsTextView" />
 
-    <com.google.android.material.textfield.TextInputEditText
+    <EditText
         android:id="@+id/editSettingsTakNieTextInput"
         android:layout_width="230dp"
         android:layout_height="57dp"
@@ -43,7 +43,7 @@
         android:layout_width="363dp"
         android:layout_height="39dp"
         android:layout_marginBottom="195dp"
-        android:text="WPROWADŹ NAZWY LEKÓW I PORY  ICH PRZYJMOWANIA PONIŻEJ"
+        android:text="WPROWADŹ NAZWY LEKÓW I PORY ICH PRZYJMOWANIA PONIŻEJ"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/saveChangesButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,7 +52,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/editNamesettingsText"
+        android:id="@+id/editNameSettingsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
@@ -71,7 +71,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <com.google.android.material.textfield.TextInputEditText
+    <EditText
         android:id="@+id/editNameSettingsInput"
         android:layout_width="242dp"
         android:layout_height="48dp"
@@ -80,10 +80,10 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.54"
-        app:layout_constraintStart_toEndOf="@+id/editNamesettingsText"
+        app:layout_constraintStart_toEndOf="@+id/editNameSettingsText"
         app:layout_constraintTop_toBottomOf="@+id/editNamesAndHoursText" />
 
-    <com.google.android.material.textfield.TextInputEditText
+    <EditText
         android:id="@+id/editHourSettingsInput"
         android:layout_width="239dp"
         android:layout_height="48dp"

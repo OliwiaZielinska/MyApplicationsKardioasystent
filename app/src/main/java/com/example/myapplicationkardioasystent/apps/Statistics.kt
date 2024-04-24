@@ -6,17 +6,17 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplicationkardioasystent.R
 
 /**
- * Aktywność wyświetlająca poradnik zdrowia pomagający zadbać o kondycję serca.
+ * Aktywność wyświetlająca statystyki wyników zdrowia użytkowika zalogowanego w aplikacji.
  * Umożliwia użytkownikowi powrót do głównego widoku aplikacji.
  */
-class HealthAdvices : AppCompatActivity() {
+class Statistics : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.health_advices)
+        setContentView(R.layout.statistics)
 
         // Obsługa przycisku "Powrót"
-        val backGuideButton = findViewById<Button>(R.id.backGuideButton)
-        backGuideButton.setOnClickListener {
+        val returnFromStatisticsButton= findViewById<Button>(R.id.returnFromStatisticsButton)
+        returnFromStatisticsButton.setOnClickListener {
             // Powrót do głównego okna aplikacji
             openMainActivity()
         }

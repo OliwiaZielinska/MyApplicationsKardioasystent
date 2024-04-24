@@ -45,20 +45,17 @@ class MainViewApp : AppCompatActivity() {
 
         // Obsługa przycisku "Statystyki"
         statisticsButton.setOnClickListener {
-            //TU GENERALNIE MUSIMY WSTAWIĆ POTEM PRZENIESIENIE DO OKNA STATYSTYK (ten średni pomiar,
-            // max min itp, ale nie mamy jeszcze takiego okna xd)
+            openActivityStatistics()
         }
 
         // Obsługa przycisku "Ustawienia"
         settingsButton.setOnClickListener {
-            //TU GENERALNIE MUSIMY POTEM WSTAWIĆ POTEM PRZENIESIENIE DO OKNA USTAWIENIA (dać użytkownikowi
-        // możliwość zmiany godzin pomiaru itp.) ALE TAKIEGO OKNA TEŻ JESZCZE NIE MAMY WIĘC TU NIC NIE WPISYWAŁAM
-            // Wykorzystanie update danych w bazie danych
+            openActivitySettings()
         }
 
         // Obsługa przycisku "Poradnik zdrowia"
         healthGuideButton.setOnClickListener {
-            openActivity2()
+            openActivityHealthAdvices()
         }
 
         // Obsługa przycisku "Wyloguj się"
@@ -79,8 +76,23 @@ class MainViewApp : AppCompatActivity() {
     /**
      * Metoda do otwarcia aktywności poradnika zdrowia.
      */
-    private fun openActivity2() {
+    private fun openActivityHealthAdvices() {
         val intent = Intent(this, HealthAdvices::class.java)
+        startActivity(intent)
+    }
+
+    /**
+     * Metoda do otwarcia aktywności związanej ze zmianą ustawień dotyczących przyjmowanych leków.
+     */
+    private fun openActivitySettings() {
+        val intent = Intent(this, Settings::class.java)
+        startActivity(intent)
+    }
+    /**
+     * Metoda do otwarcia aktywności związanej z wyświetleniem statystyk zalogowanego użytkownika.
+     */
+    private fun openActivityStatistics() {
+        val intent = Intent(this, Statistics::class.java)
         startActivity(intent)
     }
 }

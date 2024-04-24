@@ -9,7 +9,7 @@
     <string name="err_msg_enter_surname">Please enter your surname</string>
     <string name="err_msg_enter_gender">Please enter your gender</string>
     <string name="err_msg_enter_age">Please enter your age</string>
-    <string name="err_msg_enter_question">Please enter your question</string>
+    <string name="err_msg_enter_question">Please enter your answer</string>
     <string name="err_msg_enter_doctor_name">Please enter the drags name</string>
     <string name="err_msg_enter_time">Please enter the time</string>
     <string name="err_msg_enter_email">Please enter your email</string>
