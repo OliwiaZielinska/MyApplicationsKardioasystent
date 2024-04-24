@@ -52,8 +52,17 @@ class Settings : BaseActivity() {
         }
 
         if (question.equals("Tak", ignoreCase = true)) {
-            showErrorSnackBar(resources.getString(R.string.err_msg_enter_doctor_name), true)
-            return false
+            // Sprawdzamy tylko wtedy, gdy użytkownik deklaruje, że przyjmuje leki
+            if (TextUtils.isEmpty(drugsName)) {
+                showErrorSnackBar(resources.getString(R.string.err_msg_enter_doctor_name), true)
+                return false
+            }
+
+            if (TextUtils.isEmpty(timeOfTakingMedication)) {
+                showErrorSnackBar(resources.getString(R.string.err_msg_enter_time), true)
+                return false
+            }
+            return true
         }
 
         if (question.equals("Nie", ignoreCase = true)) {
@@ -65,16 +74,6 @@ class Settings : BaseActivity() {
             return true
         }
 
-        // Sprawdzamy tylko wtedy, gdy użytkownik deklaruje, że przyjmuje leki
-        if (TextUtils.isEmpty(drugsName)) {
-            showErrorSnackBar(resources.getString(R.string.err_msg_enter_doctor_name), true)
-            return false
-        }
-
-        if (TextUtils.isEmpty(timeOfTakingMedication)) {
-            showErrorSnackBar(resources.getString(R.string.err_msg_enter_time), true)
-            return false
-        }
 
         return true
     }
