@@ -11,7 +11,7 @@
         android:layout_width="376dp"
         android:layout_height="42dp"
         android:layout_marginTop="132dp"
-        android:text="TUTAJ MOŻESZ ZMIENIĆ USTAWIENIA DOTYCZĄCE PRZYJMOWANYCH LEKÓW"
+        android:text="TUTAJ MOŻESZ ZMIENIĆ USTAWIENIA DOTYCZĄCE PRZYJMOWANYCH LEKÓW I GODZIN POMIARÓW"
         android:textAlignment="center"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,7 +22,7 @@
         android:id="@+id/changeSettingsQuestionText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="28dp"
         android:text="CZY PRZYJMUJESZ LEKI KARDIOLOGICZNE?"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,11 +30,12 @@
 
     <EditText
         android:id="@+id/editSettingsTakNieTextInput"
-        android:layout_width="230dp"
-        android:layout_height="57dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="274dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="4dp"
         android:hint="Tak/Nie"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.474"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/changeSettingsQuestionText" />
 
@@ -49,14 +50,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editSettingsTakNieTextInput"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.196" />
 
     <TextView
         android:id="@+id/editNameSettingsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginBottom="32dp"
         android:text="nazwa"
         app:layout_constraintBottom_toTopOf="@+id/editHourSettingsText"
         app:layout_constraintStart_toStartOf="parent" />
@@ -65,8 +66,8 @@
         android:id="@+id/editHourSettingsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginBottom="156dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginBottom="288dp"
         android:text="godzina"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -75,11 +76,11 @@
         android:id="@+id/editNameSettingsInput"
         android:layout_width="242dp"
         android:layout_height="48dp"
-        android:layout_marginTop="54dp"
+        android:layout_marginTop="8dp"
         android:hint="nazwa leku"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintHorizontal_bias="0.368"
         app:layout_constraintStart_toEndOf="@+id/editNameSettingsText"
         app:layout_constraintTop_toBottomOf="@+id/editNamesAndHoursText" />
 
@@ -87,22 +88,101 @@
         android:id="@+id/editHourSettingsInput"
         android:layout_width="239dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="43dp"
+        android:layout_marginBottom="208dp"
         android:hint="godzina przyjmowania"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/saveChangesButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.327"
         app:layout_constraintStart_toEndOf="@+id/editHourSettingsText" />
 
     <Button
         android:id="@+id/saveChangesButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="52dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="#F69393"
         android:text="ZAPISZ ZMIANY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:text="ZMIANA GODZIN WYKONYWANIA POMIARÓW"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editHourSettingsInput" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="RANO"
+        app:layout_constraintEnd_toStartOf="@+id/editMorningInput"
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="POŁUDNIE"
+        app:layout_constraintEnd_toStartOf="@+id/editAfternoonInput"
+        app:layout_constraintHorizontal_bias="0.551"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginBottom="96dp"
+        android:text="WIECZÓR"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/editMorningInput"
+        android:layout_width="164dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="164dp"
+        android:layout_marginTop="12dp"
+        android:hint="godzina"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/editAfternoonInput"
+        android:layout_width="164dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:hint="godzina"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.663"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editMorningInput" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/editNightInput"
+        android:layout_width="164dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="4dp"
+        android:hint="godzina"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.674"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editAfternoonInput" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

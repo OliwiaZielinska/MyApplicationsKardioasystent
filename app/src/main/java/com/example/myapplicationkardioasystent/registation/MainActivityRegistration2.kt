@@ -88,17 +88,17 @@ class MainActivityRegistration2 : BaseActivity() {
             }
 
             TextUtils.isEmpty(morningRegistrationInput.text.toString().trim { it <= ' ' }) -> {
-                showErrorSnackBar(resources.getString(R.string.err_msg_enter_morning_pulse), true)
+                showErrorSnackBar(resources.getString(R.string.err_msg_enter_time), true)
                 false
             }
 
             TextUtils.isEmpty(middayRegistrationInput.text.toString().trim { it <= ' ' }) -> {
-                showErrorSnackBar(resources.getString(R.string.err_msg_enter_midday_pulse), true)
+                showErrorSnackBar(resources.getString(R.string.err_msg_enter_time), true)
                 false
             }
 
             TextUtils.isEmpty(eveningRegistrationInput.text.toString().trim { it <= ' ' }) -> {
-                showErrorSnackBar(resources.getString(R.string.err_msg_enter_evening_pulse), true)
+                showErrorSnackBar(resources.getString(R.string.err_msg_enter_time), true)
                 false
             }
 
