@@ -5,8 +5,18 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import com.example.myapplicationkardioasystent.R
+import com.example.myapplicationkardioasystent.cloudFirestore.FirestoreDatabaseOperations
+import com.example.myapplicationkardioasystent.cloudFirestore.User
 import com.example.myapplicationkardioasystent.registation.BaseActivity
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.firestore
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 /**
@@ -20,29 +30,77 @@ class Settings : BaseActivity() {
     private lateinit var editMorningInput: EditText
     private lateinit var editAfternoonInput: EditText
     private lateinit var editNightInput: EditText
+    // Referencja do obiektu FirebaseFirestore do interakcji z bazą danych Firestore
+    val db = FirebaseFirestore.getInstance()
+
+    // Obiekt do obsługi operacji na bazie danych Firestore
+    private val dbOperations = FirestoreDatabaseOperations(db)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings)
-
+        // Pobranie uID z intentu
+        val uID = intent.getStringExtra("uID")
         // Inicjalizacja elementów interfejsu użytkownika
         editSettingsTakNieTextInput = findViewById(R.id.editSettingsTakNieTextInput)
         editNameSettingsInput = findViewById(R.id.editNameSettingsInput)
         editHourSettingsInput = findViewById(R.id.editHourSettingsInput)
         saveChangesButton = findViewById(R.id.saveChangesButton)
         editMorningInput = findViewById(R.id.editMorningInput)
-        editAfternoonInput = findViewById(R.id. editAfternoonInput)
+        editAfternoonInput = findViewById(R.id.editAfternoonInput)
         editNightInput = findViewById(R.id.editNightInput)
-
+        // Ustawienie danych użytkownika na widoku
+        setData()
         // Obsługa kliknięcia przycisku "Zapisz zmiany"
         saveChangesButton.setOnClickListener {
+            // Pobranie wartości z pól EditText
+            val editSettingsTakNieTextInputValue = editSettingsTakNieTextInput.text.toString()
+            val editNameSettingsInputValue = editNameSettingsInput.text.toString()
+            val editHourSettingsInputValue = editHourSettingsInput.text.toString()
+            val editMorningInputValue = editMorningInput.text.toString()
+            val editAfternoonInputValue = editAfternoonInput.text.toString()
+            val editNightInputValue = editNightInput.text.toString()
+            // Aktualizacja danych w Firestore
+            val updateMap = mapOf(
+                "question" to editSettingsTakNieTextInputValue,
+                "timeOfTakingMedication" to editHourSettingsInputValue,
+                "morningMeasurment" to editMorningInputValue,
+                "middayMeasurment" to editAfternoonInputValue,
+                "eveningMeasurment" to editNightInputValue,
+                "drugsName" to editNameSettingsInputValue
+            )
+            val userId = FirebaseAuth.getInstance().currentUser!!.email
+            db.collection("users").document(userId.toString()).update(updateMap)
+            // Wyświetlenie komunikatu o sukcesie
+            Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+
+            // Jeśli wszystkie pola są wypełnione, aktualizacja danych użytkownika
+            if (editSettingsTakNieTextInputValue.isNotEmpty() && editNameSettingsInputValue.isNotEmpty() && editHourSettingsInputValue.isNotEmpty() && editMorningInputValue.isNotEmpty() && editAfternoonInputValue.isNotEmpty() && editNightInputValue.isNotEmpty()) {
+                GlobalScope.launch(Dispatchers.Main) {
+                    val currentUser = dbOperations.getUser(uID.toString())
+
+                    currentUser?.let {
+                        it.question = editSettingsTakNieTextInputValue
+                        it.drugsName = editNameSettingsInputValue
+                        it.timeOfTakingMedication = editHourSettingsInputValue
+                        it.morningMeasurement = editMorningInputValue
+                        it.middayMeasurement = editAfternoonInputValue
+                        it.eveningMeasurement = editNightInputValue
+
+                        dbOperations.updateUser(uID.toString(), currentUser)
+                    }
+                }
+            } else {
+                // Obsługa błędów, np. puste pola
+            }
+            // Zapisanie zmian
             saveChanges()
         }
     }
 
     /**
-     * Walidacja zmienianych danych dotyczących przyjmowanych leków
+     * Metoda do walidacji zmienianych danych dotyczących przyjmowanych leków.
      * @return True, jeśli wszystkie pola zostały prawidłowo wypełnione, w przeciwnym razie zwraca False.
      */
 
@@ -145,6 +203,43 @@ class Settings : BaseActivity() {
         // Rozpoczęcie nowej aktywności
         startActivity(intent)
     }
+    /**
+     * Metoda do ustawienia danych użytkownika na widoku.
+     */
+    private fun setData(){
+        // Pobranie danych użytkownika z Firestore
+        val userId = FirebaseAuth.getInstance().currentUser!!.email
+        val ref = db.collection("users").document(userId.toString())
+        ref.get().addOnSuccessListener {
+            if(it != null) {
+                val name = it.data?.get("name")?.toString()
+                val surname = it.data?.get("surname")?.toString()
+                val age = it.data?.get("age")?.toString()
+                val drugsName = it.data?.get("drugsName")?.toString()
+                val eveningMeasurement = it.data?.get("eveningMeasurment")?.toString()
+                val login = it.data?.get("login")?.toString()
+                val middayMeasurement = it.data?.get("middayMeasurment")?.toString()
+                val morningMeasurement = it.data?.get("morningMeasurment")?.toString()
+                val password = it.data?.get("password")?.toString()
+                val question = it.data?.get("question")?.toString()
+                val sex = it.data?.get("sex")?.toString()
+                val timeOfTakingMedication = it.data?.get("timeOfTakingMedication")?.toString()
 
+                editNameSettingsInput.setText(drugsName)
+                editHourSettingsInput.setText(timeOfTakingMedication)
+                editAfternoonInput.setText(middayMeasurement)
+                editNightInput.setText(eveningMeasurement)
+                editMorningInput.setText(morningMeasurement)
+                editSettingsTakNieTextInput.setText(question)
+
+            }
+        }
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
+            }
+
+
+
+}
 
 }

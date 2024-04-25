@@ -50,7 +50,7 @@ class MainViewApp : AppCompatActivity() {
 
         // Obsługa przycisku "Ustawienia"
         settingsButton.setOnClickListener {
-            openActivitySettings()
+            openActivitySettings(uID.toString())
         }
 
         // Obsługa przycisku "Poradnik zdrowia"
@@ -84,8 +84,9 @@ class MainViewApp : AppCompatActivity() {
     /**
      * Metoda do otwarcia aktywności związanej ze zmianą ustawień dotyczących przyjmowanych leków.
      */
-    private fun openActivitySettings() {
+    private fun openActivitySettings(userID: String) {
         val intent = Intent(this, Settings::class.java)
+        intent.putExtra("userID", userID)
         startActivity(intent)
     }
     /**
