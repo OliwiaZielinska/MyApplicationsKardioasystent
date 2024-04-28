@@ -27,15 +27,15 @@
         android:id="@+id/ageInput"
         android:layout_width="192dp"
         android:layout_height="48dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="129dp"
         android:ems="10"
         android:hint="Wiek"
         android:inputType="number"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.558"
-        app:layout_constraintStart_toEndOf="@+id/ageText"
-        app:layout_constraintTop_toBottomOf="@+id/surnameInput" />
+        app:layout_constraintHorizontal_bias="0.726"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     <TextView
         android:id="@+id/surnameText"
@@ -53,26 +53,26 @@
         android:layout_width="192dp"
         android:layout_height="48dp"
         android:layout_marginTop="48dp"
-        android:layout_marginBottom="8dp"
         android:hint="Imię"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/surnameInput"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.716"
+        app:layout_constraintHorizontal_bias="0.726"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView10" />
+        app:layout_constraintTop_toTopOf="@+id/textView10"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/surnameInput"
         android:layout_width="192dp"
         android:layout_height="48dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="77dp"
         android:hint="Nazwisko"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.424"
-        app:layout_constraintStart_toEndOf="@+id/surnameText"
-        app:layout_constraintTop_toBottomOf="@+id/nameInput" />
+        app:layout_constraintHorizontal_bias="0.726"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     <TextView
         android:id="@+id/ageText"
@@ -111,12 +111,13 @@
         android:id="@+id/sexInput"
         android:layout_width="192dp"
         android:layout_height="48dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="72dp"
+        android:layout_marginTop="186dp"
         android:hint="Płeć"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ageInput" />
+        app:layout_constraintHorizontal_bias="0.726"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     <EditText
         android:id="@+id/medicationQuestionsInput"
@@ -154,39 +155,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/medicationQuestionsInput" />
 
-    <TextView
-        android:id="@+id/medicationNamesText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:text="NAZWA"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="572dp" />
-
     <EditText
         android:id="@+id/medicationNamesInput"
         android:layout_width="192dp"
         android:layout_height="48dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="72dp"
+        android:layout_marginTop="24dp"
         android:hint="Nazwa leku"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/medicationText"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/timeOfTakingMedicineText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:text="GODZINA"
-        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.671"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="620dp" />
+        app:layout_constraintTop_toBottomOf="@+id/medicationText"
+        tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/timeOfTakingMedicineInput"
@@ -200,7 +180,7 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/signInButtonRegistration"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.715"
+        app:layout_constraintHorizontal_bias="0.671"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/medicationNamesInput"
         app:layout_constraintVertical_bias="0.0"
@@ -219,5 +199,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="NAZWA"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.11"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/medicationText" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="98dp"
+        android:text="GODZINA"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.114"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/medicationText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

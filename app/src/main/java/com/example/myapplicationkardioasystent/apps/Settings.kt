@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.example.myapplicationkardioasystent.R
 import com.example.myapplicationkardioasystent.cloudFirestore.FirestoreDatabaseOperations
 import com.example.myapplicationkardioasystent.cloudFirestore.User
+import com.example.myapplicationkardioasystent.login.MainActivity
 import com.example.myapplicationkardioasystent.registation.BaseActivity
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -30,6 +31,7 @@ class Settings : BaseActivity() {
     private lateinit var editMorningInput: EditText
     private lateinit var editAfternoonInput: EditText
     private lateinit var editNightInput: EditText
+
     // Referencja do obiektu FirebaseFirestore do interakcji z bazą danych Firestore
     val db = FirebaseFirestore.getInstance()
 
@@ -109,9 +111,49 @@ class Settings : BaseActivity() {
                     }
                 }
         }
+        // Inicjalizacja przycisku usuwania konta
+        val deleteAccountButton: Button = findViewById(R.id.deleteAccountButton)
+        deleteAccountButton.setOnClickListener {
+            deleteAccount()
+        }
     }
 
-        /**
+    /**
+     * Usuwa dane użytkownika z Firestore odpowiadające podanemu identyfikatorowi userId.
+     *
+     * @param userId Identyfikator użytkownika, którego dane mają zostać usunięte.
+     */
+    private fun deleteUserDataFromFirestore(userId: String) {
+        val db = FirebaseFirestore.getInstance()
+        db.collection("users").document(userId)
+            .delete()
+            .addOnSuccessListener {
+                Toast.makeText(this, "User data deleted from Firestore successfully.", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Failed to delete user data from Firestore: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+    /**
+     * Usuwa konto aktualnie zalogowanego użytkownika.
+     * Usuwa również dane użytkownika z Firestore i przechodzi do MainActivity.
+     */
+    private fun deleteAccount() {
+        val user = FirebaseAuth.getInstance().currentUser
+        user?.delete()
+            ?.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val userId = FirebaseAuth.getInstance().currentUser!!.email
+                    deleteUserDataFromFirestore(userId.toString())
+                    val intent = Intent(this, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(this, "Failed to delete account: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+    /**
      * Metoda do walidacji zmienianych danych dotyczących przyjmowanych leków.
      * @return True, jeśli wszystkie pola zostały prawidłowo wypełnione, w przeciwnym razie zwraca False.
      */
