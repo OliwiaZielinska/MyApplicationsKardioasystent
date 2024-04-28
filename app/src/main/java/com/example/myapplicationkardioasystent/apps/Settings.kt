@@ -52,7 +52,6 @@ class Settings : BaseActivity() {
         editNightInput = findViewById(R.id.editNightInput)
         // Ustawienie danych użytkownika na widoku
         setData()
-        // Obsługa kliknięcia przycisku "Zapisz zmiany"
         saveChangesButton.setOnClickListener {
             // Pobranie wartości z pól EditText
             val editSettingsTakNieTextInputValue = editSettingsTakNieTextInput.text.toString()
@@ -61,45 +60,58 @@ class Settings : BaseActivity() {
             val editMorningInputValue = editMorningInput.text.toString()
             val editAfternoonInputValue = editAfternoonInput.text.toString()
             val editNightInputValue = editNightInput.text.toString()
-            // Aktualizacja danych w Firestore
-            val updateMap = mapOf(
-                "question" to editSettingsTakNieTextInputValue,
-                "timeOfTakingMedication" to editHourSettingsInputValue,
-                "morningMeasurment" to editMorningInputValue,
-                "middayMeasurment" to editAfternoonInputValue,
-                "eveningMeasurment" to editNightInputValue,
-                "drugsName" to editNameSettingsInputValue
-            )
+
+            // Pobranie uID z intentu
+            val uID = intent.getStringExtra("uID")
+
+            // Pobranie aktualnego obiektu użytkownika z Firestore
             val userId = FirebaseAuth.getInstance().currentUser!!.email
-            db.collection("users").document(userId.toString()).update(updateMap)
-            // Wyświetlenie komunikatu o sukcesie
-            Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+            db.collection("users").document(userId.toString()).get()
+                .addOnSuccessListener { document ->
+                    document.toObject(User::class.java)?.let { currentUser ->
+                        // Aktualizacja tylko tych pól, które faktycznie się zmieniły
+                        currentUser.question = editSettingsTakNieTextInputValue
+                        currentUser.drugsName = editNameSettingsInputValue
+                        currentUser.timeOfTakingMedication = editHourSettingsInputValue
+                        // Jeśli pole jest puste, zachowaj istniejącą wartość
+                        if (editMorningInputValue.isNotEmpty()) {
+                            currentUser.morningMeasurement = editMorningInputValue
+                        }
+                        if (editAfternoonInputValue.isNotEmpty()) {
+                            currentUser.middayMeasurement = editAfternoonInputValue
+                        }
+                        if (editNightInputValue.isNotEmpty()) {
+                            currentUser.eveningMeasurement = editNightInputValue
+                        }
 
-            // Jeśli wszystkie pola są wypełnione, aktualizacja danych użytkownika
-            if (editSettingsTakNieTextInputValue.isNotEmpty() && editNameSettingsInputValue.isNotEmpty() && editHourSettingsInputValue.isNotEmpty() && editMorningInputValue.isNotEmpty() && editAfternoonInputValue.isNotEmpty() && editNightInputValue.isNotEmpty()) {
-                GlobalScope.launch(Dispatchers.Main) {
-                    val currentUser = dbOperations.getUser(uID.toString())
-
-                    currentUser?.let {
-                        it.question = editSettingsTakNieTextInputValue
-                        it.drugsName = editNameSettingsInputValue
-                        it.timeOfTakingMedication = editHourSettingsInputValue
-                        it.morningMeasurement = editMorningInputValue
-                        it.middayMeasurement = editAfternoonInputValue
-                        it.eveningMeasurement = editNightInputValue
-
-                        dbOperations.updateUser(uID.toString(), currentUser)
+                        // Zapisanie zaktualizowanego obiektu użytkownika w Firestore
+                        db.collection("users").document(userId.toString()).set(currentUser)
+                            .addOnSuccessListener {
+                                // Wyświetlenie komunikatu o sukcesie
+                                Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+                                // Jeśli wszystkie pola są wypełnione, otwarcie nowej aktywności
+                                if (editSettingsTakNieTextInputValue.isNotEmpty() && editNameSettingsInputValue.isNotEmpty() && editHourSettingsInputValue.isNotEmpty()) {
+                                    openActivity(
+                                        editSettingsTakNieTextInputValue,
+                                        editNameSettingsInputValue,
+                                        editHourSettingsInputValue
+                                    )
+                                }
+                            }
+                            .addOnFailureListener { exception ->
+                                // Obsługa błędów podczas zapisywania danych
+                                Toast.makeText(
+                                    this,
+                                    "Failed to save changes: ${exception.message}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
                     }
                 }
-            } else {
-                // Obsługa błędów, np. puste pola
-            }
-            // Zapisanie zmian
-            saveChanges()
         }
     }
 
-    /**
+        /**
      * Metoda do walidacji zmienianych danych dotyczących przyjmowanych leków.
      * @return True, jeśli wszystkie pola zostały prawidłowo wypełnione, w przeciwnym razie zwraca False.
      */
@@ -212,17 +224,11 @@ class Settings : BaseActivity() {
         val ref = db.collection("users").document(userId.toString())
         ref.get().addOnSuccessListener {
             if(it != null) {
-                val name = it.data?.get("name")?.toString()
-                val surname = it.data?.get("surname")?.toString()
-                val age = it.data?.get("age")?.toString()
                 val drugsName = it.data?.get("drugsName")?.toString()
                 val eveningMeasurement = it.data?.get("eveningMeasurment")?.toString()
-                val login = it.data?.get("login")?.toString()
                 val middayMeasurement = it.data?.get("middayMeasurment")?.toString()
                 val morningMeasurement = it.data?.get("morningMeasurment")?.toString()
-                val password = it.data?.get("password")?.toString()
                 val question = it.data?.get("question")?.toString()
-                val sex = it.data?.get("sex")?.toString()
                 val timeOfTakingMedication = it.data?.get("timeOfTakingMedication")?.toString()
 
                 editNameSettingsInput.setText(drugsName)
@@ -240,6 +246,6 @@ class Settings : BaseActivity() {
 
 
 
-}
+    }
 
 }
