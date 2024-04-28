@@ -12,9 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="REJESTRACJA NOWEGO UŻYTKOWNIKA"
-        android:textColor="#000000"
+        android:textColor="#E10A0A"
         android:textColorLink="#000000"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.476"
@@ -24,15 +25,15 @@
 
     <EditText
         android:id="@+id/ageInput"
-        android:layout_width="184dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="192dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Wiek"
         android:inputType="number"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintHorizontal_bias="0.558"
         app:layout_constraintStart_toEndOf="@+id/ageText"
         app:layout_constraintTop_toBottomOf="@+id/surnameInput" />
 
@@ -40,33 +41,36 @@
         android:id="@+id/surnameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="36dp"
         android:text="NAZWISKO"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameText" />
 
     <EditText
         android:id="@+id/nameInput"
         android:layout_width="192dp"
-        android:layout_height="37dp"
+        android:layout_height="48dp"
         android:layout_marginTop="48dp"
+        android:layout_marginBottom="8dp"
         android:hint="Imię"
         android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/surnameInput"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.773"
+        app:layout_constraintHorizontal_bias="0.716"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView10" />
 
     <EditText
         android:id="@+id/surnameInput"
-        android:layout_width="180dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="192dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
         android:hint="Nazwisko"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.347"
+        app:layout_constraintHorizontal_bias="0.424"
         app:layout_constraintStart_toEndOf="@+id/surnameText"
         app:layout_constraintTop_toBottomOf="@+id/nameInput" />
 
@@ -74,9 +78,10 @@
         android:id="@+id/ageText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="104dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="36dp"
         android:text="WIEK"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/surnameText" />
 
@@ -84,11 +89,10 @@
         android:id="@+id/nameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="104dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="34dp"
         android:text="IMIĘ"
-        app:layout_constraintEnd_toStartOf="@+id/nameInput"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
@@ -96,19 +100,19 @@
         android:id="@+id/sexText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="34dp"
         android:text="PŁEĆ"
-        app:layout_constraintEnd_toStartOf="@+id/sexInput"
-        app:layout_constraintHorizontal_bias="0.694"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ageText" />
 
     <EditText
         android:id="@+id/sexInput"
-        android:layout_width="181dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="44dp"
+        android:layout_width="192dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="72dp"
         android:hint="Płeć"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -116,13 +120,12 @@
 
     <EditText
         android:id="@+id/medicationQuestionsInput"
-        android:layout_width="293dp"
+        android:layout_width="192dp"
         android:layout_height="48dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="10dp"
         android:hint="Tak/Nie"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.567"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/questionText"
         tools:ignore="DuplicateIds" />
@@ -131,8 +134,9 @@
         android:id="@+id/questionText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="76dp"
         android:text="CZY PRZYMUJESZ LEKI  KARDIOLOGICZNE?"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/sexInput" />
@@ -141,10 +145,12 @@
         android:id="@+id/medicationText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="82dp"
+        android:layout_marginTop="76dp"
         android:text="WPROWADŹ NAZWY LEKÓW I PORY  ICH PRZYJMOWANIA PONIŻEJ"
         android:textSize="12sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/medicationQuestionsInput" />
 
@@ -152,20 +158,19 @@
         android:id="@+id/medicationNamesText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="89dp"
-        android:text="nazwa"
-        app:layout_constraintEnd_toStartOf="@+id/medicationNamesInput"
-        app:layout_constraintHorizontal_bias="0.59"
+        android:layout_marginStart="56dp"
+        android:text="NAZWA"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/medicationText"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="572dp" />
 
     <EditText
         android:id="@+id/medicationNamesInput"
-        android:layout_width="256dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="44dp"
+        android:layout_width="192dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="72dp"
         android:hint="Nazwa leku"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -176,18 +181,17 @@
         android:id="@+id/timeOfTakingMedicineText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="54dp"
-        android:text="godzina"
-        app:layout_constraintEnd_toStartOf="@+id/timeOfTakingMedicineInput"
-        app:layout_constraintHorizontal_bias="0.457"
+        android:layout_marginStart="56dp"
+        android:text="GODZINA"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/medicationNamesText"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="620dp" />
 
     <EditText
         android:id="@+id/timeOfTakingMedicineInput"
-        android:layout_width="198dp"
-        android:layout_height="37dp"
+        android:layout_width="192dp"
+        android:layout_height="48dp"
         android:layout_marginTop="58dp"
         android:layout_marginBottom="77dp"
         android:ems="10"
@@ -196,22 +200,24 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/signInButtonRegistration"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.676"
+        app:layout_constraintHorizontal_bias="0.715"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/medicationNamesInput"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/signInButtonRegistration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="#F69393"
         android:text="ZAREJESTRUJ SIĘ"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.475"
+        app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
