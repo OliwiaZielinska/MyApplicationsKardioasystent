@@ -42,6 +42,10 @@ class EnterMeasurment : AppCompatActivity() {
         val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         dateOfMeasurementInputText.setText(currentDate)
 
+        // Ustawienie aktualnej godziny w polu tekstowym
+        val currentTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
+        hourInputText.setText(currentTime)
+
         // Tutaj obsługa przycisku "Zapisz wynik pomiaru"
         val recordMeasurementResultButton = findViewById<Button>(R.id.recordMeasurementResultButton)
         recordMeasurementResultButton.setOnClickListener {
@@ -71,11 +75,9 @@ class EnterMeasurment : AppCompatActivity() {
                 documentRef.set(measurment)
                     .addOnSuccessListener {
                         Log.d(TAG, "DocumentSnapshot added with ID: ${documentRef.id}")
-                        // Tutaj możesz obsłużyć sukces, np. wyświetlić komunikat dla użytkownika
                     }
                     .addOnFailureListener { e ->
                         Log.w(TAG, "Error adding document", e)
-                        // Obsłuż błąd, np. wyświetlając komunikat dla użytkownika
                     }
             }
 
