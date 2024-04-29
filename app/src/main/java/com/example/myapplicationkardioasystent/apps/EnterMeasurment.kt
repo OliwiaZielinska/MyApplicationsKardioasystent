@@ -13,6 +13,9 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 /**
  * Aktywność umożliwiająca wprowadzenie wyniku pomiaru.
@@ -34,6 +37,10 @@ class EnterMeasurment : AppCompatActivity() {
         hourInputText = findViewById(R.id.hourInputText)
         bloodPressureInputText = findViewById(R.id.bloodPressureInputText)
         pulseInputText = findViewById(R.id.pulseInputText)
+
+        // Ustawienie dzisiejszej daty w polu tekstowym
+        val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        dateOfMeasurementInputText.setText(currentDate)
 
         // Tutaj obsługa przycisku "Zapisz wynik pomiaru"
         val recordMeasurementResultButton = findViewById<Button>(R.id.recordMeasurementResultButton)
@@ -75,6 +82,7 @@ class EnterMeasurment : AppCompatActivity() {
             openActivity(userID)
         }
     }
+
     /**
      * Metoda do otwarcia głównego widoku aplikacji.
      */
