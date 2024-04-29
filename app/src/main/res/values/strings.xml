@@ -8,7 +8,7 @@
     <string name="err_msg_enter_name">Please enter your name</string>
     <string name="err_msg_enter_surname">Please enter your surname</string>
     <string name="err_msg_enter_gender">Please enter your gender</string>
-    <string name="err_msg_enter_age">Please enter your age</string>
+    <string name="err_msg_enter_year_of_birth">Please enter your year of birth</string>
     <string name="err_msg_enter_question">Please enter your answer</string>
     <string name="err_msg_enter_doctor_name">Please enter the drags name</string>
     <string name="err_msg_enter_time">Please enter the time</string>

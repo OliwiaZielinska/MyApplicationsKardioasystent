@@ -15,7 +15,7 @@ class MainActivityRegistration1 : BaseActivity() {
     private lateinit var nameInput:EditText
     private lateinit var surnameInput:EditText
     private lateinit var sexInput:EditText
-    private lateinit var ageInput:EditText
+    private lateinit var yearOfBirthInput:EditText
     private lateinit var medicationQuestionsInput:EditText
     private lateinit var medicationNamesInput:EditText
     private lateinit var timeOfTakingMedicineInput:EditText
@@ -30,7 +30,7 @@ class MainActivityRegistration1 : BaseActivity() {
         nameInput = findViewById(R.id.nameInput)
         surnameInput = findViewById(R.id.surnameInput)
         sexInput = findViewById(R.id.sexInput)
-        ageInput = findViewById(R.id.ageInput)
+        yearOfBirthInput = findViewById(R.id.yearOfBirthInput)
         medicationQuestionsInput = findViewById(R.id.medicationQuestionsInput)
         medicationNamesInput = findViewById(R.id.medicationNamesInput)
         timeOfTakingMedicineInput = findViewById(R.id.timeOfTakingMedicineInput)
@@ -51,7 +51,7 @@ class MainActivityRegistration1 : BaseActivity() {
         val name = nameInput.text.toString().trim()
         val surname = surnameInput.text.toString().trim()
         val sex = sexInput.text.toString().trim()
-        val age = ageInput.text.toString().trim()
+        val yearOfBirth = yearOfBirthInput.text.toString().trim()
         val question = medicationQuestionsInput.text.toString().trim()
         val drugsName = medicationNamesInput.text.toString().trim()
         val timeOfTakingMedication = timeOfTakingMedicineInput.text.toString().trim()
@@ -71,8 +71,8 @@ class MainActivityRegistration1 : BaseActivity() {
             return false
         }
 
-        if (TextUtils.isEmpty(age)) {
-            showErrorSnackBar(resources.getString(R.string.err_msg_enter_age), true)
+        if (TextUtils.isEmpty(yearOfBirth)) {
+            showErrorSnackBar(resources.getString(R.string.err_msg_enter_year_of_birth), true)
             return false
         }
 
@@ -116,25 +116,25 @@ class MainActivityRegistration1 : BaseActivity() {
         val name = nameInput.text.toString().trim()
         val surname = surnameInput.text.toString().trim()
         val sex = sexInput.text.toString().trim()
-        val age = ageInput.text.toString().trim()
+        val yearOfBirth = yearOfBirthInput.text.toString().trim()
         val question = medicationQuestionsInput.text.toString().trim()
         val drugsName = medicationNamesInput.text.toString().trim()
         val timeOfTakingMedication = timeOfTakingMedicineInput.text.toString().trim()
 
         if (validateRegisterDetails()) {
-            openActivity(name, surname, sex, age, question, drugsName, timeOfTakingMedication)
+            openActivity(name, surname, sex, yearOfBirth, question, drugsName, timeOfTakingMedication)
         }
     }
 
     /**
      * Metoda służąca otwarciu drugiej aktywności rejestracji i przekazaniu do niej parametrów.
      */
-    private fun openActivity(name: String, surname: String, sex:String, age: String, question: String, drugsName: String, timeOfTakingMedication: String){
+    private fun openActivity(name: String, surname: String, sex:String, yearOfBirth: String, question: String, drugsName: String, timeOfTakingMedication: String){
         val intent = Intent(this, MainActivityRegistration2::class.java)
         intent.putExtra("name", name)
         intent.putExtra("surname", surname)
         intent.putExtra("sex", sex)
-        intent.putExtra("age", age)
+        intent.putExtra("yearOfBirth", yearOfBirth)
         intent.putExtra("question", question)
         intent.putExtra("drugsName", drugsName)
         intent.putExtra("timeOfTakingMedication", timeOfTakingMedication)

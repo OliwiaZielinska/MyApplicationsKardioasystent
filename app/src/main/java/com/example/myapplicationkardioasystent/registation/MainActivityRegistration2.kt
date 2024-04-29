@@ -44,7 +44,7 @@ class MainActivityRegistration2 : BaseActivity() {
         val name = intent.getStringExtra("name")
         val surname = intent.getStringExtra("surname")
         val sex = intent.getStringExtra("sex")
-        val age = intent.getStringExtra("age")
+        val yearOfBirth = intent.getStringExtra("yearOfBirth")
         val question = intent.getStringExtra("question")
         val drugsName = intent.getStringExtra("drugsName")
         val timeOfTakingMedication = intent.getStringExtra("timeOfTakingMedication")
@@ -63,7 +63,7 @@ class MainActivityRegistration2 : BaseActivity() {
                 name.toString(),
                 surname.toString(),
                 sex.toString(),
-                age.toString(),
+                yearOfBirth.toString(),
                 question.toString(),
                 drugsName.toString(),
                 timeOfTakingMedication.toString()
@@ -114,7 +114,7 @@ class MainActivityRegistration2 : BaseActivity() {
         name: String,
         surname: String,
         sex: String,
-        age: String,
+        yearOfBirth: String,
         question: String,
         drugsName: String,
         timeOfTakingMedication: String
@@ -151,7 +151,7 @@ class MainActivityRegistration2 : BaseActivity() {
                 name,
                 surname,
                 sex,
-                age,
+                yearOfBirth,
                 question,
                 drugsName,
                 timeOfTakingMedication,
