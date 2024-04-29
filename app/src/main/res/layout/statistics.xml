@@ -11,18 +11,23 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="132dp"
         android:text="TWOJE STATYSTYKI"
+        android:textAlignment="center"
+        android:textColor="#E10A0A"
         android:textSize="22sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/returnFromStatisticsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="131dp"
+        android:layout_height="54dp"
         android:layout_marginBottom="40dp"
         android:backgroundTint="#F69393"
         android:text="POWRÓT"
+        android:textAlignment="center"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -1,5 +1,7 @@
 package com.example.myapplicationkardioasystent.cloudFirestore
+import android.content.ContentValues.TAG
 import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
@@ -73,7 +75,30 @@ class FirestoreDatabaseOperations(private val db: FirebaseFirestore) : Firestore
 
     override suspend fun deleteUser(userId: String) {
         try {
+            // Pobierz referencję do kolekcji "measurements"
+            val collectionRef = FirebaseFirestore.getInstance().collection("measurements")
+
+            // Wykonaj zapytanie, aby uzyskać pomiary dla określonego użytkownika
+            collectionRef.whereEqualTo("userID", userId)
+                .get()
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        // Usuń każdy znaleziony dokument
+                        document.reference.delete()
+                            .addOnSuccessListener {
+                                Log.d(TAG, "DocumentSnapshot successfully deleted!")
+                            }
+                            .addOnFailureListener { e ->
+                                Log.w(TAG, "Error deleting document", e)
+                            }
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.w(TAG, "Error getting documents: ", exception)
+                }
             db.collection("users").document(userId).delete().await()
+            val user = FirebaseAuth.getInstance().currentUser
+            user?.delete()
         } catch (e: Exception) {
             Log.e("deleteUser", "An error occurred while deleting a user: $e")
         }

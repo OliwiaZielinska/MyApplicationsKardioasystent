@@ -10,21 +10,21 @@
         android:id="@+id/textView2"
         android:layout_width="392dp"
         android:layout_height="79dp"
-        android:layout_marginTop="124dp"
+        android:layout_marginTop="120dp"
         android:text="PORADNIK ZDROWIA ZE WSKAZÓWKAMI, CO MOŻESZ ZROBIĆ, BY POPRAWIĆ KONDYCJĘ SWOJEGO SERCA!"
         android:textAlignment="center"
-        android:textColor="#3A0303"
+        android:textColor="#E10A0A"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="401dp"
-        android:layout_height="96dp"
+        android:layout_width="351dp"
+        android:layout_height="91dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,29 +33,26 @@
 
     <ImageView
         android:id="@+id/imageView5"
-        android:layout_width="340dp"
-        android:layout_height="92dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="348dp"
+        android:layout_height="91dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView6"
         app:srcCompat="@drawable/alkohol" />
 
     <ImageView
         android:id="@+id/imageView6"
-        android:layout_width="367dp"
-        android:layout_height="97dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="381dp"
+        android:layout_height="91dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.542"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:srcCompat="@drawable/sen" />
+        app:srcCompat="@drawable/sen"
+        tools:layout_editor_absoluteY="320dp" />
 
     <ImageView
         android:id="@+id/imageView7"
-        android:layout_width="358dp"
+        android:layout_width="391dp"
         android:layout_height="97dp"
         app:layout_constraintBottom_toTopOf="@+id/backGuideButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,9 +67,10 @@
         android:layout_width="165dp"
         android:layout_height="57dp"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="#8F0C0C"
+        android:backgroundTint="#F69393"
         android:text="POWRÓT"
-        android:textColor="#DDCFCF"
+        android:textColor="#FDFDFD"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

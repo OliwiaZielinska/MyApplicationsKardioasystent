@@ -1,5 +1,4 @@
 package com.example.myapplicationkardioasystent.registation
-
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -17,6 +16,7 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.security.MessageDigest
 
 /**
  * Klasa reprezentująca drugi etap rejestracji użytkownika.
@@ -122,6 +122,7 @@ class MainActivityRegistration2 : BaseActivity() {
         if (validateRegisterDetails()) {
             val login: String = emailInputRegistration.text.toString().trim { it <= ' ' }
             val password: String = inputPasswordRegistration.text.toString().trim { it <= ' ' }
+            val hashedPassword = hashPassword(password) // Hashowanie hasła
 
             // Utworzenie użytkownika w FirebaseAuth
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(login, password)
@@ -155,7 +156,7 @@ class MainActivityRegistration2 : BaseActivity() {
                 drugsName,
                 timeOfTakingMedication,
                 login,
-                password,
+                hashedPassword,
                 morningMeasurement,
                 middayMeasurement,
                 eveningMeasurement
@@ -167,4 +168,14 @@ class MainActivityRegistration2 : BaseActivity() {
             }
         }
     }
+
+    /**
+     * Funkcja do hashowania hasła przy użyciu algorytmu SHA-256.
+     */
+    private fun hashPassword(password: String): String {
+        val digest = MessageDigest.getInstance("SHA-256")
+        val hashBytes = digest.digest(password.toByteArray(Charsets.UTF_8))
+        return hashBytes.joinToString("") { "%02x".format(it) }
+    }
 }
+

@@ -12,10 +12,13 @@
         android:id="@+id/TextRegistration1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="148dp"
+        android:layout_marginTop="124dp"
         android:text="PROCES REJESTRACJI PRZEBIEGŁ POMYŚLNIE"
+        android:textColor="#E10A0A"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.446"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="OSTATNIM ETAPEM JEST ZAŁOŻENIE KONTA"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,21 +38,22 @@
         android:id="@+id/emailText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="63dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="68dp"
         android:text="EMAIL"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/TextRegistration2" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/emailInputRegistration"
-        android:layout_width="183dp"
-        android:layout_height="42dp"
+        android:layout_width="192dp"
+        android:layout_height="48dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="52dp"
         android:hint="Email"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.187"
+        app:layout_constraintHorizontal_bias="0.283"
         app:layout_constraintStart_toEndOf="@+id/emailText"
         app:layout_constraintTop_toTopOf="@+id/TextRegistration2" />
 
@@ -56,16 +61,17 @@
         android:id="@+id/TextPasswordRegistration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="76dp"
+        android:layout_marginStart="56dp"
         android:layout_marginTop="40dp"
         android:text="HASŁO"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailText" />
 
     <EditText
         android:id="@+id/InputPasswordRegistration"
-        android:layout_width="181dp"
-        android:layout_height="43dp"
+        android:layout_width="192dp"
+        android:layout_height="48dp"
         android:layout_marginTop="60dp"
         android:ems="10"
         android:hint="Hasło"
@@ -81,6 +87,7 @@
         android:layout_marginTop="88dp"
         android:text=" PODAJ PREFEROWANE GODZINY  WYKONYWANIA POMIARÓW"
         android:textSize="12sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,11 +95,12 @@
 
     <TextView
         android:id="@+id/TextRegistration4"
-        android:layout_width="43dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="64dp"
+        android:layout_width="52dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="68dp"
         android:text="RANO"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/TextRegistration3" />
 
@@ -100,9 +108,10 @@
         android:id="@+id/TextRegistration5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="56dp"
         android:text="POŁUDNIE"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/TextRegistration4" />
 
@@ -110,59 +119,63 @@
         android:id="@+id/TextRegistration6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="40dp"
         android:text="WIECZÓR"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TextRegistration5" />
 
     <EditText
         android:id="@+id/morningRegistrationInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="192dp"
+        android:layout_height="48dp"
         android:layout_marginTop="52dp"
         android:ems="10"
         android:inputType="time"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.584"
+        app:layout_constraintHorizontal_bias="0.558"
         app:layout_constraintStart_toEndOf="@+id/TextRegistration4"
-        app:layout_constraintTop_toTopOf="@+id/TextRegistration3" />
+        app:layout_constraintTop_toTopOf="@+id/TextRegistration3"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <EditText
         android:id="@+id/middayRegistrationInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="192dp"
+        android:layout_height="48dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="time"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.582"
+        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toEndOf="@+id/TextRegistration5"
-        app:layout_constraintTop_toBottomOf="@+id/morningRegistrationInput" />
+        app:layout_constraintTop_toBottomOf="@+id/morningRegistrationInput"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <EditText
         android:id="@+id/eveningRegistrationInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="192dp"
+        android:layout_height="48dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="time"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.605"
+        app:layout_constraintHorizontal_bias="0.519"
         app:layout_constraintStart_toEndOf="@+id/TextRegistration6"
-        app:layout_constraintTop_toBottomOf="@+id/middayRegistrationInput" />
+        app:layout_constraintTop_toBottomOf="@+id/middayRegistrationInput"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/creatingAccountButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="171dp"
+        android:layout_height="48dp"
         android:layout_marginTop="131dp"
         android:backgroundTint="#EA8484"
         android:text="ZAŁÓŻ KONTO"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/eveningRegistrationInput"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.238" />
 </androidx.constraintlayout.widget.ConstraintLayout>
