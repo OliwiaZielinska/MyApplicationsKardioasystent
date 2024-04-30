@@ -61,11 +61,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginTop="24dp"
         android:text="NAZWA"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/editHourSettingsText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editNamesAndHoursText" />
 
@@ -74,14 +72,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginBottom="292dp"
+        android:layout_marginTop="78dp"
         android:text="GODZINA"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editNamesAndHoursText"
-        app:layout_constraintVertical_bias="0.142" />
+        app:layout_constraintTop_toBottomOf="@+id/editNamesAndHoursText" />
 
     <EditText
         android:id="@+id/editNameSettingsInput"
@@ -151,7 +146,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="80dp"
         android:text="POŁUDNIE"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -162,7 +157,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="36dp"
         android:text="WIECZÓR"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
