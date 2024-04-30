@@ -54,77 +54,84 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editSettingsTakNieTextInput"
-        app:layout_constraintVertical_bias="0.196" />
+        app:layout_constraintVertical_bias="0.093" />
 
     <TextView
         android:id="@+id/editNameSettingsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="28dp"
         android:text="NAZWA"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/editHourSettingsText"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editNamesAndHoursText" />
 
     <TextView
         android:id="@+id/editHourSettingsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
-        android:layout_marginBottom="284dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginBottom="292dp"
         android:text="GODZINA"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editNamesAndHoursText"
+        app:layout_constraintVertical_bias="0.142" />
 
     <EditText
         android:id="@+id/editNameSettingsInput"
-        android:layout_width="239dp"
-        android:layout_height="48dp"
+        android:layout_width="164dp"
+        android:layout_height="46dp"
         android:layout_marginTop="8dp"
         android:hint="nazwa leku"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.71"
+        app:layout_constraintHorizontal_bias="0.385"
         app:layout_constraintStart_toEndOf="@+id/editNameSettingsText"
-        app:layout_constraintTop_toBottomOf="@+id/editNamesAndHoursText" />
+        app:layout_constraintTop_toBottomOf="@+id/editNamesAndHoursText"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <EditText
         android:id="@+id/editHourSettingsInput"
-        android:layout_width="239dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="208dp"
+        android:layout_width="164dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="8dp"
         android:hint="godzina przyjmowania"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/saveChangesButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.68"
-        app:layout_constraintStart_toEndOf="@+id/editHourSettingsText" />
+        app:layout_constraintHorizontal_bias="0.599"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editNameSettingsInput"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <Button
         android:id="@+id/saveChangesButton"
         android:layout_width="160dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="4dp"
         android:backgroundTint="#F69393"
         android:text="ZAPISZ ZMIANY"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.035"
+        app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="24dp"
         android:text="ZMIANA GODZIN WYKONYWANIA POMIARÓW"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.465"
+        app:layout_constraintHorizontal_bias="0.379"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editHourSettingsInput" />
 
@@ -133,11 +140,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="28dp"
         android:text="RANO"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/editMorningInput"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
@@ -146,24 +151,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="76dp"
         android:text="POŁUDNIE"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/editAfternoonInput"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="84dp"
+        android:layout_marginTop="32dp"
         android:text="WIECZÓR"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
@@ -171,7 +172,7 @@
         android:id="@+id/editMorningInput"
         android:layout_width="164dp"
         android:layout_height="46sp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="12dp"
         android:hint="godzina"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -210,12 +211,12 @@
         android:id="@+id/deleteAccountButton"
         android:layout_width="160dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="4dp"
         android:backgroundTint="#F69393"
         android:text="USUŃ KONTO"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.857"
+        app:layout_constraintHorizontal_bias="0.671"
         app:layout_constraintStart_toEndOf="@+id/saveChangesButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
