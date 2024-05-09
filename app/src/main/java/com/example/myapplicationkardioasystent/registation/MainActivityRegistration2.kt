@@ -23,33 +23,36 @@ import java.security.MessageDigest
  * Zawiera ona formularz do wprowadzenia danych użytkownika oraz logikę rejestracji w Firebase Authentication.
  */
 class MainActivityRegistration2 : BaseActivity() {
-    // Referencja do obiektu FirebaseFirestore do interakcji z bazą danych Firestore
     private val db = Firebase.firestore
-
-    // Obiekt do obsługi operacji na bazie danych Firestore
-    private val dbOperations = FirestoreDatabaseOperations(db)
-
     private lateinit var emailInputRegistration: EditText
     private lateinit var inputPasswordRegistration: EditText
     private lateinit var morningRegistrationInput: EditText
     private lateinit var middayRegistrationInput: EditText
     private lateinit var eveningRegistrationInput: EditText
     private lateinit var creatingAccountButton: Button
+    private lateinit var dbOperations: FirestoreDatabaseOperations // Deklaracja dbOperations
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_registration2)
 
-        // Odczytaj parametry z Intent
         val name = intent.getStringExtra("name")
         val surname = intent.getStringExtra("surname")
-        val sex = intent.getStringExtra("sex")
+        val sexString = intent.getStringExtra("sex")
+        val sex = when (sexString) {
+            "MALE" -> Gender.MALE
+            "FEMALE" -> Gender.FEMALE
+            else -> Gender.OTHER
+        }
         val yearOfBirth = intent.getStringExtra("yearOfBirth")
-        val question = intent.getStringExtra("question")
+        val questionString = intent.getStringExtra("question")
+        val question = questionString == "Tak"
         val drugsName = intent.getStringExtra("drugsName")
         val timeOfTakingMedication = intent.getStringExtra("timeOfTakingMedication")
 
-        // Inicjalizacja elementów interfejsu użytkownika
+        // Inicjalizacja dbOperations
+        dbOperations = FirestoreDatabaseOperations(db)
+
         emailInputRegistration = findViewById(R.id.emailInputRegistration)
         inputPasswordRegistration = findViewById(R.id.InputPasswordRegistration)
         morningRegistrationInput = findViewById(R.id.morningRegistrationInput)
@@ -57,47 +60,42 @@ class MainActivityRegistration2 : BaseActivity() {
         eveningRegistrationInput = findViewById(R.id.eveningRegistrationInput)
         creatingAccountButton = findViewById(R.id.creatingAccountButton)
 
-        // Obsługa kliknięcia przycisku "Zarejestruj się"
         creatingAccountButton.setOnClickListener {
             registerUser(
                 name.toString(),
                 surname.toString(),
-                sex.toString(),
+                sex,
                 yearOfBirth.toString(),
-                question.toString(),
+                question,
                 drugsName.toString(),
                 timeOfTakingMedication.toString()
             )
         }
     }
 
-    /**
-     * Walidacja wprowadzonych danych rejestracji.
-     * @return True, jeśli wszystkie pola zostały wypełnione poprawnie, w przeciwnym razie False.
-     */
     private fun validateRegisterDetails(): Boolean {
         return when {
-            TextUtils.isEmpty(emailInputRegistration.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(emailInputRegistration.text.toString().trim()) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_email), true)
                 false
             }
 
-            TextUtils.isEmpty(inputPasswordRegistration.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(inputPasswordRegistration.text.toString().trim()) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_password), true)
                 false
             }
 
-            TextUtils.isEmpty(morningRegistrationInput.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(morningRegistrationInput.text.toString().trim()) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_time), true)
                 false
             }
 
-            TextUtils.isEmpty(middayRegistrationInput.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(middayRegistrationInput.text.toString().trim()) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_time), true)
                 false
             }
 
-            TextUtils.isEmpty(eveningRegistrationInput.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(eveningRegistrationInput.text.toString().trim()) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_time), true)
                 false
             }
@@ -105,26 +103,20 @@ class MainActivityRegistration2 : BaseActivity() {
             else -> true
         }
     }
-
-    /**
-     * Rejestracja użytkownika w Firebase Authentication.
-     */
-    @OptIn(DelicateCoroutinesApi::class)
     private fun registerUser(
         name: String,
         surname: String,
-        sex: String,
+        sex: Gender,
         yearOfBirth: String,
-        question: String,
+        question: Boolean,
         drugsName: String,
         timeOfTakingMedication: String
     ) {
         if (validateRegisterDetails()) {
-            val login: String = emailInputRegistration.text.toString().trim { it <= ' ' }
-            val password: String = inputPasswordRegistration.text.toString().trim { it <= ' ' }
-            val hashedPassword = hashPassword(password) // Hashowanie hasła
+            val login: String = emailInputRegistration.text.toString().trim()
+            val password: String = inputPasswordRegistration.text.toString().trim()
+            val hashedPassword = hashPassword(password)
 
-            // Utworzenie użytkownika w FirebaseAuth
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(login, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
@@ -134,7 +126,6 @@ class MainActivityRegistration2 : BaseActivity() {
                             false
                         )
 
-                        // Wylogowanie użytkownika i zakończenie aktywności
                         FirebaseAuth.getInstance().signOut()
                         finish()
                         val intent = Intent(this, ActivityMainLogin::class.java)
@@ -150,7 +141,7 @@ class MainActivityRegistration2 : BaseActivity() {
             val user = User(
                 name,
                 surname,
-                sex,
+                sex.toString(),
                 yearOfBirth,
                 question,
                 drugsName,
@@ -161,21 +152,16 @@ class MainActivityRegistration2 : BaseActivity() {
                 middayMeasurement,
                 eveningMeasurement
             )
-            // Uruchomienie korutyny w wątku głównym
             GlobalScope.launch(Dispatchers.Main) {
-                // Dodanie studenta do bazy danych Firestore userId=login
-                dbOperations.addUser(login, user)
+                dbOperations.addUser(login, user) // Użycie dbOperations
             }
         }
     }
 
-    /**
-     * Funkcja do hashowania hasła przy użyciu algorytmu SHA-256.
-     */
+
     private fun hashPassword(password: String): String {
         val digest = MessageDigest.getInstance("SHA-256")
         val hashBytes = digest.digest(password.toByteArray(Charsets.UTF_8))
         return hashBytes.joinToString("") { "%02x".format(it) }
     }
 }
-

@@ -6,6 +6,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Switch
 import android.widget.TextView
+import android.widget.Spinner
+import android.widget.ArrayAdapter
 import com.example.myapplicationkardioasystent.R
 /**
  * Aktywność obsługująca rejestrację użytkownika - krok 1.
@@ -15,7 +17,7 @@ import com.example.myapplicationkardioasystent.R
 class MainActivityRegistration1 : BaseActivity() {
     private lateinit var nameInput: EditText
     private lateinit var surnameInput: EditText
-    private lateinit var sexInput: EditText
+    private lateinit var sexSpinner: Spinner
     private lateinit var yearOfBirthInput: EditText
     private lateinit var medicationQuestionsSwitch: Switch
     private lateinit var medicationNamesInput: EditText
@@ -26,40 +28,42 @@ class MainActivityRegistration1 : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_registration1)
+
         // Inicjalizacja pól widoku
         nameInput = findViewById(R.id.nameInput)
         surnameInput = findViewById(R.id.surnameInput)
-        sexInput = findViewById(R.id.sexInput)
+        sexSpinner = findViewById(R.id.sexSpinner)
         yearOfBirthInput = findViewById(R.id.yearOfBirthInput)
         medicationQuestionsSwitch = findViewById(R.id.medicationQuestionsSwitch)
         medicationNamesInput = findViewById(R.id.medicationNamesInput)
         timeOfTakingMedicineInput = findViewById(R.id.timeOfTakingMedicineInput)
         signInButtonRegistration = findViewById(R.id.signInButtonRegistration)
         setTakNieText = findViewById(R.id.setTakNieText)
+
+        // Inicjalizacja spinnera płci
+        val genderAdapter = ArrayAdapter.createFromResource(this, R.array.gender_array, android.R.layout.simple_spinner_item)
+        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        sexSpinner.adapter = genderAdapter
+
         // Ustawienie nasłuchiwacza kliknięcia na przycisk rejestracji
         signInButtonRegistration.setOnClickListener {
             registerUser()
         }
-// Ustawienie nasłuchiwacza zmiany stanu przełącznika pytań o leki
-        medicationQuestionsSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+
+        // Ustawienie nasłuchiwacza zmiany stanu przełącznika pytań o leki
+        medicationQuestionsSwitch.setOnCheckedChangeListener { _, isChecked ->
             // Zmiana tekstu na "Tak" lub "Nie" w zależności od stanu przełącznika
             setTakNieText.text = if (isChecked) "Tak" else "Nie"
             // Logika włączania/wyłączania pól związanych z lekami
             medicationNamesInput.isEnabled = isChecked
             timeOfTakingMedicineInput.isEnabled = isChecked
         }
-
     }
-    /**
-     * Walidacja wprowadzonych danych rejestracyjnych.
-     * Sprawdza, czy pola zostały wypełnione poprawnie.
-     * @return true jeśli dane są poprawne, w przeciwnym razie false.
-     */
 
     private fun validateRegisterDetails(): Boolean {
         val name = nameInput.text.toString().trim()
         val surname = surnameInput.text.toString().trim()
-        val sex = sexInput.text.toString().trim()
+        val sexString = sexSpinner.selectedItem.toString()
         val yearOfBirth = yearOfBirthInput.text.toString().trim()
         val question = medicationQuestionsSwitch.isChecked
 
@@ -73,9 +77,15 @@ class MainActivityRegistration1 : BaseActivity() {
             return false
         }
 
-        if (TextUtils.isEmpty(sex)) {
+        if (TextUtils.isEmpty(sexString)) {
             showErrorSnackBar(getString(R.string.err_msg_enter_gender), true)
             return false
+        }
+
+        val sex = when (sexString) {
+            "Mężczyzna" -> Gender.MALE
+            "Kobieta" -> Gender.FEMALE
+            else -> Gender.OTHER
         }
 
         if (TextUtils.isEmpty(yearOfBirth)) {
@@ -99,42 +109,36 @@ class MainActivityRegistration1 : BaseActivity() {
         }
         return true
     }
-    /**
-     * Metoda wywoływana po wciśnięciu przycisku rejestracji.
-     * Sprawdza poprawność danych i przechodzi do kolejnego etapu rejestracji.
-     */
+
     private fun registerUser() {
         if (validateRegisterDetails()) {
             val name = nameInput.text.toString().trim()
             val surname = surnameInput.text.toString().trim()
-            val sex = sexInput.text.toString().trim()
+            val sexString = sexSpinner.selectedItem.toString()
             val yearOfBirth = yearOfBirthInput.text.toString().trim()
             val question = medicationQuestionsSwitch.isChecked
             val drugsName = medicationNamesInput.text.toString().trim()
             val timeOfTakingMedication = timeOfTakingMedicineInput.text.toString().trim()
-// Przekazanie danych do kolejnej aktywności
+            val sex = when (sexString) {
+                "Mężczyzna" -> Gender.MALE
+                "Kobieta" -> Gender.FEMALE
+                else -> Gender.OTHER
+            }
+
             openActivity(name, surname, sex, yearOfBirth, question, drugsName, timeOfTakingMedication)
         }
     }
-    /**
-     * Metoda otwierająca kolejną aktywność rejestracji i przekazująca dane.
-     * @param name Imię użytkownika.
-     * @param surname Nazwisko użytkownika.
-     * @param sex Płeć użytkownika.
-     * @param yearOfBirth Rok urodzenia użytkownika.
-     * @param question Informacja czy użytkownik przyjmuje leki.
-     * @param drugsName Nazwa leku.
-     * @param timeOfTakingMedication Czas przyjmowania leku.
-     */
-    private fun openActivity(name: String, surname: String, sex:String, yearOfBirth: String, question: Boolean, drugsName: String, timeOfTakingMedication: String){
+
+    private fun openActivity(name: String, surname: String, sex: Gender, yearOfBirth: String, question: Boolean, drugsName: String, timeOfTakingMedication: String){
         val intent = Intent(this, MainActivityRegistration2::class.java)
         intent.putExtra("name", name)
         intent.putExtra("surname", surname)
-        intent.putExtra("sex", sex)
+        intent.putExtra("sex", sex.toString())
         intent.putExtra("yearOfBirth", yearOfBirth)
-        intent.putExtra("question", question)
+        intent.putExtra("question", if (question) "Tak" else "Nie")
         intent.putExtra("drugsName", drugsName)
         intent.putExtra("timeOfTakingMedication", timeOfTakingMedication)
         startActivity(intent)
     }
 }
+

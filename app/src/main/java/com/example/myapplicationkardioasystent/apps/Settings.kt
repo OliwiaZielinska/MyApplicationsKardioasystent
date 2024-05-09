@@ -68,7 +68,7 @@ class Settings : BaseActivity() {
             db.collection("users").document(userId.toString()).get()
                 .addOnSuccessListener { document ->
                     document.toObject(User::class.java)?.let { currentUser ->
-                        currentUser.question = if (editSettingsTakNieSwitchValue) "Tak" else "Nie"
+                        currentUser.question = editSettingsTakNieSwitchValue
                         currentUser.drugsName = editNameSettingsInputValue
                         currentUser.timeOfTakingMedication = editHourSettingsInputValue
                         if (editMorningInputValue.isNotEmpty()) {
@@ -211,7 +211,7 @@ class Settings : BaseActivity() {
                 val eveningMeasurement = document.getString("eveningMeasurment")
                 val middayMeasurement = document.getString("middayMeasurment")
                 val morningMeasurement = document.getString("morningMeasurment")
-                val question = document.getString("question")
+                val question = document.getBoolean("question")?.let { if (it) "Tak" else "Nie" }
                 val timeOfTakingMedication = document.getString("timeOfTakingMedication")
 
                 settingsTakNieText.text = question

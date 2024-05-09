@@ -124,20 +124,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/yearOfBirthText" />
 
-    <EditText
-        android:id="@+id/sexInput"
+    <Spinner
+        android:id="@+id/sexSpinner"
         android:layout_width="192dp"
         android:layout_height="48dp"
         android:layout_marginTop="186dp"
-        android:hint="Płeć"
         android:textColor="#000000"
-        android:textColorHint="#000000"
-        android:textColorLink="#000000"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.726"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
 
     <Switch
         android:id="@+id/medicationQuestionsSwitch"
@@ -167,7 +165,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/sexInput" />
+        app:layout_constraintTop_toTopOf="@+id/sexSpinner" />
 
     <TextView
         android:id="@+id/medicationText"
