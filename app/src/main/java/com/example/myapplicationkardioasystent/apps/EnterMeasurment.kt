@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplicationkardioasystent.R
 import com.example.myapplicationkardioasystent.cloudFirestore.Measurment
@@ -55,33 +56,38 @@ class EnterMeasurment : AppCompatActivity() {
             val bloodPressure = bloodPressureInputText.text.toString()
             val pulse = pulseInputText.text.toString()
 
-            val measurment = Measurment(
-                userID,
-                date,
-                hour,
-                bloodPressure,
-                pulse
-            )
+            if (bloodPressure.isNotEmpty() && pulse.isNotEmpty()) {
+                val measurment = Measurment(
+                    userID,
+                    date,
+                    hour,
+                    bloodPressure,
+                    pulse
+                )
 
-            // Uruchomienie korutyny w wątku głównym
-            GlobalScope.launch(Dispatchers.Main) {
-                // Pobierz referencję do kolekcji
-                val collectionRef = FirebaseFirestore.getInstance().collection("measurements")
+                // Uruchomienie korutyny w wątku głównym
+                GlobalScope.launch(Dispatchers.Main) {
+                    // Pobierz referencję do kolekcji
+                    val collectionRef = FirebaseFirestore.getInstance().collection("measurements")
 
-                // Dodaj nowy dokument z automatycznie wygenerowanym identyfikatorem
-                val documentRef = collectionRef.document()
+                    // Dodaj nowy dokument z automatycznie wygenerowanym identyfikatorem
+                    val documentRef = collectionRef.document()
 
-                // Ustaw pola dokumentu
-                documentRef.set(measurment)
-                    .addOnSuccessListener {
-                        Log.d(TAG, "DocumentSnapshot added with ID: ${documentRef.id}")
-                    }
-                    .addOnFailureListener { e ->
-                        Log.w(TAG, "Error adding document", e)
-                    }
+                    // Ustaw pola dokumentu
+                    documentRef.set(measurment)
+                        .addOnSuccessListener {
+                            Log.d(TAG, "DocumentSnapshot added with ID: ${documentRef.id}")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w(TAG, "Error adding document", e)
+                        }
+                }
+
+                openActivity(userID)
+            } else {
+                // Wyświetla komunikat o pustych wartościach ciśnienia i tętna
+                Toast.makeText(this, "Empty values!", Toast.LENGTH_SHORT).show()
             }
-
-            openActivity(userID)
         }
     }
 
