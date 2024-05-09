@@ -1,33 +1,32 @@
 package com.example.myapplicationkardioasystent.registation
-
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Switch
+import android.widget.TextView
 import com.example.myapplicationkardioasystent.R
-
 /**
- * Aktywność odpowiedzialna za rejestrację użytkownika do aplikacji - wprowadza dane użytownika oraz
- * przekierowuje do kolejnego etapu rejestracji
+ * Aktywność obsługująca rejestrację użytkownika - krok 1.
+ * Ta aktywność zbiera podstawowe informacje o użytkowniku oraz informacje o przyjmowanych lekach.
  */
-class MainActivityRegistration1 : BaseActivity() {
-    private lateinit var nameInput:EditText
-    private lateinit var surnameInput:EditText
-    private lateinit var sexInput:EditText
-    private lateinit var yearOfBirthInput:EditText
-    private lateinit var medicationQuestionsSwitch: Switch
-    private lateinit var medicationNamesInput:EditText
-    private lateinit var timeOfTakingMedicineInput:EditText
-    private lateinit var signInButtonRegistration: Button
 
+class MainActivityRegistration1 : BaseActivity() {
+    private lateinit var nameInput: EditText
+    private lateinit var surnameInput: EditText
+    private lateinit var sexInput: EditText
+    private lateinit var yearOfBirthInput: EditText
+    private lateinit var medicationQuestionsSwitch: Switch
+    private lateinit var medicationNamesInput: EditText
+    private lateinit var timeOfTakingMedicineInput: EditText
+    private lateinit var signInButtonRegistration: Button
+    private lateinit var setTakNieText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_registration1)
-
-        // Inicjalizacja elementów interfejsu użytkownika
+        // Inicjalizacja pól widoku
         nameInput = findViewById(R.id.nameInput)
         surnameInput = findViewById(R.id.surnameInput)
         sexInput = findViewById(R.id.sexInput)
@@ -36,16 +35,25 @@ class MainActivityRegistration1 : BaseActivity() {
         medicationNamesInput = findViewById(R.id.medicationNamesInput)
         timeOfTakingMedicineInput = findViewById(R.id.timeOfTakingMedicineInput)
         signInButtonRegistration = findViewById(R.id.signInButtonRegistration)
-
-        // Obsługa kliknięcia przycisku "Zarejestruj się"
+        setTakNieText = findViewById(R.id.setTakNieText)
+        // Ustawienie nasłuchiwacza kliknięcia na przycisk rejestracji
         signInButtonRegistration.setOnClickListener {
             registerUser()
         }
-    }
+// Ustawienie nasłuchiwacza zmiany stanu przełącznika pytań o leki
+        medicationQuestionsSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            // Zmiana tekstu na "Tak" lub "Nie" w zależności od stanu przełącznika
+            setTakNieText.text = if (isChecked) "Tak" else "Nie"
+            // Logika włączania/wyłączania pól związanych z lekami
+            medicationNamesInput.isEnabled = isChecked
+            timeOfTakingMedicineInput.isEnabled = isChecked
+        }
 
+    }
     /**
-     * Walidacja danych rejestracyjnych wprowadzonych przez użytkownika
-     * @return True, jeśli wszystkie pola zostały prawidłowo wypełnione, w przeciwnym razie zwraca False.
+     * Walidacja wprowadzonych danych rejestracyjnych.
+     * Sprawdza, czy pola zostały wypełnione poprawnie.
+     * @return true jeśli dane są poprawne, w przeciwnym razie false.
      */
 
     private fun validateRegisterDetails(): Boolean {
@@ -53,81 +61,72 @@ class MainActivityRegistration1 : BaseActivity() {
         val surname = surnameInput.text.toString().trim()
         val sex = sexInput.text.toString().trim()
         val yearOfBirth = yearOfBirthInput.text.toString().trim()
-        val question = medicationQuestionsSwitch.isChecked.toString()
-        val drugsName = medicationNamesInput.text.toString().trim()
-        val timeOfTakingMedication = timeOfTakingMedicineInput.text.toString().trim()
+        val question = medicationQuestionsSwitch.isChecked
 
         if (TextUtils.isEmpty(name)) {
-            showErrorSnackBar(resources.getString(R.string.err_msg_enter_name), true)
+            showErrorSnackBar(getString(R.string.err_msg_enter_name), true)
             return false
         }
 
         if (TextUtils.isEmpty(surname)) {
-            showErrorSnackBar(resources.getString(R.string.err_msg_enter_surname), true)
+            showErrorSnackBar(getString(R.string.err_msg_enter_surname), true)
             return false
         }
 
         if (TextUtils.isEmpty(sex)) {
-            showErrorSnackBar(resources.getString(R.string.err_msg_enter_gender), true)
+            showErrorSnackBar(getString(R.string.err_msg_enter_gender), true)
             return false
         }
 
         if (TextUtils.isEmpty(yearOfBirth)) {
-            showErrorSnackBar(resources.getString(R.string.err_msg_enter_year_of_birth), true)
+            showErrorSnackBar(getString(R.string.err_msg_enter_year_of_birth), true)
             return false
         }
 
-        if (TextUtils.isEmpty(question)) {
-            showErrorSnackBar(resources.getString(R.string.err_msg_enter_question), true)
-            return false
-        }
+        if (question) {
+            val drugsName = medicationNamesInput.text.toString().trim()
+            val timeOfTakingMedication = timeOfTakingMedicineInput.text.toString().trim()
 
-        if (question.equals("true", ignoreCase = true)) {
-            // Sprawdzamy tylko wtedy, gdy użytkownik deklaruje, że przyjmuje leki
             if (TextUtils.isEmpty(drugsName)) {
-                showErrorSnackBar(resources.getString(R.string.err_msg_enter_doctor_name), true)
+                showErrorSnackBar(getString(R.string.err_msg_enter_doctor_name), true)
                 return false
             }
 
             if (TextUtils.isEmpty(timeOfTakingMedication)) {
-                showErrorSnackBar(resources.getString(R.string.err_msg_enter_time), true)
+                showErrorSnackBar(getString(R.string.err_msg_enter_time), true)
                 return false
             }
-            return true
-        }
-
-        if (question.equals("false", ignoreCase = true)) {
-            // Jeśli użytkownik nie przyjmuje leków, wyłącz możliwość edycji pól godziny i nazwy leku
-            timeOfTakingMedicineInput.isEnabled = false
-            medicationNamesInput.isEnabled = false
-
-            // Bezpośrednio zwracamy true, ponieważ nie ma potrzeby walidacji pól godziny i nazwy leku
-            return true
         }
         return true
     }
     /**
-     * Metoda wywoływana po poprawnej walidacji danych rejestracji.
-     * Otwiera drugą aktywność rejestracji.
+     * Metoda wywoływana po wciśnięciu przycisku rejestracji.
+     * Sprawdza poprawność danych i przechodzi do kolejnego etapu rejestracji.
      */
     private fun registerUser() {
-        val name = nameInput.text.toString().trim()
-        val surname = surnameInput.text.toString().trim()
-        val sex = sexInput.text.toString().trim()
-        val yearOfBirth = yearOfBirthInput.text.toString().trim()
-        val question = medicationQuestionsSwitch.isChecked.toString()
-        val drugsName = medicationNamesInput.text.toString().trim()
-        val timeOfTakingMedication = timeOfTakingMedicineInput.text.toString().trim()
-
         if (validateRegisterDetails()) {
+            val name = nameInput.text.toString().trim()
+            val surname = surnameInput.text.toString().trim()
+            val sex = sexInput.text.toString().trim()
+            val yearOfBirth = yearOfBirthInput.text.toString().trim()
+            val question = medicationQuestionsSwitch.isChecked
+            val drugsName = medicationNamesInput.text.toString().trim()
+            val timeOfTakingMedication = timeOfTakingMedicineInput.text.toString().trim()
+// Przekazanie danych do kolejnej aktywności
             openActivity(name, surname, sex, yearOfBirth, question, drugsName, timeOfTakingMedication)
         }
     }
-
     /**
-     * Metoda służąca otwarciu drugiej aktywności rejestracji i przekazaniu do niej parametrów.
+     * Metoda otwierająca kolejną aktywność rejestracji i przekazująca dane.
+     * @param name Imię użytkownika.
+     * @param surname Nazwisko użytkownika.
+     * @param sex Płeć użytkownika.
+     * @param yearOfBirth Rok urodzenia użytkownika.
+     * @param question Informacja czy użytkownik przyjmuje leki.
+     * @param drugsName Nazwa leku.
+     * @param timeOfTakingMedication Czas przyjmowania leku.
      */
-    private fun openActivity(name: String, surname: String, sex:String, yearOfBirth: String, question: String, drugsName: String, timeOfTakingMedication: String){
+    private fun openActivity(name: String, surname: String, sex:String, yearOfBirth: String, question: Boolean, drugsName: String, timeOfTakingMedication: String){
         val intent = Intent(this, MainActivityRegistration2::class.java)
         intent.putExtra("name", name)
         intent.putExtra("surname", surname)

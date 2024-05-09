@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Switch
+import android.widget.TextView
 import android.widget.Toast
 import com.example.myapplicationkardioasystent.R
 import com.example.myapplicationkardioasystent.cloudFirestore.FirestoreDatabaseOperations
@@ -17,34 +18,30 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-
-
 /**
- * Aktywność odpowiedzialna za zmianę ustawień dotyczących przyjmowanych leków i godzin wykonywania pomiarów.
+ * Aktywność ustawień aplikacji.
+ * Pozwala użytkownikowi na zmianę ustawień, takich jak przyjmowane leki i godziny pomiarów.
  */
 class Settings : BaseActivity() {
     private lateinit var editSettingsTakNieSwitch: Switch
-    private lateinit var editNameSettingsInput:EditText
-    private lateinit var editHourSettingsInput:EditText
+    private lateinit var editNameSettingsInput: EditText
+    private lateinit var editHourSettingsInput: EditText
     private lateinit var saveChangesButton: Button
     private lateinit var editMorningInput: EditText
     private lateinit var editAfternoonInput: EditText
     private lateinit var editNightInput: EditText
     private lateinit var deleteAccountButton: Button
+    private lateinit var settingsTakNieText: TextView
 
-    // Referencja do obiektu FirebaseFirestore do interakcji z bazą danych Firestore
     val db = FirebaseFirestore.getInstance()
-
-    // Obiekt do obsługi operacji na bazie danych Firestore
     private val dbOperations = FirestoreDatabaseOperations(db)
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings)
-        // Pobranie uID z intentu
+
         val uID = intent.getStringExtra("uID")
-        // Inicjalizacja elementów interfejsu użytkownika
+
         editSettingsTakNieSwitch = findViewById(R.id.editSettingsTakNieSwitch)
         editNameSettingsInput = findViewById(R.id.editNameSettingsInput)
         editHourSettingsInput = findViewById(R.id.editHourSettingsInput)
@@ -52,10 +49,12 @@ class Settings : BaseActivity() {
         editMorningInput = findViewById(R.id.editMorningInput)
         editAfternoonInput = findViewById(R.id.editAfternoonInput)
         editNightInput = findViewById(R.id.editNightInput)
-        // Ustawienie danych użytkownika na widoku
+        deleteAccountButton = findViewById(R.id.deleteAccountButton)
+        settingsTakNieText = findViewById(R.id.settingsTakNieText)
+
         setData()
+
         saveChangesButton.setOnClickListener {
-            // Pobranie wartości z pól EditText
             val editSettingsTakNieSwitchValue = editSettingsTakNieSwitch.isChecked
             val editNameSettingsInputValue = editNameSettingsInput.text.toString()
             val editHourSettingsInputValue = editHourSettingsInput.text.toString()
@@ -63,19 +62,15 @@ class Settings : BaseActivity() {
             val editAfternoonInputValue = editAfternoonInput.text.toString()
             val editNightInputValue = editNightInput.text.toString()
 
-            // Pobranie uID z intentu
             val uID = intent.getStringExtra("uID")
 
-            // Pobranie aktualnego obiektu użytkownika z Firestore
             val userId = FirebaseAuth.getInstance().currentUser!!.email
             db.collection("users").document(userId.toString()).get()
                 .addOnSuccessListener { document ->
                     document.toObject(User::class.java)?.let { currentUser ->
-                        // Aktualizacja tylko tych pól, które faktycznie się zmieniły
                         currentUser.question = if (editSettingsTakNieSwitchValue) "Tak" else "Nie"
                         currentUser.drugsName = editNameSettingsInputValue
                         currentUser.timeOfTakingMedication = editHourSettingsInputValue
-                        // Jeśli pole jest puste, zachowaj istniejącą wartość
                         if (editMorningInputValue.isNotEmpty()) {
                             currentUser.morningMeasurement = editMorningInputValue
                         }
@@ -86,12 +81,9 @@ class Settings : BaseActivity() {
                             currentUser.eveningMeasurement = editNightInputValue
                         }
 
-                        // Zapisanie zaktualizowanego obiektu użytkownika w Firestore
                         db.collection("users").document(userId.toString()).set(currentUser)
                             .addOnSuccessListener {
-                                // Wyświetlenie komunikatu o sukcesie
                                 Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
-                                // Jeśli wszystkie pola są wypełnione, otwarcie nowej aktywności
                                 if (editSettingsTakNieSwitchValue && editNameSettingsInputValue.isNotEmpty() && editHourSettingsInputValue.isNotEmpty()) {
                                     openActivity(
                                         editSettingsTakNieSwitchValue.toString(),
@@ -101,7 +93,6 @@ class Settings : BaseActivity() {
                                 }
                             }
                             .addOnFailureListener { exception ->
-                                // Obsługa błędów podczas zapisywania danych
                                 Toast.makeText(
                                     this,
                                     "Failed to save changes: ${exception.message}",
@@ -111,40 +102,37 @@ class Settings : BaseActivity() {
                     }
                 }
         }
-        // Inicjalizacja przycisku usuwania konta
-        deleteAccountButton = findViewById(R.id.deleteAccountButton)
+
         deleteAccountButton.setOnClickListener {
             val userId = FirebaseAuth.getInstance().currentUser!!.email
-            // Uruchomienie korutyny w wątku głównym
             GlobalScope.launch(Dispatchers.Main) {
-                // Usunięcie użytkownika z bazy danych Firestore
                 dbOperations.deleteUser(userId.toString())
             }
-            // Powrót do okna początkowego aplikacji
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         }
-    }
-    /**
-     * Metoda do walidacji zmienianych danych dotyczących przyjmowanych leków.
-     * @return True, jeśli wszystkie pola zostały prawidłowo wypełnione, w przeciwnym razie zwraca False.
-     */
 
+        editSettingsTakNieSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            settingsTakNieText.text = if (isChecked) "Tak" else "Nie"
+        }
+    }
+
+    /**
+     * Waliduje wprowadzone szczegóły dotyczące leków.
+     * Sprawdza, czy nazwa leku i czas przyjmowania zostały wprowadzone.
+     * @return true jeśli dane są poprawne, w przeciwnym razie false.
+     */
     private fun validateDrugsDetails(): Boolean {
         val question = editSettingsTakNieSwitch.isChecked.toString()
         val drugsName = editNameSettingsInput.text.toString().trim()
         val timeOfTakingMedication = editHourSettingsInput.text.toString().trim()
-
-
-
 
         if (question.equals("true", ignoreCase = true)) {
             if (TextUtils.isEmpty(drugsName)) {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_doctor_name), true)
                 return false
             }
-
             if (TextUtils.isEmpty(timeOfTakingMedication)) {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_time), true)
                 return false
@@ -153,28 +141,23 @@ class Settings : BaseActivity() {
         }
 
         if (question.equals("Nie", ignoreCase = true)) {
-            // Jeśli użytkownik nie przyjmuje leków, wyłącz możliwość edycji pól godziny i nazwy leku
             editHourSettingsInput.isEnabled = false
             editNameSettingsInput.isEnabled = false
-
-            // Bezpośrednio zwracamy true, ponieważ nie ma potrzeby walidacji pól godziny i nazwy leku
             return true
         }
-
-
         return true
     }
     /**
-     * Walidacja edytowanych godzin wykonywania pomiarów.
-     * @return True, jeśli wszystkie pola zostały wypełnione poprawnie lub są puste, w przeciwnym razie False.
+     * Waliduje wprowadzone szczegóły dotyczące godzin pomiarów.
+     * Sprawdza poprawność formatu godzin.
+     * @return true jeśli dane są poprawne, w przeciwnym razie false.
      */
+
     private fun validateTimeDetails(): Boolean {
-        // Pobranie wartości wprowadzonych przez użytkownika
         val morningTime = editMorningInput.text.toString().trim()
         val afternoonTime = editAfternoonInput.text.toString().trim()
         val nightTime = editNightInput.text.toString().trim()
 
-        // Tworzenie wyrażenia regularnego do sprawdzenia formatu godziny (np. "10:00")
         val timeRegex = Regex("^$|^([01]?[0-9]|2[0-3]):[0-5][0-9]$")
 
         if (!morningTime.matches(timeRegex)) {
@@ -200,50 +183,38 @@ class Settings : BaseActivity() {
 
         return true
     }
-    /**
-     * Metoda wywoływana po poprawnej walidacjid danych dotyczących przyjmowanych leków
-     * Po zapisaniu edytowanych danych umozliwia powrót do okna głównego aplikacji
-     */
+
     private fun saveChanges() {
         val question = editSettingsTakNieSwitch.isChecked.toString()
         val drugsName = editNameSettingsInput.text.toString().trim()
         val timeOfTakingMedication = editHourSettingsInput.text.toString().trim()
 
-        if (validateDrugsDetails()&& validateTimeDetails()) {
+        if (validateDrugsDetails() && validateTimeDetails()) {
             openActivity(question, drugsName, timeOfTakingMedication)
         }
     }
 
-    /**
-     * Metoda do otwarcia aktywności głównej aplikacji i przekazania zmian.
-     */
     private fun openActivity(question: String, drugsName: String, timeOfTakingMedication: String) {
-        // Tworzenie nowego intentu
         val intent = Intent(this, MainViewApp::class.java)
-
-        // Przekazanie informacji o zmianach za pomocą dodatków
         intent.putExtra("question", question)
         intent.putExtra("drugsName", drugsName)
         intent.putExtra("timeOfTakingMedication", timeOfTakingMedication)
-
-        // Rozpoczęcie nowej aktywności
         startActivity(intent)
     }
-    /**
-     * Metoda do ustawienia danych użytkownika na widoku.
-     */
+
     private fun setData(){
-        // Pobranie danych użytkownika z Firestore
         val userId = FirebaseAuth.getInstance().currentUser!!.email
         val ref = db.collection("users").document(userId.toString())
-        ref.get().addOnSuccessListener {
-            if(it != null) {
-                val drugsName = it.data?.get("drugsName")?.toString()
-                val eveningMeasurement = it.data?.get("eveningMeasurment")?.toString()
-                val middayMeasurement = it.data?.get("middayMeasurment")?.toString()
-                val morningMeasurement = it.data?.get("morningMeasurment")?.toString()
-                val question = it.data?.get("question")?.toString()
-                val timeOfTakingMedication = it.data?.get("timeOfTakingMedication")?.toString()
+        ref.get().addOnSuccessListener { document ->
+            if(document != null && document.exists()) {
+                val drugsName = document.getString("drugsName")
+                val eveningMeasurement = document.getString("eveningMeasurment")
+                val middayMeasurement = document.getString("middayMeasurment")
+                val morningMeasurement = document.getString("morningMeasurment")
+                val question = document.getString("question")
+                val timeOfTakingMedication = document.getString("timeOfTakingMedication")
+
+                settingsTakNieText.text = question
 
                 editNameSettingsInput.setText(drugsName)
                 editHourSettingsInput.setText(timeOfTakingMedication)
@@ -251,14 +222,9 @@ class Settings : BaseActivity() {
                 editNightInput.setText(eveningMeasurement)
                 editMorningInput.setText(morningMeasurement)
                 editSettingsTakNieSwitch.isChecked = question.equals("Tak", ignoreCase = true)
-
             }
+        }.addOnFailureListener {
+            Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
         }
-            .addOnFailureListener {
-                Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
-            }
-
-
-
     }
 }
