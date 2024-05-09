@@ -34,15 +34,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/infoSettingsTextView" />
 
-    <EditText
-        android:id="@+id/editSettingsTakNieTextInput"
-        android:layout_width="200dp"
-        android:layout_height="58dp"
+    <Switch
+        android:id="@+id/editSettingsTakNieSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:hint="Tak/Nie"
-        android:textColor="#000000"
-        android:textColorHint="#000000"
-        android:textColorLink="#000000"
+        android:checked="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,7 +59,7 @@
         app:layout_constraintBottom_toTopOf="@+id/saveChangesButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editSettingsTakNieTextInput"
+        app:layout_constraintTop_toBottomOf="@+id/editSettingsTakNieSwitch"
         app:layout_constraintVertical_bias="0.093" />
 
     <TextView

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Switch
 import android.widget.Toast
 import com.example.myapplicationkardioasystent.R
 import com.example.myapplicationkardioasystent.cloudFirestore.FirestoreDatabaseOperations
@@ -22,7 +23,7 @@ import kotlinx.coroutines.launch
  * Aktywność odpowiedzialna za zmianę ustawień dotyczących przyjmowanych leków i godzin wykonywania pomiarów.
  */
 class Settings : BaseActivity() {
-    private lateinit var editSettingsTakNieTextInput:EditText
+    private lateinit var editSettingsTakNieSwitch: Switch
     private lateinit var editNameSettingsInput:EditText
     private lateinit var editHourSettingsInput:EditText
     private lateinit var saveChangesButton: Button
@@ -44,7 +45,7 @@ class Settings : BaseActivity() {
         // Pobranie uID z intentu
         val uID = intent.getStringExtra("uID")
         // Inicjalizacja elementów interfejsu użytkownika
-        editSettingsTakNieTextInput = findViewById(R.id.editSettingsTakNieTextInput)
+        editSettingsTakNieSwitch = findViewById(R.id.editSettingsTakNieSwitch)
         editNameSettingsInput = findViewById(R.id.editNameSettingsInput)
         editHourSettingsInput = findViewById(R.id.editHourSettingsInput)
         saveChangesButton = findViewById(R.id.saveChangesButton)
@@ -55,7 +56,7 @@ class Settings : BaseActivity() {
         setData()
         saveChangesButton.setOnClickListener {
             // Pobranie wartości z pól EditText
-            val editSettingsTakNieTextInputValue = editSettingsTakNieTextInput.text.toString()
+            val editSettingsTakNieSwitchValue = editSettingsTakNieSwitch.isChecked
             val editNameSettingsInputValue = editNameSettingsInput.text.toString()
             val editHourSettingsInputValue = editHourSettingsInput.text.toString()
             val editMorningInputValue = editMorningInput.text.toString()
@@ -71,7 +72,7 @@ class Settings : BaseActivity() {
                 .addOnSuccessListener { document ->
                     document.toObject(User::class.java)?.let { currentUser ->
                         // Aktualizacja tylko tych pól, które faktycznie się zmieniły
-                        currentUser.question = editSettingsTakNieTextInputValue
+                        currentUser.question = if (editSettingsTakNieSwitchValue) "Tak" else "Nie"
                         currentUser.drugsName = editNameSettingsInputValue
                         currentUser.timeOfTakingMedication = editHourSettingsInputValue
                         // Jeśli pole jest puste, zachowaj istniejącą wartość
@@ -91,9 +92,9 @@ class Settings : BaseActivity() {
                                 // Wyświetlenie komunikatu o sukcesie
                                 Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
                                 // Jeśli wszystkie pola są wypełnione, otwarcie nowej aktywności
-                                if (editSettingsTakNieTextInputValue.isNotEmpty() && editNameSettingsInputValue.isNotEmpty() && editHourSettingsInputValue.isNotEmpty()) {
+                                if (editSettingsTakNieSwitchValue && editNameSettingsInputValue.isNotEmpty() && editHourSettingsInputValue.isNotEmpty()) {
                                     openActivity(
-                                        editSettingsTakNieTextInputValue,
+                                        editSettingsTakNieSwitchValue.toString(),
                                         editNameSettingsInputValue,
                                         editHourSettingsInputValue
                                     )
@@ -131,15 +132,14 @@ class Settings : BaseActivity() {
      */
 
     private fun validateDrugsDetails(): Boolean {
-        val question = editSettingsTakNieTextInput.text.toString().trim()
+        val question = editSettingsTakNieSwitch.isChecked.toString()
         val drugsName = editNameSettingsInput.text.toString().trim()
         val timeOfTakingMedication = editHourSettingsInput.text.toString().trim()
 
 
 
 
-        if (question.equals("Tak", ignoreCase = true)) {
-            // Sprawdzamy tylko wtedy, gdy użytkownik deklaruje, że przyjmuje leki
+        if (question.equals("true", ignoreCase = true)) {
             if (TextUtils.isEmpty(drugsName)) {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_doctor_name), true)
                 return false
@@ -205,7 +205,7 @@ class Settings : BaseActivity() {
      * Po zapisaniu edytowanych danych umozliwia powrót do okna głównego aplikacji
      */
     private fun saveChanges() {
-        val question = editSettingsTakNieTextInput.text.toString().trim()
+        val question = editSettingsTakNieSwitch.isChecked.toString()
         val drugsName = editNameSettingsInput.text.toString().trim()
         val timeOfTakingMedication = editHourSettingsInput.text.toString().trim()
 
@@ -250,7 +250,7 @@ class Settings : BaseActivity() {
                 editAfternoonInput.setText(middayMeasurement)
                 editNightInput.setText(eveningMeasurement)
                 editMorningInput.setText(morningMeasurement)
-                editSettingsTakNieTextInput.setText(question)
+                editSettingsTakNieSwitch.isChecked = question.equals("Tak", ignoreCase = true)
 
             }
         }

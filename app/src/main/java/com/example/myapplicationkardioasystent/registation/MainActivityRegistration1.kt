@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Switch
 import com.example.myapplicationkardioasystent.R
 
 /**
@@ -16,7 +17,7 @@ class MainActivityRegistration1 : BaseActivity() {
     private lateinit var surnameInput:EditText
     private lateinit var sexInput:EditText
     private lateinit var yearOfBirthInput:EditText
-    private lateinit var medicationQuestionsInput:EditText
+    private lateinit var medicationQuestionsSwitch: Switch
     private lateinit var medicationNamesInput:EditText
     private lateinit var timeOfTakingMedicineInput:EditText
     private lateinit var signInButtonRegistration: Button
@@ -31,7 +32,7 @@ class MainActivityRegistration1 : BaseActivity() {
         surnameInput = findViewById(R.id.surnameInput)
         sexInput = findViewById(R.id.sexInput)
         yearOfBirthInput = findViewById(R.id.yearOfBirthInput)
-        medicationQuestionsInput = findViewById(R.id.medicationQuestionsInput)
+        medicationQuestionsSwitch = findViewById(R.id.medicationQuestionsSwitch)
         medicationNamesInput = findViewById(R.id.medicationNamesInput)
         timeOfTakingMedicineInput = findViewById(R.id.timeOfTakingMedicineInput)
         signInButtonRegistration = findViewById(R.id.signInButtonRegistration)
@@ -52,7 +53,7 @@ class MainActivityRegistration1 : BaseActivity() {
         val surname = surnameInput.text.toString().trim()
         val sex = sexInput.text.toString().trim()
         val yearOfBirth = yearOfBirthInput.text.toString().trim()
-        val question = medicationQuestionsInput.text.toString().trim()
+        val question = medicationQuestionsSwitch.isChecked.toString()
         val drugsName = medicationNamesInput.text.toString().trim()
         val timeOfTakingMedication = timeOfTakingMedicineInput.text.toString().trim()
 
@@ -81,7 +82,7 @@ class MainActivityRegistration1 : BaseActivity() {
             return false
         }
 
-        if (question.equals("Tak", ignoreCase = true)) {
+        if (question.equals("true", ignoreCase = true)) {
             // Sprawdzamy tylko wtedy, gdy użytkownik deklaruje, że przyjmuje leki
             if (TextUtils.isEmpty(drugsName)) {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_doctor_name), true)
@@ -95,7 +96,7 @@ class MainActivityRegistration1 : BaseActivity() {
             return true
         }
 
-        if (question.equals("Nie", ignoreCase = true)) {
+        if (question.equals("false", ignoreCase = true)) {
             // Jeśli użytkownik nie przyjmuje leków, wyłącz możliwość edycji pól godziny i nazwy leku
             timeOfTakingMedicineInput.isEnabled = false
             medicationNamesInput.isEnabled = false
@@ -103,11 +104,8 @@ class MainActivityRegistration1 : BaseActivity() {
             // Bezpośrednio zwracamy true, ponieważ nie ma potrzeby walidacji pól godziny i nazwy leku
             return true
         }
-
-
         return true
     }
-
     /**
      * Metoda wywoływana po poprawnej walidacji danych rejestracji.
      * Otwiera drugą aktywność rejestracji.
@@ -117,7 +115,7 @@ class MainActivityRegistration1 : BaseActivity() {
         val surname = surnameInput.text.toString().trim()
         val sex = sexInput.text.toString().trim()
         val yearOfBirth = yearOfBirthInput.text.toString().trim()
-        val question = medicationQuestionsInput.text.toString().trim()
+        val question = medicationQuestionsSwitch.isChecked.toString()
         val drugsName = medicationNamesInput.text.toString().trim()
         val timeOfTakingMedication = timeOfTakingMedicineInput.text.toString().trim()
 
