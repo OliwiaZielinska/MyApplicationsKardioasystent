@@ -70,7 +70,7 @@
         android:layout_marginBottom="16dp"
         android:backgroundTint="#F69393"
         android:text="POWRÓT"
-        android:textColor="#FDFDFD"
+        android:textColor="#FFFFFF"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

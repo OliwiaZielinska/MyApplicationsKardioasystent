@@ -228,6 +228,7 @@
         android:layout_marginBottom="16dp"
         android:backgroundTint="#F69393"
         android:text="ZAREJESTRUJ SIĘ"
+        android:textColor="#FFFFFF"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
