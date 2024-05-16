@@ -45,7 +45,7 @@ class MainViewApp : AppCompatActivity() {
 
         // Obsługa przycisku "Statystyki"
         statisticsButton.setOnClickListener {
-            openActivityStatistics()
+            openActivityStatistics(uID.toString())
         }
 
         // Obsługa przycisku "Ustawienia"
@@ -92,8 +92,9 @@ class MainViewApp : AppCompatActivity() {
     /**
      * Metoda do otwarcia aktywności związanej z wyświetleniem statystyk zalogowanego użytkownika.
      */
-    private fun openActivityStatistics() {
+    private fun openActivityStatistics(userID: String) {
         val intent = Intent(this, Statistics::class.java)
+        intent.putExtra("userID", userID)
         startActivity(intent)
     }
 }
