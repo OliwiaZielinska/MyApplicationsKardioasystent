@@ -34,19 +34,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/infoSettingsTextView" />
 
-    <EditText
-        android:id="@+id/editSettingsTakNieTextInput"
-        android:layout_width="200dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="4dp"
-        android:hint="Tak/Nie"
-        android:textColor="#000000"
-        android:textColorHint="#000000"
-        android:textColorLink="#000000"
+    <Switch
+        android:id="@+id/editSettingsTakNieSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:checked="false"
+        android:textOff="Nie"
+        android:textOn="Tak"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/changeSettingsQuestionText" />
+
 
     <TextView
         android:id="@+id/editNamesAndHoursText"
@@ -62,7 +62,7 @@
         app:layout_constraintBottom_toTopOf="@+id/saveChangesButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editSettingsTakNieTextInput"
+        app:layout_constraintTop_toBottomOf="@+id/editSettingsTakNieSwitch"
         app:layout_constraintVertical_bias="0.093" />
 
     <TextView
@@ -257,5 +257,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.671"
         app:layout_constraintStart_toEndOf="@+id/saveChangesButton" />
+
+    <TextView
+        android:id="@+id/settingsTakNieText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.291"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/changeSettingsQuestionText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

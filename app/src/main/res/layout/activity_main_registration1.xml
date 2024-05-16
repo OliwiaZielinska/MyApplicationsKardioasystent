@@ -124,35 +124,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/yearOfBirthText" />
 
-    <EditText
-        android:id="@+id/sexInput"
+    <Spinner
+        android:id="@+id/sexSpinner"
         android:layout_width="192dp"
         android:layout_height="48dp"
         android:layout_marginTop="186dp"
-        android:hint="Płeć"
         android:textColor="#000000"
-        android:textColorHint="#000000"
-        android:textColorLink="#000000"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.726"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
-    <EditText
-        android:id="@+id/medicationQuestionsInput"
-        android:layout_width="192dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="10dp"
-        android:hint="Tak/Nie"
-        android:textColor="#000000"
-        android:textColorHint="#000000"
-        android:textColorLink="#000000"
-        android:textSize="14sp"
+
+    <Switch
+        android:id="@+id/medicationQuestionsSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:checked="false"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        android:textOff="Nie"
+        android:textOn="Tak"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/questionText"
-        tools:ignore="DuplicateIds" />
+        app:layout_constraintTop_toBottomOf="@+id/questionText" />
+
 
     <TextView
         android:id="@+id/questionText"
@@ -166,7 +165,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/sexInput" />
+        app:layout_constraintTop_toTopOf="@+id/sexSpinner" />
 
     <TextView
         android:id="@+id/medicationText"
@@ -182,7 +181,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/medicationQuestionsInput" />
+        app:layout_constraintTop_toTopOf="@+id/medicationQuestionsSwitch" />
 
     <EditText
         android:id="@+id/medicationNamesInput"
@@ -265,5 +264,15 @@
         app:layout_constraintHorizontal_bias="0.074"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/medicationText" />
+
+    <TextView
+        android:id="@+id/setTakNieText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.301"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/questionText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

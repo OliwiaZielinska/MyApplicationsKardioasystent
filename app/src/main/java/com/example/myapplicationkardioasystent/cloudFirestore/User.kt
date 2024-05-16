@@ -28,7 +28,7 @@ data class User(
     @get:PropertyName("surname") @set:PropertyName("surname") var surname: String = "",
     @get:PropertyName("sex") @set:PropertyName("sex") var sex: String = "",
     @get:PropertyName("yearOfBirth") @set:PropertyName("yearOfBirth") var yearOfBirth: String = "",
-    @get:PropertyName("question") @set:PropertyName("question") var question: String = "",
+    @get:PropertyName("question") @set:PropertyName("question") var question: Boolean = false,
     @get:PropertyName("drugsName") @set:PropertyName("drugsName") var drugsName: String = "",
     @get:PropertyName("timeOfTakingMedication") @set:PropertyName("timeOfTakingMedication") var timeOfTakingMedication: String = "",
     @get:PropertyName("login") @set:PropertyName("login") var login: String = "",
