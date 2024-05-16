@@ -71,24 +71,22 @@ class Settings : BaseActivity() {
                         currentUser.question = editSettingsTakNieSwitchValue
                         currentUser.drugsName = editNameSettingsInputValue
                         currentUser.timeOfTakingMedication = editHourSettingsInputValue
-                        if (editMorningInputValue.isNotEmpty()) {
-                            currentUser.morningMeasurement = editMorningInputValue
-                        }
-                        if (editAfternoonInputValue.isNotEmpty()) {
-                            currentUser.middayMeasurement = editAfternoonInputValue
-                        }
-                        if (editNightInputValue.isNotEmpty()) {
-                            currentUser.eveningMeasurement = editNightInputValue
-                        }
+                        currentUser.morningMeasurement = editMorningInputValue
+                        currentUser.middayMeasurement = editAfternoonInputValue
+                        currentUser.eveningMeasurement = editNightInputValue
 
                         db.collection("users").document(userId.toString()).set(currentUser)
                             .addOnSuccessListener {
                                 Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
-                                if (editSettingsTakNieSwitchValue && editNameSettingsInputValue.isNotEmpty() && editHourSettingsInputValue.isNotEmpty()) {
+                                if (editSettingsTakNieSwitchValue && editNameSettingsInputValue.isNotEmpty() && editHourSettingsInputValue.isNotEmpty()
+                                    && editMorningInputValue.isNotEmpty() && editAfternoonInputValue.isNotEmpty() && editNightInputValue.isNotEmpty()) {
                                     openActivity(
                                         editSettingsTakNieSwitchValue.toString(),
                                         editNameSettingsInputValue,
-                                        editHourSettingsInputValue
+                                        editHourSettingsInputValue,
+                                        editMorningInputValue,
+                                        editAfternoonInputValue,
+                                        editNightInputValue,
                                     )
                                 }
                             }
@@ -188,17 +186,23 @@ class Settings : BaseActivity() {
         val question = editSettingsTakNieSwitch.isChecked.toString()
         val drugsName = editNameSettingsInput.text.toString().trim()
         val timeOfTakingMedication = editHourSettingsInput.text.toString().trim()
+        val morningMeasurement = editMorningInput.text.toString().trim()
+        val middayMeasurement = editAfternoonInput.text.toString().trim()
+        val eveningMeasurement = editNightInput.text.toString().trim()
 
         if (validateDrugsDetails() && validateTimeDetails()) {
-            openActivity(question, drugsName, timeOfTakingMedication)
+            openActivity(question, drugsName, timeOfTakingMedication, morningMeasurement, middayMeasurement, eveningMeasurement)
         }
     }
 
-    private fun openActivity(question: String, drugsName: String, timeOfTakingMedication: String) {
+    private fun openActivity(question: String, drugsName: String, timeOfTakingMedication: String, morningMeasurement: String, middayMeasurement: String, eveningMeasurement: String) {
         val intent = Intent(this, MainViewApp::class.java)
         intent.putExtra("question", question)
         intent.putExtra("drugsName", drugsName)
         intent.putExtra("timeOfTakingMedication", timeOfTakingMedication)
+        intent.putExtra("morningMeasurement", morningMeasurement)
+        intent.putExtra("middayMeasurement", middayMeasurement)
+        intent.putExtra("eveningMeasurement", eveningMeasurement)
         startActivity(intent)
     }
 
@@ -208,9 +212,9 @@ class Settings : BaseActivity() {
         ref.get().addOnSuccessListener { document ->
             if(document != null && document.exists()) {
                 val drugsName = document.getString("drugsName")
-                val eveningMeasurement = document.getString("eveningMeasurment")
-                val middayMeasurement = document.getString("middayMeasurment")
-                val morningMeasurement = document.getString("morningMeasurment")
+                val eveningMeasurement = document.getString("eveningMeasurement")
+                val middayMeasurement = document.getString("middayMeasurement")
+                val morningMeasurement = document.getString("morningMeasurement")
                 val question = document.getBoolean("question")?.let { if (it) "Tak" else "Nie" }
                 val timeOfTakingMedication = document.getString("timeOfTakingMedication")
 
