@@ -55,15 +55,14 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="387dp"
-        android:layout_height="279dp"
+        android:layout_width="370dp"
+        android:layout_height="280dp"
         android:layout_marginBottom="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logInButtonEnd"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_bias="0.757"
         app:srcCompat="@drawable/running_heart" />
 
     <TextView
