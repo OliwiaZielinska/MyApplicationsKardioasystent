@@ -98,7 +98,7 @@ class Statistics : AppCompatActivity() {
     }
 
     /**
-     * Filtruje dane pomiarowe na podstawie wybranego kryterium daty (tydzień/miesiąc/rok)
+     * Filtruje dane pomiarowe na podstawie wybranego kryterium.
      */
     private fun filterData(filter: String) {
         val calendar = Calendar.getInstance()
@@ -130,6 +130,7 @@ class Statistics : AppCompatActivity() {
                     calendar.time = Calendar.getInstance().time // Resetujemy kalendarz
                 }
             } catch (e: ParseException) {
+                //logowany błąd parsowania daty
             }
         }
         adapter.notifyDataSetChanged()
