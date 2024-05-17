@@ -2,7 +2,11 @@ package com.example.myapplicationkardioasystent.apps
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,39 +15,59 @@ import com.example.myapplicationkardioasystent.R
 import com.example.myapplicationkardioasystent.cloudFirestore.Measurment
 import com.example.myapplicationkardioasystent.recyclerView.MeasurementAdapter
 import com.google.firebase.firestore.FirebaseFirestore
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 /**
- * Aktywność wyświetlająca statystyki wyników zdrowia użytkowika zalogowanego w aplikacji.
- * Umożliwia użytkownikowi powrót do głównego widoku aplikacji.
+ * Aktywność do wyświetlania statystyk pomiarów.
  */
 class Statistics : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
     private val patientMeasurementList = mutableListOf<Measurment>()
+    private val filteredMeasurementList = mutableListOf<Measurment>()
     private lateinit var adapter: MeasurementAdapter
+    private lateinit var spinnerFilter: Spinner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.statistics)
         setData()
 
-        // Inicjalizacja RecyclerView
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-
-        // Ustawienie adaptera dla RecyclerView, który będzie obsługiwał listę pomiarów pacjenta
-        adapter = MeasurementAdapter(patientMeasurementList, intent)
+        adapter = MeasurementAdapter(filteredMeasurementList, intent)
         recyclerView.adapter = adapter
-
-        // Ustawienie menedżera układu dla RecyclerView, w tym przypadku używamy LinearLayoutManager
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Obsługa przycisku "Powrót"
+        spinnerFilter = findViewById(R.id.spinnerFilter)
+        val adapterSpinner = ArrayAdapter.createFromResource(
+            this,
+            R.array.filter_options,
+            android.R.layout.simple_spinner_item
+        )
+        adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerFilter.adapter = adapterSpinner
+
+        spinnerFilter.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                val filter = parent.getItemAtPosition(position)?.toString() ?: "Tydzień"
+                filterData(filter)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+            }
+        }
+
         val returnFromStatisticsButton = findViewById<Button>(R.id.returnFromStatisticsButton)
         returnFromStatisticsButton.setOnClickListener {
-            // Powrót do głównego okna aplikacji
             openMainActivity()
         }
     }
 
+    /**
+     * Pobiera dane pomiarowe pacjenta z bazy danych Firebase Firestore.
+     */
     private fun setData() {
         db.collection("measurements")
             .get()
@@ -65,15 +89,54 @@ class Statistics : AppCompatActivity() {
                         patientMeasurementList.add(measurement)
                     }
                 }
-                adapter.notifyDataSetChanged()
+                val filter = spinnerFilter.selectedItem?.toString() ?: "Tydzień"
+                filterData(filter)
             }
             .addOnFailureListener { exception ->
-                Toast.makeText(this, "Failed: $exception", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Błąd: $exception", Toast.LENGTH_SHORT).show()
             }
     }
 
     /**
-     * Metoda do otwarcia głównego widoku aplikacji.
+     * Filtruje dane pomiarowe na podstawie wybranego kryterium daty (tydzień/miesiąc/rok)
+     */
+    private fun filterData(filter: String) {
+        val calendar = Calendar.getInstance()
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+        filteredMeasurementList.clear()
+        for (measurement in patientMeasurementList) {
+            try {
+                val measurementDate = dateFormat.parse(measurement.date)
+                if (measurementDate != null) {
+                    val shouldAdd = when (filter) {
+                        "Tydzień" -> {
+                            calendar.add(Calendar.WEEK_OF_YEAR, -1)
+                            measurementDate.after(calendar.time)
+                        }
+                        "Miesiąc" -> {
+                            calendar.add(Calendar.MONTH, -1)
+                            measurementDate.after(calendar.time)
+                        }
+                        "Rok" -> {
+                            calendar.add(Calendar.YEAR, -1)
+                            measurementDate.after(calendar.time)
+                        }
+                        else -> true
+                    }
+                    if (shouldAdd) {
+                        filteredMeasurementList.add(measurement)
+                    }
+                    calendar.time = Calendar.getInstance().time // Resetujemy kalendarz
+                }
+            } catch (e: ParseException) {
+            }
+        }
+        adapter.notifyDataSetChanged()
+    }
+
+    /**
+     * Otwiera główną aktywność aplikacji.
      */
     private fun openMainActivity() {
         val intent = Intent(this, MainViewApp::class.java)
