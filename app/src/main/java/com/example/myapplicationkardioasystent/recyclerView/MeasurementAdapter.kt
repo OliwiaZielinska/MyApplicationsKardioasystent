@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplicationkardioasystent.R
 import com.example.myapplicationkardioasystent.cloudFirestore.Measurment
+
 /**
  * Adapter dla RecyclerView, służący do wyświetlania listy pomiarów.
  *
@@ -27,7 +28,8 @@ class MeasurementAdapter(val measurements: MutableList<Measurment>, val intent: 
         val timeTextView: TextView = itemView.findViewById(R.id.timeTextView)
         val bloodPressureTextView: TextView = itemView.findViewById(R.id.bloodPressureTextView)
         val pulseTextView: TextView = itemView.findViewById(R.id.pulseTextView)
-        val imageView: ImageView = itemView.findViewById(R.id.imageView)
+        val imageViewPulse: ImageView = itemView.findViewById(R.id.imageViewPulse)
+        val imageViewBloodPressure: ImageView = itemView.findViewById(R.id.imageViewBloodPressure)
     }
 
     /**
@@ -59,13 +61,28 @@ class MeasurementAdapter(val measurements: MutableList<Measurment>, val intent: 
             holder.bloodPressureTextView.text = currentMeasurement.bloodPressure
             holder.pulseTextView.text = currentMeasurement.pulse
 
+            // Sprawdzenie wartości ciśnienia krwi i ustawienie odpowiedniego obrazka
+            val bloodPressureParts = currentMeasurement.bloodPressure.split("/")
+            if (bloodPressureParts.size == 2) {
+                val systolic = bloodPressureParts[0].toIntOrNull()
+                val diastolic = bloodPressureParts[1].toIntOrNull()
+
+                if (systolic != null && diastolic != null) {
+                    if (systolic in 110..130 && diastolic in 60..80) {
+                        holder.imageViewBloodPressure.setImageResource(R.drawable.w_normie_cisnienie)
+                    } else {
+                        holder.imageViewBloodPressure.setImageResource(R.drawable.poza_norma_cisnienie)
+                    }
+                }
+            }
+
             // Sprawdzenie wartości pulsu i ustawienie odpowiedniego obrazka
             val pulseValue = currentMeasurement.pulse.toIntOrNull()
             if (pulseValue != null) {
                 if (pulseValue < 100) {
-                    holder.imageView.setImageResource(R.drawable.w_normie2)
+                    holder.imageViewPulse.setImageResource(R.drawable.w_normie_tetno)
                 } else {
-                    holder.imageView.setImageResource(R.drawable.poza_norma2)
+                    holder.imageViewPulse.setImageResource(R.drawable.poza_norma_tetno)
                 }
             }
         } else {
@@ -85,4 +102,3 @@ class MeasurementAdapter(val measurements: MutableList<Measurment>, val intent: 
         return measurements.count { it.userID == intent.getStringExtra("userID").toString() }
     }
 }
-
