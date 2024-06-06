@@ -20,5 +20,4 @@ data class Measurment(
     @get:PropertyName("hour") @set:PropertyName("hour") var hour: String = "",
     @get:PropertyName("bloodPressure") @set:PropertyName("bloodPressure") var bloodPressure: String = "",
     @get:PropertyName("pulse") @set:PropertyName("pulse") var pulse: String = "",
-    var imageResourceId: Int = 0
 )

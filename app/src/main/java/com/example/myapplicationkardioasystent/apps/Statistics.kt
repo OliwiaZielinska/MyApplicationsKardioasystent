@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplicationkardioasystent.R
 import com.example.myapplicationkardioasystent.cloudFirestore.Measurment
 import com.example.myapplicationkardioasystent.recyclerView.MeasurementAdapter
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -60,8 +61,9 @@ class Statistics : AppCompatActivity() {
         }
 
         val returnFromStatisticsButton = findViewById<Button>(R.id.returnFromStatisticsButton)
+        val userId = FirebaseAuth.getInstance().currentUser!!.email
         returnFromStatisticsButton.setOnClickListener {
-            openMainActivity()
+            openMainActivity(userId.toString())
         }
     }
 
@@ -139,8 +141,9 @@ class Statistics : AppCompatActivity() {
     /**
      * Otwiera główną aktywność aplikacji.
      */
-    private fun openMainActivity() {
+    private fun openMainActivity(userID : String) {
         val intent = Intent(this, MainViewApp::class.java)
+        intent.putExtra("uID", userID)
         startActivity(intent)
     }
 }
