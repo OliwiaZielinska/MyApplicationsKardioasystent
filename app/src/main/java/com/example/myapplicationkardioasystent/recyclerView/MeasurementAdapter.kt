@@ -9,20 +9,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplicationkardioasystent.R
 import com.example.myapplicationkardioasystent.cloudFirestore.Measurment
+import com.example.myapplicationkardioasystent.cloudFirestore.User
+import com.example.myapplicationkardioasystent.registation.Gender
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import java.util.Calendar
 
-/**
- * Adapter dla RecyclerView, służący do wyświetlania listy pomiarów.
- *
- * @param measurements Lista pomiarów do wyświetlenia.
- * @param intent Intent przechowujący informacje o aktualnie zalogowanym użytkowniku.
- */
 class MeasurementAdapter(val measurements: MutableList<Measurment>, val intent: Intent) : RecyclerView.Adapter<MeasurementAdapter.MeasurementViewHolder>() {
 
-    /**
-     * ViewHolder przechowujący widoki elementów listy.
-     *
-     * @param itemView Widok elementu listy.
-     */
     class MeasurementViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val dateTextView: TextView = itemView.findViewById(R.id.dateTextView)
         val timeTextView: TextView = itemView.findViewById(R.id.timeTextView)
@@ -32,73 +26,107 @@ class MeasurementAdapter(val measurements: MutableList<Measurment>, val intent: 
         val imageViewBloodPressure: ImageView = itemView.findViewById(R.id.imageViewBloodPressure)
     }
 
-    /**
-     * Tworzenie nowego ViewHoldera (inicjalizacja widoku).
-     *
-     * @param parent Grupa, do której ViewHolder zostanie dołączony po utworzeniu.
-     * @param viewType Typ widoku.
-     * @return MeasurementViewHolder nowy obiekt MeasurementViewHolder.
-     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MeasurementViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.measurment_item, parent, false)
+        val itemView =
+            LayoutInflater.from(parent.context).inflate(R.layout.measurment_item, parent, false)
         return MeasurementViewHolder(itemView)
     }
 
-    /**
-     * Wiązanie danych z konkretnym elementem listy.
-     *
-     * @param holder ViewHolder do którego dane mają być przypisane.
-     * @param position Pozycja elementu na liście.
-     */
     override fun onBindViewHolder(holder: MeasurementViewHolder, position: Int) {
         val currentMeasurement = measurements[position]
+        val userIdFromIntent = intent.getStringExtra("userID").toString()
 
-        // Sprawdzenie, czy pomiar należy do aktualnie zalogowanego użytkownika
-        if (currentMeasurement.userID == intent.getStringExtra("userID").toString()) {
-            // Jeśli pomiar należy do zalogowanego użytkownika, wyświetl go
+        if (currentMeasurement.userID == userIdFromIntent) {
             holder.dateTextView.text = currentMeasurement.date
             holder.timeTextView.text = currentMeasurement.hour
             holder.bloodPressureTextView.text = currentMeasurement.bloodPressure
             holder.pulseTextView.text = currentMeasurement.pulse
 
-            // Sprawdzenie wartości ciśnienia krwi i ustawienie odpowiedniego obrazka
             val bloodPressureParts = currentMeasurement.bloodPressure.split("/")
             if (bloodPressureParts.size == 2) {
                 val systolic = bloodPressureParts[0].toIntOrNull()
                 val diastolic = bloodPressureParts[1].toIntOrNull()
-
                 if (systolic != null && diastolic != null) {
-                    if (systolic in 110..130 && diastolic in 60..80) {
-                        holder.imageViewBloodPressure.setImageResource(R.drawable.w_normie_cisnienie)
-                    } else {
-                        holder.imageViewBloodPressure.setImageResource(R.drawable.poza_norma_cisnienie)
+                    calculateAgeAndGender { age, gender ->
+                        val systolicRange = when (age) {
+                            in 18..39 -> if (gender == Gender.MALE.toString()) 114..124 else 105..115
+                            in 40..59 -> if (gender == Gender.MALE.toString()) 119..129 else 117..127
+                            else -> if (gender == Gender.MALE.toString()) 128..138 else 134..144
+                        }
+                        val diastolicRange = when (age) {
+                            in 18..39 -> if (gender == Gender.MALE.toString()) 65..75 else 63..73
+                            in 40..59 -> if (gender == Gender.MALE.toString()) 72..82 else 69..79
+                            else -> if (gender == Gender.MALE.toString()) 64..74 else 63..73
+                        }
+                        if (systolic in systolicRange && diastolic in diastolicRange) {
+                            holder.imageViewBloodPressure.setImageResource(R.drawable.w_normie_cisnienie)
+                        } else {
+                            holder.imageViewBloodPressure.setImageResource(R.drawable.poza_norma_cisnienie)
+                        }
                     }
                 }
             }
 
-            // Sprawdzenie wartości pulsu i ustawienie odpowiedniego obrazka
             val pulseValue = currentMeasurement.pulse.toIntOrNull()
             if (pulseValue != null) {
-                if (pulseValue < 100) {
-                    holder.imageViewPulse.setImageResource(R.drawable.w_normie_tetno)
-                } else {
-                    holder.imageViewPulse.setImageResource(R.drawable.poza_norma_tetno)
+                calculateAgeAndGender { age, gender ->
+                    val bpmRange = when (age) {
+                        in 18..25 -> if (gender == Gender.MALE.toString()) 62..73 else 64..80
+                        in 26..35 -> if (gender == Gender.MALE.toString()) 62..73 else 64..81
+                        in 36..45 -> if (gender == Gender.MALE.toString()) 63..75 else 65..82
+                        in 46..55 -> if (gender == Gender.MALE.toString()) 64..76 else 66..83
+                        in 56..65 -> if (gender == Gender.MALE.toString()) 62..75 else 64..82
+                        else -> if (gender == Gender.MALE.toString()) 62..73 else 64..81
+                    }
+
+                    if (pulseValue in bpmRange) {
+                        holder.imageViewPulse.setImageResource(R.drawable.w_normie_tetno)
+                        print(gender)
+                    } else {
+                        holder.imageViewPulse.setImageResource(R.drawable.poza_norma_tetno)
+                        print(gender)
+                    }
                 }
             }
         } else {
-            // Jeśli pomiar nie należy do zalogowanego użytkownika, ukryj ten element listy
             holder.itemView.visibility = View.GONE
             holder.itemView.layoutParams = RecyclerView.LayoutParams(0, 0)
         }
     }
 
-    /**
-     * Zwrócenie liczby elementów na liście.
-     *
-     * @return Liczba elementów na liście.
-     */
+
     override fun getItemCount(): Int {
-        // Zliczenie pomiarów należących do aktualnie zalogowanego użytkownika
         return measurements.count { it.userID == intent.getStringExtra("userID").toString() }
+    }
+
+
+    private fun calculateAgeAndGender(callback: (Int, String) -> Unit) {
+        val db = FirebaseFirestore.getInstance()
+        val userId = FirebaseAuth.getInstance().currentUser?.email
+        if (userId != null) {
+            db.collection("users").document(userId).get()
+                .addOnSuccessListener { document ->
+                    val currentUser = document.toObject(User::class.java)
+                    if (currentUser != null) {
+                        val birthYear = currentUser.yearOfBirth.toIntOrNull()
+                        val gender = currentUser.sex
+                        if (birthYear != null && gender != null) {
+                            val currentYear = Calendar.getInstance().get(Calendar.YEAR)
+                            val age = currentYear - birthYear
+                            callback(age, gender)
+
+                        } else {
+                            callback(-1, "unknown")
+                        }
+                    } else {
+                        callback(-1, "unknown")
+                    }
+                }
+                .addOnFailureListener {
+                    callback(-1, "unknown")
+                }
+        } else {
+            callback(-1, "unknown")
+        }
     }
 }
