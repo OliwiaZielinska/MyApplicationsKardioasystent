@@ -105,6 +105,7 @@ class Statistics : AppCompatActivity() {
     private fun filterData(filter: String) {
         val calendar = Calendar.getInstance()
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val dateTimeFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
 
         filteredMeasurementList.clear()
         for (measurement in patientMeasurementList) {
@@ -129,14 +130,25 @@ class Statistics : AppCompatActivity() {
                     if (shouldAdd) {
                         filteredMeasurementList.add(measurement)
                     }
-                    calendar.time = Calendar.getInstance().time // Resetujemy kalendarz
+                    calendar.time = Calendar.getInstance().time
                 }
             } catch (e: ParseException) {
                 //logowany błąd parsowania daty
             }
         }
+
+        // Sortowanie pomiarów po dacie i godzinie
+        filteredMeasurementList.sortBy { measurement ->
+            try {
+                dateTimeFormat.parse("${measurement.date} ${measurement.hour}")
+            } catch (e: ParseException) {
+                null
+            }
+        }
+
         adapter.notifyDataSetChanged()
     }
+
 
     /**
      * Otwiera główną aktywność aplikacji.

@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/border"
     android:orientation="vertical"
-    android:padding="4dp"
-    android:background="@drawable/border">
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/dateTextView"
@@ -24,39 +24,75 @@
         android:textColor="#000000"
         android:textSize="16sp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <TextView
+        android:id="@+id/bloodPressureLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="4dp"
+        android:paddingBottom="4dp"
+        android:text="Ciśnienie:"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
     <TextView
         android:id="@+id/bloodPressureTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingStart="4dp"
         android:paddingBottom="4dp"
+        android:textAlignment="center"
         android:textColor="#000000"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/pulseTextView"
-        android:layout_width="wrap_content"
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="4dp"
-        android:paddingBottom="4dp"
-        android:textColor="#000000"
-        android:textSize="16sp" />
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/pulseLabelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="4dp"
+            android:paddingBottom="4dp"
+            android:text="Tętno:"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/pulseTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="4dp"
+            android:paddingBottom="4dp"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/imageViewPulse"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/ic_launcher_foreground"
+        android:layout_width="220dp"
+        android:layout_height="155dp"
         android:layout_gravity="center"
-        android:padding="0dp"
         android:layout_margin="0dp"
-        android:scaleType="centerInside"/>
+        android:padding="0dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_launcher_foreground" />
 
     <ImageView
         android:id="@+id/imageViewBloodPressure"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="220dp"
+        android:layout_height="155dp"
         android:layout_gravity="center"
         android:padding="0dp"
-        android:scaleType="centerInside"/>
+        android:scaleType="centerInside" />
 </LinearLayout>
