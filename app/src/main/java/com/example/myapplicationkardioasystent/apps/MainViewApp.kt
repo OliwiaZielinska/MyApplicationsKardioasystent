@@ -62,7 +62,7 @@ class MainViewApp : AppCompatActivity() {
 
         // Obsługa przycisku "Poradnik zdrowia"
         healthGuideButton.setOnClickListener {
-            openActivityHealthAdvices()
+            openActivityHealthAdvices(uID.toString())
         }
 
         // Obsługa przycisku "Wyloguj się"
@@ -141,11 +141,11 @@ class MainViewApp : AppCompatActivity() {
     /**
      * Metoda do otwarcia aktywności poradnika zdrowia.
      */
-    private fun openActivityHealthAdvices() {
+    private fun openActivityHealthAdvices(userID: String) {
         val intent = Intent(this, HealthAdvices::class.java)
+        intent.putExtra("userID", userID)
         startActivity(intent)
     }
-
     /**
      * Metoda do otwarcia aktywności związanej ze zmianą ustawień dotyczących przyjmowanych leków.
      */
