@@ -1,11 +1,21 @@
 package com.example.myapplicationkardioasystent.apps
+
+import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.example.myapplicationkardioasystent.R
 import com.example.myapplicationkardioasystent.cloudFirestore.Measurment
 import com.google.android.material.textfield.TextInputEditText
@@ -33,6 +43,8 @@ class EnterMeasurment : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.enter_measurment_app)
 
+        createNotificationChannel()
+
         // Inicjalizacja elementów interfejsu użytkownika
         dateOfMeasurementInputText = findViewById(R.id.dateOfMeasurementInputText)
         hourInputText = findViewById(R.id.hourInputText)
@@ -47,7 +59,7 @@ class EnterMeasurment : AppCompatActivity() {
         val currentTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
         hourInputText.setText(currentTime)
 
-        // Tutaj obsługa przycisku "Zapisz wynik pomiaru"
+        // Obsługa przycisku "Zapisz wynik pomiaru"
         val recordMeasurementResultButton = findViewById<Button>(R.id.recordMeasurementResultButton)
         recordMeasurementResultButton.setOnClickListener {
             val userID = intent.getStringExtra("userID").toString()
@@ -65,18 +77,14 @@ class EnterMeasurment : AppCompatActivity() {
                     pulse
                 )
 
-                // Uruchomienie korutyny w wątku głównym
                 GlobalScope.launch(Dispatchers.Main) {
-                    // Pobierz referencję do kolekcji
                     val collectionRef = FirebaseFirestore.getInstance().collection("measurements")
-
-                    // Dodaj nowy dokument z automatycznie wygenerowanym identyfikatorem
                     val documentRef = collectionRef.document()
 
-                    // Ustaw pola dokumentu
                     documentRef.set(measurment)
                         .addOnSuccessListener {
                             Log.d(TAG, "DocumentSnapshot added with ID: ${documentRef.id}")
+                            showNotification() // Wywołaj powiadomienie
                         }
                         .addOnFailureListener { e ->
                             Log.w(TAG, "Error adding document", e)
@@ -85,16 +93,45 @@ class EnterMeasurment : AppCompatActivity() {
 
                 openActivity(userID)
             } else {
-                // Wyświetla komunikat o pustych wartościach ciśnienia i tętna
                 Toast.makeText(this, "Empty values!", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = getString(R.string.channel_name)
+            val descriptionText = getString(R.string.channel_description)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel("ChannelId", name, importance).apply {
+                description = descriptionText
+            }
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    private fun showNotification() {
+        val builder = NotificationCompat.Builder(this, "ChannelId")
+            .setSmallIcon(R.drawable.running_heart)
+            .setContentTitle("Measurement Recorded")
+            .setContentText("Your measurement has been successfully recorded.")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        with(NotificationManagerCompat.from(this)) {
+            if (ActivityCompat.checkSelfPermission(this@EnterMeasurment, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                // Consider requesting the permission here
+                return
+            }
+            notify(1, builder.build())
         }
     }
 
     /**
      * Metoda do otwarcia głównego widoku aplikacji.
      */
-    private fun openActivity(userID : String) {
+    private fun openActivity(userID: String) {
         val intent = Intent(this, MainViewApp::class.java)
         intent.putExtra("uID", userID)
         startActivity(intent)

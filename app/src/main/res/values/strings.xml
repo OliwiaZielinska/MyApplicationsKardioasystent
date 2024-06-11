@@ -26,4 +26,6 @@
         <item>Miesiąc</item>
         <item>Rok</item>
     </string-array>
+    <string name="channel_name">Measurement Notifications</string>
+    <string name="channel_description">Notifications for new measurements</string>
 </resources>
