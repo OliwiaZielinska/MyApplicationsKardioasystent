@@ -153,48 +153,45 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TextRegistration5" />
 
-    <EditText
+    <TextView
         android:id="@+id/morningRegistrationInput"
         android:layout_width="192dp"
         android:layout_height="48dp"
         android:layout_marginTop="52dp"
-        android:ems="10"
-        android:inputType="time"
+        android:text="08:00"
         android:textColor="#000000"
-        android:textColorHint="#000000"
-        android:textColorLink="#000000"
+        android:textSize="14sp"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.558"
         app:layout_constraintStart_toEndOf="@+id/TextRegistration4"
         app:layout_constraintTop_toTopOf="@+id/TextRegistration3"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <EditText
+    <TextView
         android:id="@+id/middayRegistrationInput"
         android:layout_width="192dp"
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="time"
+        android:text="12:00"
         android:textColor="#000000"
-        android:textColorHint="#000000"
-        android:textColorLink="#000000"
+        android:textSize="14sp"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toEndOf="@+id/TextRegistration5"
         app:layout_constraintTop_toBottomOf="@+id/morningRegistrationInput"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <EditText
+    <TextView
         android:id="@+id/eveningRegistrationInput"
         android:layout_width="192dp"
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="time"
+        android:text="20:00"
         android:textColor="#000000"
-        android:textColorHint="#000000"
-        android:textColorLink="#000000"
+        android:textSize="14sp"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.519"
         app:layout_constraintStart_toEndOf="@+id/TextRegistration6"

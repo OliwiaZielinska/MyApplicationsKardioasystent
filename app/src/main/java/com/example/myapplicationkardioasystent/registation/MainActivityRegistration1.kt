@@ -19,9 +19,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 import java.util.concurrent.TimeUnit
-/**
- * Aktywność odpowiedzialna za rejestrację użytkownika oraz zarządzanie danymi dotyczącymi leków
- */
+
 class MainActivityRegistration1 : BaseActivity() {
     private lateinit var nameInput: EditText
     private lateinit var surnameInput: EditText
@@ -29,20 +27,14 @@ class MainActivityRegistration1 : BaseActivity() {
     private lateinit var yearOfBirthInput: EditText
     private lateinit var medicationQuestionsSwitch: Switch
     private lateinit var medicationNamesInput: EditText
-    private lateinit var timeOfTakingMedicineInput: EditText
+    private lateinit var timeOfTakingMedicineInput: TextView
     private lateinit var signInButtonRegistration: Button
     private lateinit var setTakNieText: TextView
 
-    /**
-     * Metoda wywoływana przy tworzeniu aktywności.
-     *
-     * @param savedInstanceState Zapisany stan instancji aktywności.
-     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_registration1)
 
-        // Inicjalizacja pól widoku
         nameInput = findViewById(R.id.nameInput)
         surnameInput = findViewById(R.id.surnameInput)
         sexSpinner = findViewById(R.id.sexSpinner)
@@ -53,7 +45,6 @@ class MainActivityRegistration1 : BaseActivity() {
         signInButtonRegistration = findViewById(R.id.signInButtonRegistration)
         setTakNieText = findViewById(R.id.setTakNieText)
 
-        // Inicjalizacja spinnera płci
         val genderAdapter = ArrayAdapter.createFromResource(
             this,
             R.array.gender_array,
@@ -62,27 +53,21 @@ class MainActivityRegistration1 : BaseActivity() {
         genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         sexSpinner.adapter = genderAdapter
 
-        // Ustawienie nasłuchiwacza kliknięcia na przycisk rejestracji
         signInButtonRegistration.setOnClickListener {
             registerUser()
         }
 
-        // Ustawienie nasłuchiwacza zmiany stanu przełącznika pytań o leki
         medicationQuestionsSwitch.setOnCheckedChangeListener { _, isChecked ->
             setTakNieText.text = if (isChecked) "Tak" else "Nie"
             medicationNamesInput.isEnabled = isChecked
             timeOfTakingMedicineInput.isEnabled = isChecked
         }
 
-        // Ustawienie nasłuchiwacza kliknięcia na pole czasu przyjmowania leków
         timeOfTakingMedicineInput.setOnClickListener {
             showTimePickerDialog()
         }
     }
 
-    /**
-     * Metoda wyświetlająca okno dialogowe z wyborem czasu.
-     */
     private fun showTimePickerDialog() {
         val calendar = Calendar.getInstance()
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
@@ -90,18 +75,13 @@ class MainActivityRegistration1 : BaseActivity() {
 
         val timePickerDialog = TimePickerDialog(this,
             TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-                val time = "$hourOfDay:$minute"
-                timeOfTakingMedicineInput.setText(time)
+                val time = String.format(Locale.getDefault(), "%02d:%02d", hourOfDay, minute)
+                timeOfTakingMedicineInput.text = time
             }, hour, minute, true
         )
         timePickerDialog.show()
     }
 
-    /**
-     * Metoda walidująca wprowadzone dane rejestracyjne.
-     *
-     * @return True, jeśli dane są poprawne; w przeciwnym razie false.
-     */
     private fun validateRegisterDetails(): Boolean {
         val name = nameInput.text.toString().trim()
         val surname = surnameInput.text.toString().trim()
@@ -159,12 +139,6 @@ class MainActivityRegistration1 : BaseActivity() {
         return true
     }
 
-    /**
-     * Metoda planująca wysłanie powiadomienia o przyjęciu leku.
-     *
-     * @param timeOfTakingMedication Czas przyjęcia leku.
-     * @param message Wiadomość powiadomienia.
-     */
     private fun scheduleMedicationNotification(timeOfTakingMedication: String, message: String) {
         val delay = calculateInitialDelay(timeOfTakingMedication)
         if (delay > 0) {
@@ -177,12 +151,6 @@ class MainActivityRegistration1 : BaseActivity() {
         }
     }
 
-    /**
-     * Metoda obliczająca opóźnienie początkowe dla powiadomienia o przyjęciu leku.
-     *
-     * @param time Czas przyjęcia leku.
-     * @return Opóźnienie w milisekundach.
-     */
     private fun calculateInitialDelay(time: String): Long {
         val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
         val targetTime = Calendar.getInstance().apply {
@@ -197,14 +165,10 @@ class MainActivityRegistration1 : BaseActivity() {
         return if (targetTime > now) {
             targetTime - now
         } else {
-            // Dodanie 24 godziny do czasu przyjmowania leków, jeśli czas już minął
             targetTime + TimeUnit.DAYS.toMillis(1) - now
         }
     }
 
-    /**
-     * Metoda wywołująca aktywność rejestracji użytkownika.
-     */
     private fun registerUser() {
         if (validateRegisterDetails()) {
             val name = nameInput.text.toString().trim()
@@ -231,17 +195,6 @@ class MainActivityRegistration1 : BaseActivity() {
         }
     }
 
-    /**
-     * Metoda otwierająca kolejną aktywność rejestracji z przekazanymi danymi użytkownika.
-     *
-     * @param name Imię użytkownika.
-     * @param surname Nazwisko użytkownika.
-     * @param sex Płeć użytkownika.
-     * @param yearOfBirth Rok urodzenia użytkownika.
-     * @param question Czy użytkownik ma pytania o leki.
-     * @param drugsName Nazwa leku.
-     * @param timeOfTakingMedication Czas przyjęcia leku.
-     */
     private fun openActivity(
         name: String,
         surname: String,
@@ -258,9 +211,7 @@ class MainActivityRegistration1 : BaseActivity() {
         intent.putExtra("yearOfBirth", yearOfBirth)
         intent.putExtra("question", if (question) "Tak" else "Nie")
         intent.putExtra("drugsName", drugsName)
-        intent.putExtra("timeOfTakingMedication",
-            timeOfTakingMedication)
+        intent.putExtra("timeOfTakingMedication", timeOfTakingMedication)
         startActivity(intent)
     }
-
 }

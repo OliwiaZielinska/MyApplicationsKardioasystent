@@ -1,10 +1,12 @@
 package com.example.myapplicationkardioasystent.registation
 
+import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.work.Data
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.PeriodicWorkRequestBuilder
@@ -26,6 +28,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 import java.util.concurrent.TimeUnit
+
 /**
  * Aktywność odpowiedzialna za drugi etap rejestracji użytkownika oraz zarządzanie danymi użytkownika.
  */
@@ -33,11 +36,12 @@ class MainActivityRegistration2 : BaseActivity() {
     private val db = Firebase.firestore
     private lateinit var emailInputRegistration: EditText
     private lateinit var inputPasswordRegistration: EditText
-    private lateinit var morningRegistrationInput: EditText
-    private lateinit var middayRegistrationInput: EditText
-    private lateinit var eveningRegistrationInput: EditText
+    private lateinit var morningRegistrationInput: TextView
+    private lateinit var middayRegistrationInput: TextView
+    private lateinit var eveningRegistrationInput: TextView
     private lateinit var creatingAccountButton: Button
     private lateinit var dbOperations: FirestoreDatabaseOperations // Deklaracja dbOperations
+
     /**
      * Metoda wywoływana przy tworzeniu aktywności.
      *
@@ -71,6 +75,10 @@ class MainActivityRegistration2 : BaseActivity() {
         eveningRegistrationInput = findViewById(R.id.eveningRegistrationInput)
         creatingAccountButton = findViewById(R.id.creatingAccountButton)
 
+        morningRegistrationInput.setOnClickListener { showTimePickerDialog(morningRegistrationInput) }
+        middayRegistrationInput.setOnClickListener { showTimePickerDialog(middayRegistrationInput) }
+        eveningRegistrationInput.setOnClickListener { showTimePickerDialog(eveningRegistrationInput) }
+
         creatingAccountButton.setOnClickListener {
             registerUser(
                 name.toString(),
@@ -83,6 +91,25 @@ class MainActivityRegistration2 : BaseActivity() {
             )
         }
     }
+
+    /**
+     * Metoda wyświetlająca TimePickerDialog i ustawiająca wybrany czas w TextView.
+     *
+     * @param textView TextView, który ma być zaktualizowany.
+     */
+    private fun showTimePickerDialog(textView: TextView) {
+        val calendar = Calendar.getInstance()
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+        val minute = calendar.get(Calendar.MINUTE)
+
+        val timePickerDialog = TimePickerDialog(this, { _, selectedHour, selectedMinute ->
+            val formattedTime = String.format("%02d:%02d", selectedHour, selectedMinute)
+            textView.text = formattedTime
+        }, hour, minute, true)
+
+        timePickerDialog.show()
+    }
+
     /**
      * Metoda walidująca wprowadzone dane rejestracyjne.
      *
@@ -118,6 +145,7 @@ class MainActivityRegistration2 : BaseActivity() {
             else -> true
         }
     }
+
     /**
      * Metoda rejestracji użytkownika.
      *
@@ -187,6 +215,7 @@ class MainActivityRegistration2 : BaseActivity() {
             scheduleDailyNotification(eveningMeasurement, "Czas wykonać pomiar ciśnienia krwi i pulsu - wieczór o godzinie $eveningMeasurement.")
         }
     }
+
     /**
      * Metoda planująca jednorazowe powiadomienie.
      *
@@ -205,6 +234,7 @@ class MainActivityRegistration2 : BaseActivity() {
         } else {
         }
     }
+
     /**
      * Metoda obliczająca opóźnienie dla planowanego powiadomienia.
      *
@@ -214,57 +244,44 @@ class MainActivityRegistration2 : BaseActivity() {
     private fun calculateDelay(time: String): Long {
         val timeParts = time.split(":").map { it.toInt() }
         val now = System.currentTimeMillis()
-        val targetTime = now
-        return targetTime - now
-    }
-    /**
-     * Metoda planująca codzienne powiadomienie.
-     *
-     * @param time Czas planowanego powiadomienia.
-     * @param message Wiadomość powiadomienia.
-     */
-    private fun scheduleDailyNotification(time: String, message: String) {
-        val delay = calculateInitialDelay(time)
-        val data = Data.Builder().putString("message", message).build()
-        val notificationWork = PeriodicWorkRequestBuilder<NotificationWorker>(1, TimeUnit.DAYS)
-            .setInitialDelay(delay, TimeUnit.MILLISECONDS)
-            .setInputData(data)
-            .build()
-        WorkManager.getInstance(this).enqueue(notificationWork)
-    }
-    /**
-     * Metoda obliczająca opóźnienie początkowe dla codziennego powiadomienia.
-     *
-     * @param time Czas planowanego powiadomienia.
-     * @return Opóźnienie w milisekundach.
-     */
-    private fun calculateInitialDelay(time: String): Long {
-        val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
         val targetTime = Calendar.getInstance().apply {
-            val timeParts = time.split(":").map { it.toInt() }
+            timeInMillis = now
             set(Calendar.HOUR_OF_DAY, timeParts[0])
             set(Calendar.MINUTE, timeParts[1])
             set(Calendar.SECOND, 0)
             set(Calendar.MILLISECOND, 0)
-        }.timeInMillis
-
-        val now = Calendar.getInstance().timeInMillis
-        return if (targetTime > now) {
-            targetTime - now
-        } else {
-            // Dodanie 24 godziny do czasu pomiaru, jeśli czas już minął
-            targetTime + TimeUnit.DAYS.toMillis(1) - now
         }
+        if (targetTime.timeInMillis <= now) {
+            targetTime.add(Calendar.DAY_OF_MONTH, 1)
+        }
+        return targetTime.timeInMillis - now
     }
+
+    /**
+     * Metoda planująca codzienne powiadomienia.
+     *
+     * @param time Czas planowanych powiadomień.
+     * @param message Wiadomość powiadomienia.
+     */
+    private fun scheduleDailyNotification(time: String, message: String) {
+        val initialDelay = calculateDelay(time)
+        val data = Data.Builder().putString("message", message).build()
+        val dailyWorkRequest = PeriodicWorkRequestBuilder<NotificationWorker>(1, TimeUnit.DAYS)
+            .setInitialDelay(initialDelay, TimeUnit.MILLISECONDS)
+            .setInputData(data)
+            .build()
+        WorkManager.getInstance(this).enqueue(dailyWorkRequest)
+    }
+
     /**
      * Metoda haszująca hasło użytkownika.
      *
-     * @param password Hasło do zahaszowania.
-     * @return Zahaszowane hasło.
+     * @param password Hasło do zahashowania.
+     * @return Zahashowane hasło.
      */
     private fun hashPassword(password: String): String {
-        val digest = MessageDigest.getInstance("SHA-256")
-        val hashBytes = digest.digest(password.toByteArray(Charsets.UTF_8))
-        return hashBytes.joinToString("") { "%02x".format(it) }
+        val messageDigest = MessageDigest.getInstance("SHA-256")
+        val hashedBytes = messageDigest.digest(password.toByteArray())
+        return hashedBytes.joinToString("") { "%02x".format(it) }
     }
 }
