@@ -1,8 +1,10 @@
 package com.example.myapplicationkardioasystent.apps
 
 import android.Manifest
+import android.app.DatePickerDialog
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.TimePickerDialog
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
@@ -11,6 +13,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -25,6 +28,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -33,8 +37,8 @@ import java.util.Locale
  * Umożliwia użytkownikowi zapisanie pomiaru i powrót do głównego widoku aplikacji.
  */
 class EnterMeasurment : AppCompatActivity() {
-    private lateinit var dateOfMeasurementInputText: TextInputEditText
-    private lateinit var hourInputText: TextInputEditText
+    private lateinit var dateOfMeasurementInputText: TextView
+    private lateinit var hourInputText: TextView
     private lateinit var bloodPressureInputText: TextInputEditText
     private lateinit var pulseInputText: TextInputEditText
 
@@ -53,11 +57,21 @@ class EnterMeasurment : AppCompatActivity() {
 
         // Ustawienie dzisiejszej daty w polu tekstowym
         val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-        dateOfMeasurementInputText.setText(currentDate)
+        dateOfMeasurementInputText.text = currentDate
 
         // Ustawienie aktualnej godziny w polu tekstowym
         val currentTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
-        hourInputText.setText(currentTime)
+        hourInputText.text = currentTime
+
+        // Obsługa kliknięcia w pole godziny, aby otworzyć TimePickerDialog
+        hourInputText.setOnClickListener {
+            showTimePickerDialog()
+        }
+
+        // Obsługa kliknięcia w pole daty, aby otworzyć DatePickerDialog
+        dateOfMeasurementInputText.setOnClickListener {
+            showDatePickerDialog()
+        }
 
         // Obsługa przycisku "Zapisz wynik pomiaru"
         val recordMeasurementResultButton = findViewById<Button>(R.id.recordMeasurementResultButton)
@@ -141,5 +155,37 @@ class EnterMeasurment : AppCompatActivity() {
         intent.putExtra("uID", userID)
         startActivity(intent)
     }
-}
 
+    /**
+     * Metoda do wyświetlenia TimePickerDialog i ustawienia wybranej godziny w polu tekstowym.
+     */
+    private fun showTimePickerDialog() {
+        val calendar = Calendar.getInstance()
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+        val minute = calendar.get(Calendar.MINUTE)
+
+        val timePickerDialog = TimePickerDialog(this, { _, selectedHour, selectedMinute ->
+            val formattedTime = String.format(Locale.getDefault(), "%02d:%02d", selectedHour, selectedMinute)
+            hourInputText.text = formattedTime
+        }, hour, minute, true)
+
+        timePickerDialog.show()
+    }
+
+    /**
+     * Metoda do wyświetlenia DatePickerDialog i ustawienia wybranej daty w polu tekstowym.
+     */
+    private fun showDatePickerDialog() {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDayOfMonth ->
+            val formattedDate = String.format(Locale.getDefault(), "%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDayOfMonth)
+            dateOfMeasurementInputText.text = formattedDate
+        }, year, month, dayOfMonth)
+
+        datePickerDialog.show()
+    }
+}
