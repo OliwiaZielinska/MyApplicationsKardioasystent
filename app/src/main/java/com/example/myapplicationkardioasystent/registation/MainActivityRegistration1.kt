@@ -20,7 +20,13 @@ import java.util.Calendar
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
+/**
+ * Aktywność rejestracji użytkownika - część pierwsza. Zawiera formularz rejestracyjny
+ * oraz logikę walidacji wprowadzonych danych.
+ */
 class MainActivityRegistration1 : BaseActivity() {
+
+    // Inicjalizacja pól interfejsu użytkownika
     private lateinit var nameInput: EditText
     private lateinit var surnameInput: EditText
     private lateinit var sexSpinner: Spinner
@@ -31,10 +37,14 @@ class MainActivityRegistration1 : BaseActivity() {
     private lateinit var signInButtonRegistration: Button
     private lateinit var setTakNieText: TextView
 
+    /**
+     * Metoda wywoływana podczas tworzenia aktywności.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_registration1)
 
+        // Inicjalizacja pól interfejsu użytkownika
         nameInput = findViewById(R.id.nameInput)
         surnameInput = findViewById(R.id.surnameInput)
         sexSpinner = findViewById(R.id.sexSpinner)
@@ -45,6 +55,7 @@ class MainActivityRegistration1 : BaseActivity() {
         signInButtonRegistration = findViewById(R.id.signInButtonRegistration)
         setTakNieText = findViewById(R.id.setTakNieText)
 
+        // Inicjalizacja spinnera z płcią
         val genderAdapter = ArrayAdapter.createFromResource(
             this,
             R.array.gender_array,
@@ -53,21 +64,27 @@ class MainActivityRegistration1 : BaseActivity() {
         genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         sexSpinner.adapter = genderAdapter
 
+        // Obsługa kliknięcia przycisku rejestracji
         signInButtonRegistration.setOnClickListener {
             registerUser()
         }
 
+        // Obsługa zmiany przełącznika pytań o leki
         medicationQuestionsSwitch.setOnCheckedChangeListener { _, isChecked ->
             setTakNieText.text = if (isChecked) "Tak" else "Nie"
             medicationNamesInput.isEnabled = isChecked
             timeOfTakingMedicineInput.isEnabled = isChecked
         }
 
+        // Obsługa kliknięcia pola wyboru czasu przyjmowania leków
         timeOfTakingMedicineInput.setOnClickListener {
             showTimePickerDialog()
         }
     }
 
+    /**
+     * Metoda wyświetlająca dialog wyboru czasu.
+     */
     private fun showTimePickerDialog() {
         val calendar = Calendar.getInstance()
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
@@ -82,6 +99,11 @@ class MainActivityRegistration1 : BaseActivity() {
         timePickerDialog.show()
     }
 
+    /**
+     * Metoda walidująca wprowadzone dane rejestracyjne.
+     *
+     * @return `true`, jeśli dane są poprawne, w przeciwnym razie `false`.
+     */
     private fun validateRegisterDetails(): Boolean {
         val name = nameInput.text.toString().trim()
         val surname = surnameInput.text.toString().trim()
@@ -139,6 +161,12 @@ class MainActivityRegistration1 : BaseActivity() {
         return true
     }
 
+    /**
+     * Metoda planująca powiadomienie o przyjęciu leku.
+     *
+     * @param timeOfTakingMedication Godzina przyjęcia leku.
+     * @param message Treść powiadomienia.
+     */
     private fun scheduleMedicationNotification(timeOfTakingMedication: String, message: String) {
         val delay = calculateInitialDelay(timeOfTakingMedication)
         if (delay > 0) {
@@ -151,6 +179,12 @@ class MainActivityRegistration1 : BaseActivity() {
         }
     }
 
+    /**
+     * Metoda obliczająca opóźnienie dla harmonogramu powiadomienia.
+     *
+     * @param time Docelowa godzina powiadomienia.
+     * @return Obliczone opóźnienie w milisekundach.
+     */
     private fun calculateInitialDelay(time: String): Long {
         val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
         val targetTime = Calendar.getInstance().apply {
@@ -169,6 +203,9 @@ class MainActivityRegistration1 : BaseActivity() {
         }
     }
 
+    /**
+     * Metoda rejestrująca użytkownika po zweryfikowaniu danych rejestracyjnych.
+     */
     private fun registerUser() {
         if (validateRegisterDetails()) {
             val name = nameInput.text.toString().trim()
@@ -195,6 +232,17 @@ class MainActivityRegistration1 : BaseActivity() {
         }
     }
 
+    /**
+     * Metoda otwierająca kolejną aktywność rejestracji i przekazująca dane.
+     *
+     * @param name Imię użytkownika.
+     * @param surname Nazwisko użytkownika.
+     * @param sex Płeć użytkownika.
+     * @param yearOfBirth Rok urodzenia użytkownika.
+     * @param question Czy użytkownik ma pytanie o leki.
+     * @param drugsName Nazwa leku.
+     * @param timeOfTakingMedication Czas przyjmowania leku.
+     */
     private fun openActivity(
         name: String,
         surname: String,

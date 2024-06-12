@@ -8,6 +8,9 @@ import android.widget.EditText
 import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
+import androidx.work.Data
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.example.myapplicationkardioasystent.R
 import com.example.myapplicationkardioasystent.cloudFirestore.FirestoreDatabaseOperations
 import com.example.myapplicationkardioasystent.cloudFirestore.User
@@ -18,7 +21,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.Calendar
+import java.util.concurrent.TimeUnit
 
+/**
+ * Aktywność obsługująca ustawienia użytkownika, w tym harmonogram powiadomień i inne preferencje.
+ */
 class Settings : BaseActivity() {
     private lateinit var editSettingsTakNieSwitch: Switch
     private lateinit var editNameSettingsInput: EditText
@@ -30,9 +38,13 @@ class Settings : BaseActivity() {
     private lateinit var deleteAccountButton: Button
     private lateinit var settingsTakNieText: TextView
 
+    // Inicjalizacja instancji Firestore
     val db = FirebaseFirestore.getInstance()
     private val dbOperations = FirestoreDatabaseOperations(db)
 
+    /**
+     * Metoda wywoływana podczas tworzenia aktywności.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings)
@@ -64,8 +76,6 @@ class Settings : BaseActivity() {
             val editAfternoonInputValue = editAfternoonInput.text.toString()
             val editNightInputValue = editNightInput.text.toString()
 
-            val uID = intent.getStringExtra("uID")
-
             val userId = FirebaseAuth.getInstance().currentUser!!.email
             db.collection("users").document(userId.toString()).get()
                 .addOnSuccessListener { document ->
@@ -81,7 +91,8 @@ class Settings : BaseActivity() {
                             .addOnSuccessListener {
                                 Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
                                 if (editSettingsTakNieSwitchValue && editNameSettingsInputValue.isNotEmpty() && editHourSettingsInputValue.isNotEmpty()
-                                    && editMorningInputValue.isNotEmpty() && editAfternoonInputValue.isNotEmpty() && editNightInputValue.isNotEmpty()) {
+                                    && editMorningInputValue.isNotEmpty() && editAfternoonInputValue.isNotEmpty() && editNightInputValue.isNotEmpty()
+                                ) {
                                     openActivity(
                                         editSettingsTakNieSwitchValue.toString(),
                                         editNameSettingsInputValue,
@@ -90,6 +101,26 @@ class Settings : BaseActivity() {
                                         editAfternoonInputValue,
                                         editNightInputValue,
                                     )
+
+                                    // Anulowanie wszystkich istniejących powiadomień
+                                    cancelAllNotifications()
+
+                                    // Planowanie nowych powiadomień po zapisaniu zmian
+                                    scheduleDailyNotification(
+                                        editMorningInputValue,
+                                        "Czas wykonać pomiar ciśnienia krwi i pulsu - rano o godzinie $editMorningInputValue."
+                                    )
+                                    scheduleDailyNotification(
+                                        editAfternoonInputValue,
+                                        "Czas wykonać pomiar ciśnienia krwi i pulsu - południe o godzinie $editAfternoonInputValue."
+                                    )
+                                    scheduleDailyNotification(
+                                        editNightInputValue,
+                                        "Czas wykonać pomiar ciśnienia krwi i pulsu - wieczór o godzinie $editNightInputValue."
+                                    )
+                                    scheduleDailyNotification(editHourSettingsInputValue,
+                                        "Przypomnienie o przyjęciu leku $editNameSettingsInputValue o godzinie $editHourSettingsInputValue.")
+
                                 }
                             }
                             .addOnFailureListener { exception ->
@@ -118,6 +149,11 @@ class Settings : BaseActivity() {
         }
     }
 
+    /**
+     * Metoda wyświetlająca dialog wyboru czasu.
+     *
+     * @param textView Pole tekstowe, które zostanie zaktualizowane wybraną wartością czasu.
+     */
     private fun showTimePickerDialog(textView: TextView) {
         val currentTime = textView.text.toString()
         val hour: Int
@@ -135,11 +171,29 @@ class Settings : BaseActivity() {
         val timePickerDialog = TimePickerDialog(this,
             { _, selectedHour, selectedMinute ->
                 textView.text = String.format("%02d:%02d", selectedHour, selectedMinute)
-            }, hour, minute, true)
+            }, hour, minute, true
+        )
         timePickerDialog.show()
     }
 
-    private fun openActivity(question: String, drugsName: String, timeOfTakingMedication: String, morningMeasurement: String, middayMeasurement: String, eveningMeasurement: String) {
+    /**
+     * Metoda otwierająca główną aktywność aplikacji z przekazanymi danymi.
+     *
+     * @param question Czy użytkownik ma pytanie.
+     * @param drugsName Nazwa leku.
+     * @param timeOfTakingMedication Czas przyjmowania leku.
+     * @param morningMeasurement Pomiar rano.
+     * @param middayMeasurement Pomiar w południe.
+     * @param eveningMeasurement Pomiar wieczorem.
+     */
+    private fun openActivity(
+        question: String,
+        drugsName: String,
+        timeOfTakingMedication: String,
+        morningMeasurement: String,
+        middayMeasurement: String,
+        eveningMeasurement: String
+    ) {
         val intent = Intent(this, MainViewApp::class.java)
         intent.putExtra("question", question)
         intent.putExtra("drugsName", drugsName)
@@ -150,11 +204,14 @@ class Settings : BaseActivity() {
         startActivity(intent)
     }
 
-    private fun setData(){
+    /**
+     * Metoda ustawiająca dane użytkownika na podstawie informacji z bazy danych Firestore.
+     */
+    private fun setData() {
         val userId = FirebaseAuth.getInstance().currentUser!!.email
         val ref = db.collection("users").document(userId.toString())
         ref.get().addOnSuccessListener { document ->
-            if(document != null && document.exists()) {
+            if (document != null && document.exists()) {
                 val drugsName = document.getString("drugsName")
                 val eveningMeasurement = document.getString("eveningMeasurement")
                 val middayMeasurement = document.getString("middayMeasurement")
@@ -174,5 +231,50 @@ class Settings : BaseActivity() {
         }.addOnFailureListener {
             Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    /**
+     * Metoda planująca codzienne powiadomienia.
+     *
+     * @param time Godzina, o której mają zostać zaplanowane powiadomienia.
+     * @param message Treść powiadomienia.
+     */
+    private fun scheduleDailyNotification(time: String, message: String) {
+        val initialDelay = calculateDelay(time)
+        val data = Data.Builder().putString("message", message).build()
+        val dailyWorkRequest = PeriodicWorkRequestBuilder<NotificationWorker>(1, TimeUnit.DAYS)
+            .setInitialDelay(initialDelay, TimeUnit.MILLISECONDS)
+            .setInputData(data)
+            .build()
+        WorkManager.getInstance(this).enqueue(dailyWorkRequest)
+    }
+
+    /**
+     * Metoda anulująca wszystkie zaplanowane powiadomienia.
+     */
+    private fun cancelAllNotifications() {
+        WorkManager.getInstance(this).cancelAllWork()
+    }
+
+    /**
+     * Metoda obliczająca opóźnienie dla harmonogramu powiadomień.
+     *
+     * @param time Docelowa godzina powiadomienia.
+     * @return Obliczone opóźnienie w milisekundach.
+     */
+    private fun calculateDelay(time: String): Long {
+        val timeParts = time.split(":").map { it.toInt() }
+        val now = System.currentTimeMillis()
+        val targetTime = Calendar.getInstance().apply {
+            timeInMillis = now
+            set(Calendar.HOUR_OF_DAY, timeParts[0])
+            set(Calendar.MINUTE, timeParts[1])
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }
+        if (targetTime.timeInMillis <= now) {
+            targetTime.add(Calendar.DAY_OF_MONTH, 1)
+        }
+        return targetTime.timeInMillis - now
     }
 }
