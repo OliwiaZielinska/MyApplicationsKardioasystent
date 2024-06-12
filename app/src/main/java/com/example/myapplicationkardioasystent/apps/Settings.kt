@@ -1,8 +1,8 @@
 package com.example.myapplicationkardioasystent.apps
 
+import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Switch
@@ -18,18 +18,15 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-/**
- * Aktywność ustawień aplikacji.
- * Pozwala użytkownikowi na zmianę ustawień, takich jak przyjmowane leki i godziny pomiarów.
- */
+
 class Settings : BaseActivity() {
     private lateinit var editSettingsTakNieSwitch: Switch
     private lateinit var editNameSettingsInput: EditText
-    private lateinit var editHourSettingsInput: EditText
+    private lateinit var editHourSettingsInput: TextView
     private lateinit var saveChangesButton: Button
-    private lateinit var editMorningInput: EditText
-    private lateinit var editAfternoonInput: EditText
-    private lateinit var editNightInput: EditText
+    private lateinit var editMorningInput: TextView
+    private lateinit var editAfternoonInput: TextView
+    private lateinit var editNightInput: TextView
     private lateinit var deleteAccountButton: Button
     private lateinit var settingsTakNieText: TextView
 
@@ -53,6 +50,11 @@ class Settings : BaseActivity() {
         settingsTakNieText = findViewById(R.id.settingsTakNieText)
 
         setData()
+
+        editHourSettingsInput.setOnClickListener { showTimePickerDialog(editHourSettingsInput) }
+        editMorningInput.setOnClickListener { showTimePickerDialog(editMorningInput) }
+        editAfternoonInput.setOnClickListener { showTimePickerDialog(editAfternoonInput) }
+        editNightInput.setOnClickListener { showTimePickerDialog(editNightInput) }
 
         saveChangesButton.setOnClickListener {
             val editSettingsTakNieSwitchValue = editSettingsTakNieSwitch.isChecked
@@ -116,83 +118,25 @@ class Settings : BaseActivity() {
         }
     }
 
-    /**
-     * Waliduje wprowadzone szczegóły dotyczące leków.
-     * Sprawdza, czy nazwa leku i czas przyjmowania zostały wprowadzone.
-     * @return true jeśli dane są poprawne, w przeciwnym razie false.
-     */
-    private fun validateDrugsDetails(): Boolean {
-        val question = editSettingsTakNieSwitch.isChecked.toString()
-        val drugsName = editNameSettingsInput.text.toString().trim()
-        val timeOfTakingMedication = editHourSettingsInput.text.toString().trim()
+    private fun showTimePickerDialog(textView: TextView) {
+        val currentTime = textView.text.toString()
+        val hour: Int
+        val minute: Int
 
-        if (question.equals("true", ignoreCase = true)) {
-            if (TextUtils.isEmpty(drugsName)) {
-                showErrorSnackBar(resources.getString(R.string.err_msg_enter_doctor_name), true)
-                return false
-            }
-            if (TextUtils.isEmpty(timeOfTakingMedication)) {
-                showErrorSnackBar(resources.getString(R.string.err_msg_enter_time), true)
-                return false
-            }
-            return true
+        if (currentTime.isNotEmpty()) {
+            val parts = currentTime.split(":")
+            hour = parts[0].toInt()
+            minute = parts[1].toInt()
+        } else {
+            hour = 0
+            minute = 0
         }
 
-        if (question.equals("Nie", ignoreCase = true)) {
-            editHourSettingsInput.isEnabled = false
-            editNameSettingsInput.isEnabled = false
-            return true
-        }
-        return true
-    }
-    /**
-     * Waliduje wprowadzone szczegóły dotyczące godzin pomiarów.
-     * Sprawdza poprawność formatu godzin.
-     * @return true jeśli dane są poprawne, w przeciwnym razie false.
-     */
-
-    private fun validateTimeDetails(): Boolean {
-        val morningTime = editMorningInput.text.toString().trim()
-        val afternoonTime = editAfternoonInput.text.toString().trim()
-        val nightTime = editNightInput.text.toString().trim()
-
-        val timeRegex = Regex("^$|^([01]?[0-9]|2[0-3]):[0-5][0-9]$")
-
-        if (!morningTime.matches(timeRegex)) {
-            if (morningTime.isNotEmpty()) {
-                showErrorSnackBar(resources.getString(R.string.err_msg_invalid_morning_time), true)
-                return false
-            }
-        }
-
-        if (!afternoonTime.matches(timeRegex)) {
-            if (afternoonTime.isNotEmpty()) {
-                showErrorSnackBar(resources.getString(R.string.err_msg_invalid_afternoon_time), true)
-                return false
-            }
-        }
-
-        if (!nightTime.matches(timeRegex)) {
-            if (nightTime.isNotEmpty()) {
-                showErrorSnackBar(resources.getString(R.string.err_msg_invalid_night_time), true)
-                return false
-            }
-        }
-
-        return true
-    }
-
-    private fun saveChanges() {
-        val question = editSettingsTakNieSwitch.isChecked.toString()
-        val drugsName = editNameSettingsInput.text.toString().trim()
-        val timeOfTakingMedication = editHourSettingsInput.text.toString().trim()
-        val morningMeasurement = editMorningInput.text.toString().trim()
-        val middayMeasurement = editAfternoonInput.text.toString().trim()
-        val eveningMeasurement = editNightInput.text.toString().trim()
-
-        if (validateDrugsDetails() && validateTimeDetails()) {
-            openActivity(question, drugsName, timeOfTakingMedication, morningMeasurement, middayMeasurement, eveningMeasurement)
-        }
+        val timePickerDialog = TimePickerDialog(this,
+            { _, selectedHour, selectedMinute ->
+                textView.text = String.format("%02d:%02d", selectedHour, selectedMinute)
+            }, hour, minute, true)
+        timePickerDialog.show()
     }
 
     private fun openActivity(question: String, drugsName: String, timeOfTakingMedication: String, morningMeasurement: String, middayMeasurement: String, eveningMeasurement: String) {
@@ -221,10 +165,10 @@ class Settings : BaseActivity() {
                 settingsTakNieText.text = question
 
                 editNameSettingsInput.setText(drugsName)
-                editHourSettingsInput.setText(timeOfTakingMedication)
-                editAfternoonInput.setText(middayMeasurement)
-                editNightInput.setText(eveningMeasurement)
-                editMorningInput.setText(morningMeasurement)
+                editHourSettingsInput.text = timeOfTakingMedication
+                editAfternoonInput.text = middayMeasurement
+                editNightInput.text = eveningMeasurement
+                editMorningInput.text = morningMeasurement
                 editSettingsTakNieSwitch.isChecked = question.equals("Tak", ignoreCase = true)
             }
         }.addOnFailureListener {

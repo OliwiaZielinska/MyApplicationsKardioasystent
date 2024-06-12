@@ -109,7 +109,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editNamesAndHoursText"
         tools:ignore="TouchTargetSizeCheck" />
 
-    <EditText
+    <TextView
         android:id="@+id/editHourSettingsInput"
         android:layout_width="164dp"
         android:layout_height="46dp"
@@ -119,6 +119,9 @@
         android:textColorHint="#000000"
         android:textColorLink="#000000"
         android:textSize="12sp"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.599"
         app:layout_constraintStart_toStartOf="parent"
@@ -197,39 +200,45 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
-    <com.google.android.material.textfield.TextInputEditText
+    <TextView
         android:id="@+id/editMorningInput"
         android:layout_width="164dp"
-        android:layout_height="46sp"
+        android:layout_height="46dp"
         android:layout_marginTop="12dp"
         android:hint="godzina"
         android:textColor="#000000"
         android:textColorHint="#000000"
         android:textColorLink="#000000"
         android:textSize="10sp"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.599"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6"
         tools:ignore="TouchTargetSizeCheck" />
 
-    <com.google.android.material.textfield.TextInputEditText
+    <TextView
         android:id="@+id/editAfternoonInput"
         android:layout_width="164dp"
-        android:layout_height="46sp"
+        android:layout_height="46dp"
         android:layout_marginTop="8dp"
         android:hint="godzina"
         android:textColor="#000000"
         android:textColorHint="#000000"
         android:textColorLink="#000000"
         android:textSize="10sp"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.599"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editMorningInput"
         tools:ignore="TouchTargetSizeCheck" />
 
-    <com.google.android.material.textfield.TextInputEditText
+    <TextView
         android:id="@+id/editNightInput"
         android:layout_width="164dp"
         android:layout_height="46dp"
@@ -239,6 +248,9 @@
         android:textColorHint="#000000"
         android:textColorLink="#000000"
         android:textSize="10sp"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.595"
         app:layout_constraintStart_toStartOf="parent"
