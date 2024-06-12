@@ -1,4 +1,5 @@
 package com.example.myapplicationkardioasystent.registation
+
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
@@ -15,7 +16,8 @@ import androidx.work.WorkManager
 import com.example.myapplicationkardioasystent.R
 import com.example.myapplicationkardioasystent.apps.NotificationWorker
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
 import java.util.concurrent.TimeUnit
 /**
  * Aktywność odpowiedzialna za rejestrację użytkownika oraz zarządzanie danymi dotyczącymi leków
@@ -30,6 +32,7 @@ class MainActivityRegistration1 : BaseActivity() {
     private lateinit var timeOfTakingMedicineInput: EditText
     private lateinit var signInButtonRegistration: Button
     private lateinit var setTakNieText: TextView
+
     /**
      * Metoda wywoływana przy tworzeniu aktywności.
      *
@@ -66,9 +69,7 @@ class MainActivityRegistration1 : BaseActivity() {
 
         // Ustawienie nasłuchiwacza zmiany stanu przełącznika pytań o leki
         medicationQuestionsSwitch.setOnCheckedChangeListener { _, isChecked ->
-            // Zmiana tekstu na "Tak" lub "Nie" w zależności od stanu przełącznika
             setTakNieText.text = if (isChecked) "Tak" else "Nie"
-            // Logika włączania/wyłączania pól związanych z lekami
             medicationNamesInput.isEnabled = isChecked
             timeOfTakingMedicineInput.isEnabled = isChecked
         }
@@ -78,6 +79,7 @@ class MainActivityRegistration1 : BaseActivity() {
             showTimePickerDialog()
         }
     }
+
     /**
      * Metoda wyświetlająca okno dialogowe z wyborem czasu.
      */
@@ -94,6 +96,7 @@ class MainActivityRegistration1 : BaseActivity() {
         )
         timePickerDialog.show()
     }
+
     /**
      * Metoda walidująca wprowadzone dane rejestracyjne.
      *
@@ -128,11 +131,14 @@ class MainActivityRegistration1 : BaseActivity() {
             "Kobieta" -> Gender.FEMALE
             else -> Gender.OTHER
         }
-        scheduleMedicationNotification(timeOfTakingMedication, "Przypomnienie o przyjęciu leku $drugsName")
 
         if (TextUtils.isEmpty(yearOfBirth)) {
             showErrorSnackBar(getString(R.string.err_msg_enter_year_of_birth), true)
             return false
+        }
+
+        if (setTakNieText.text == "Tak") {
+            scheduleMedicationNotification(timeOfTakingMedication, "Przypomnienie o przyjęciu leku $drugsName o godzinie $timeOfTakingMedication")
         }
 
         if (question) {
@@ -149,8 +155,10 @@ class MainActivityRegistration1 : BaseActivity() {
                 return false
             }
         }
+
         return true
     }
+
     /**
      * Metoda planująca wysłanie powiadomienia o przyjęciu leku.
      *
@@ -166,9 +174,9 @@ class MainActivityRegistration1 : BaseActivity() {
                 .setInputData(data)
                 .build()
             WorkManager.getInstance(this).enqueue(notificationWork)
-        } else {
         }
     }
+
     /**
      * Metoda obliczająca opóźnienie początkowe dla powiadomienia o przyjęciu leku.
      *
@@ -193,6 +201,7 @@ class MainActivityRegistration1 : BaseActivity() {
             targetTime + TimeUnit.DAYS.toMillis(1) - now
         }
     }
+
     /**
      * Metoda wywołująca aktywność rejestracji użytkownika.
      */
@@ -221,6 +230,7 @@ class MainActivityRegistration1 : BaseActivity() {
             )
         }
     }
+
     /**
      * Metoda otwierająca kolejną aktywność rejestracji z przekazanymi danymi użytkownika.
      *
@@ -248,7 +258,8 @@ class MainActivityRegistration1 : BaseActivity() {
         intent.putExtra("yearOfBirth", yearOfBirth)
         intent.putExtra("question", if (question) "Tak" else "Nie")
         intent.putExtra("drugsName", drugsName)
-        intent.putExtra("timeOfTakingMedication", timeOfTakingMedication)
+        intent.putExtra("timeOfTakingMedication",
+            timeOfTakingMedication)
         startActivity(intent)
     }
 

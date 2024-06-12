@@ -98,6 +98,9 @@ class EnterMeasurment : AppCompatActivity() {
         }
     }
 
+    /**
+     * Metoda do utworzenia kanału powiadomień.
+     */
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = getString(R.string.channel_name)
@@ -112,16 +115,18 @@ class EnterMeasurment : AppCompatActivity() {
         }
     }
 
+    /**
+     * Metoda do wyświetlania powiadomień.
+     */
     private fun showNotification() {
         val builder = NotificationCompat.Builder(this, "ChannelId")
             .setSmallIcon(R.drawable.running_heart)
-            .setContentTitle("Measurement Recorded")
-            .setContentText("Your measurement has been successfully recorded.")
+            .setContentTitle("Powiadomienie")
+            .setContentText("Twój pomiar został pomyślnie dodany.")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
         with(NotificationManagerCompat.from(this)) {
             if (ActivityCompat.checkSelfPermission(this@EnterMeasurment, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                // Consider requesting the permission here
                 return
             }
             notify(1, builder.build())
@@ -137,3 +142,4 @@ class EnterMeasurment : AppCompatActivity() {
         startActivity(intent)
     }
 }
+

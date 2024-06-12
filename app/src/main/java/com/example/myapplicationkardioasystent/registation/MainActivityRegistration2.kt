@@ -182,9 +182,9 @@ class MainActivityRegistration2 : BaseActivity() {
                 dbOperations.addUser(login, user) // Użycie dbOperations
             }
 
-            scheduleDailyNotification(morningMeasurement, "Czas wykonać pomiar ciśnienia krwi i pulsu - rano")
-            scheduleDailyNotification(middayMeasurement, "Czas wykonać pomiar ciśnienia krwi i pulsu - południe")
-            scheduleDailyNotification(eveningMeasurement, "Czas wykonać pomiar ciśnienia krwi i pulsu - wieczór")
+            scheduleDailyNotification(morningMeasurement, "Czas wykonać pomiar ciśnienia krwi i pulsu - rano o godzinie $morningMeasurement.")
+            scheduleDailyNotification(middayMeasurement, "Czas wykonać pomiar ciśnienia krwi i pulsu - południe o godzinie $middayMeasurement.")
+            scheduleDailyNotification(eveningMeasurement, "Czas wykonać pomiar ciśnienia krwi i pulsu - wieczór o godzinie $eveningMeasurement.")
         }
     }
     /**
