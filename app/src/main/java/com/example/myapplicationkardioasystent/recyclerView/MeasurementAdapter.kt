@@ -15,8 +15,19 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Calendar
 
+/**
+ * Adapter RecyclerView odpowiedzialny za wyświetlanie pomiarów użytkownika.
+ *
+ * @property measurements Lista pomiarów do wyświetlenia.
+ * @property intent Intent zawierający dodatkowe informacje, takie jak identyfikator użytkownika.
+ */
 class MeasurementAdapter(val measurements: MutableList<Measurment>, val intent: Intent) : RecyclerView.Adapter<MeasurementAdapter.MeasurementViewHolder>() {
 
+    /**
+     * ViewHolder do przechowywania widoków elementów pomiarów.
+     *
+     * @param itemView Widok pojedynczego elementu pomiaru.
+     */
     class MeasurementViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val dateTextView: TextView = itemView.findViewById(R.id.dateTextView)
         val timeTextView: TextView = itemView.findViewById(R.id.timeTextView)
@@ -27,16 +38,20 @@ class MeasurementAdapter(val measurements: MutableList<Measurment>, val intent: 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MeasurementViewHolder {
+        // Tworzenie nowego widoku pojedynczego elementu pomiaru.
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.measurment_item, parent, false)
         return MeasurementViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: MeasurementViewHolder, position: Int) {
+        // Wiązanie danych pomiaru z widokiem ViewHoldera.
         val currentMeasurement = measurements[position]
         val userIdFromIntent = intent.getStringExtra("userID").toString()
 
+        // Sprawdzenie, czy pomiar należy do bieżącego użytkownika.
         if (currentMeasurement.userID == userIdFromIntent) {
+            // Ustawienie danych pomiaru w widoku ViewHoldera.
             holder.dateTextView.text = currentMeasurement.date
             holder.timeTextView.text = currentMeasurement.hour
             holder.bloodPressureTextView.text = currentMeasurement.bloodPressure
@@ -89,6 +104,7 @@ class MeasurementAdapter(val measurements: MutableList<Measurment>, val intent: 
                 }
             }
         } else {
+            // Ukrycie widoku, jeśli pomiar nie należy do bieżącego użytkownika.
             holder.itemView.visibility = View.GONE
             holder.itemView.layoutParams = RecyclerView.LayoutParams(0, 0)
         }
@@ -96,6 +112,7 @@ class MeasurementAdapter(val measurements: MutableList<Measurment>, val intent: 
 
 
     override fun getItemCount(): Int {
+        // Zwrócenie liczby pomiarów należących do bieżącego użytkownika.
         return measurements.count { it.userID == intent.getStringExtra("userID").toString() }
     }
 
