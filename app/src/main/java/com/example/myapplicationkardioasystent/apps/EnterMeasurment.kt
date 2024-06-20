@@ -97,17 +97,17 @@ class EnterMeasurment : AppCompatActivity() {
 
                     documentRef.set(measurment)
                         .addOnSuccessListener {
-                            Log.d(TAG, "DocumentSnapshot added with ID: ${documentRef.id}")
+                            Log.d(TAG, "Dokument dodany z ID: ${documentRef.id}")
                             showNotification() // Wywołaj powiadomienie
                         }
                         .addOnFailureListener { e ->
-                            Log.w(TAG, "Error adding document", e)
+                            Log.w(TAG, "Wystąpił błąd", e)
                         }
                 }
 
                 openActivity(userID)
             } else {
-                Toast.makeText(this, "Empty values!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Nie wprowadzono wartości!", Toast.LENGTH_SHORT).show()
             }
         }
     }

@@ -1,31 +1,31 @@
 <resources>
     <string name="app_name">My Application KARDIOASYSTENT</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-    <string name="err_msg_enter_name">Please enter your name</string>
-    <string name="err_msg_enter_surname">Please enter your surname</string>
-    <string name="err_msg_enter_gender">Please enter your gender</string>
-    <string name="err_msg_enter_year_of_birth">Please enter your year of birth</string>
-    <string name="err_msg_enter_question">Please enter your answer</string>
-    <string name="err_msg_enter_doctor_name">Please enter the drags name</string>
-    <string name="err_msg_enter_time">Please enter the time</string>
-    <string name="err_msg_invalid_morning_time">Invalid morning time format. Please enter the time in HH:mm format</string>
-    <string name="err_msg_invalid_afternoon_time">Invalid afternoon time format. Please enter the time in HH:mm format</string>
-    <string name="err_msg_invalid_night_time">Invalid night time format. Please enter the time in HH:mm format</string>
-    <string name="err_msg_enter_email">Please enter your email</string>
-    <string name="err_msg_enter_password">Please enter your password</string>
-    <string name="err_msg_enter_morning_pulse">Please enter the morning pulse measurement</string>
-    <string name="err_msg_enter_midday_pulse">Please enter the midday pulse measurement</string>
-    <string name="err_msg_enter_evening_pulse">Please enter the evening pulse measurement</string>
-    <string name="login_successfull">You are logged in successfully</string>
+    <string name="first_fragment_label">Pierwszy Fragment</string>
+    <string name="second_fragment_label">Drugi Fragment</string>
+    <string name="next">Dalej</string>
+    <string name="previous">Wstecz</string>
+    <string name="err_msg_enter_name">Proszę wprowadzić swoje imię</string>
+    <string name="err_msg_enter_surname">Proszę wprowadzić swoje nazwisko</string>
+    <string name="err_msg_enter_gender">Proszę wprowadzić swoją płeć</string>
+    <string name="err_msg_enter_year_of_birth">Proszę wprowadzić swój rok urodzenia</string>
+    <string name="err_msg_enter_question">Proszę wprowadzić swoją odpowiedź</string>
+    <string name="err_msg_enter_doctor_name">Proszę wprowadzić nazwę leku</string>
+    <string name="err_msg_enter_time">Proszę wprowadzić czas</string>
+    <string name="err_msg_invalid_morning_time">Nieprawidłowy format czasu porannego. Proszę wprowadzić czas w formacie HH:mm</string>
+    <string name="err_msg_invalid_afternoon_time">Nieprawidłowy format czasu popołudniowego. Proszę wprowadzić czas w formacie HH:mm</string>
+    <string name="err_msg_invalid_night_time">Nieprawidłowy format czasu wieczornego. Proszę wprowadzić czas w formacie HH:mm</string>
+    <string name="err_msg_enter_email">Proszę wprowadzić swój adres e-mail</string>
+    <string name="err_msg_enter_password">Proszę wprowadzić swoje hasło</string>
+    <string name="err_msg_enter_morning_pulse">Proszę wprowadzić poranny pomiar pulsu</string>
+    <string name="err_msg_enter_midday_pulse">Proszę wprowadzić południowy pomiar pulsu</string>
+    <string name="err_msg_enter_evening_pulse">Proszę wprowadzić wieczorny pomiar pulsu</string>
+    <string name="login_successfull">Zalogowano pomyślnie</string>
     <string-array name="filter_options">
         <item>Tydzień</item>
         <item>Miesiąc</item>
         <item>Rok</item>
     </string-array>
-    <string name="channel_name">Measurement Notifications</string>
-    <string name="channel_description">Notifications for new measurements</string>
+    <string name="channel_name">Powiadomienia o Pomiarach</string>
+    <string name="channel_description">Powiadomienia o nowych pomiarach</string>
 </resources>

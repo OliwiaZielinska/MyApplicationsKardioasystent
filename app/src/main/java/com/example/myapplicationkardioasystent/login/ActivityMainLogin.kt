@@ -49,7 +49,7 @@ open class ActivityMainLogin : BaseActivity(){
                 false
             }
             else -> {
-                showErrorSnackBar("Your details are valid", false)
+                showErrorSnackBar("Wprowadzone dane logowania są poprawne", false)
                 true
             }
         }

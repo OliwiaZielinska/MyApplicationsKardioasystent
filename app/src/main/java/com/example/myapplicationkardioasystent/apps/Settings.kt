@@ -89,7 +89,7 @@ class Settings : BaseActivity() {
 
                         db.collection("users").document(userId.toString()).set(currentUser)
                             .addOnSuccessListener {
-                                Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this, "Zmiana zakończona sukcesem", Toast.LENGTH_SHORT).show()
                                 if (editSettingsTakNieSwitchValue && editNameSettingsInputValue.isNotEmpty() && editHourSettingsInputValue.isNotEmpty()
                                     && editMorningInputValue.isNotEmpty() && editAfternoonInputValue.isNotEmpty() && editNightInputValue.isNotEmpty()
                                 ) {
@@ -126,7 +126,7 @@ class Settings : BaseActivity() {
                             .addOnFailureListener { exception ->
                                 Toast.makeText(
                                     this,
-                                    "Failed to save changes: ${exception.message}",
+                                    "Błąd podczas zapisu zmian: ${exception.message}",
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
@@ -229,7 +229,7 @@ class Settings : BaseActivity() {
                 editSettingsTakNieSwitch.isChecked = question.equals("Tak", ignoreCase = true)
             }
         }.addOnFailureListener {
-            Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Wystąpił błąd!", Toast.LENGTH_SHORT).show()
         }
     }
 
