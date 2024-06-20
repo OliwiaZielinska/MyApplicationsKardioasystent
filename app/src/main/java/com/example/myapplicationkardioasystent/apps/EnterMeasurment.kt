@@ -9,9 +9,11 @@ import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -42,6 +44,10 @@ class EnterMeasurment : AppCompatActivity() {
     private lateinit var systolicPressureInputText: TextInputEditText
     private lateinit var diastolicPressureInputText: TextInputEditText
     private lateinit var pulseInputText: TextInputEditText
+
+    private var lastSystolicPressure = ""
+    private var lastDiastolicPressure = ""
+    private var lastPulse = ""
 
     @OptIn(DelicateCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,34 +92,76 @@ class EnterMeasurment : AppCompatActivity() {
             val pulse = pulseInputText.text.toString()
 
             if (systolicPressure.isNotEmpty() && diastolicPressure.isNotEmpty() && pulse.isNotEmpty()) {
-                val bloodPressure = "$systolicPressure/$diastolicPressure"
-                val measurment = Measurment(
-                    userID,
-                    date,
-                    hour,
-                    bloodPressure,
-                    pulse
-                )
+                // sprawdzenie czy wartości cisnienia i pulsu nie są ujemne
+                val systolicPressureValue = systolicPressure.toInt()
+                val diastolicPressureValue = diastolicPressure.toInt()
+                val pulseValue = pulse.toInt()
 
-                GlobalScope.launch(Dispatchers.Main) {
-                    val collectionRef = FirebaseFirestore.getInstance().collection("measurements")
-                    val documentRef = collectionRef.document()
-
-                    documentRef.set(measurment)
-                        .addOnSuccessListener {
-                            Log.d(TAG, "Dokument dodany z ID: ${documentRef.id}")
-                            showNotification() // Wywołaj powiadomienie
-                        }
-                        .addOnFailureListener { e ->
-                            Log.w(TAG, "Wystąpił błąd", e)
-                        }
+                if (systolicPressureValue < 0 || diastolicPressureValue < 0 || pulseValue < 0) {
+                    showRedToast("Wartości pomiarów muszą być dodatnie!")
+                } else if (isSuspiciousValues(systolicPressureValue, diastolicPressureValue, pulseValue)) {
+                    if (lastSystolicPressure == systolicPressure && lastDiastolicPressure == diastolicPressure && lastPulse == pulse) {
+                        saveMeasurement(userID, date, hour, systolicPressure, diastolicPressure, pulse)
+                    } else {
+                        lastSystolicPressure = systolicPressure
+                        lastDiastolicPressure = diastolicPressure
+                        lastPulse = pulse
+                        showRedToast("Wprowadzono podejrzane wartości ciśnienia lub pulsu.")
+                    }
+                } else {
+                    saveMeasurement(userID, date, hour, systolicPressure, diastolicPressure, pulse)
                 }
-
-                openActivity(userID)
             } else {
-                Toast.makeText(this, "Nie wprowadzono wartości!", Toast.LENGTH_SHORT).show()
+                showRedToast("Nie wprowadzono wartości!")
             }
         }
+    }
+    /**
+     * Metoda do sprawdzania podejrzanych wartości ciśnienia i pulsu.
+     * @param systolicPressure wartość ciśnienia skurczowego
+     * @param diastolicPressure wartość ciśnienia rozkurczowego
+     * @param pulse wartość pulsu
+     * @return true, jeśli wartości są podejrzane; false w przeciwnym razie
+     */
+    private fun isSuspiciousValues(systolicPressure: Int, diastolicPressure: Int, pulse: Int): Boolean {
+        return (pulse > 180 || pulse < 40) ||
+                (systolicPressure > 180 || systolicPressure < 70) ||
+                (diastolicPressure > 130 || diastolicPressure < 30)
+    }
+    /**
+     * Metoda do zapisywania wyniku pomiaru w bazie danych.
+     * @param userID identyfikator użytkownika
+     * @param date data pomiaru
+     * @param hour godzina pomiaru
+     * @param systolicPressure ciśnienie skurczowe
+     * @param diastolicPressure ciśnienie rozkurczowe
+     * @param pulse puls
+     */
+    private fun saveMeasurement(userID: String, date: String, hour: String, systolicPressure: String, diastolicPressure: String, pulse: String) {
+        val bloodPressure = "$systolicPressure/$diastolicPressure"
+        val measurment = Measurment(
+            userID,
+            date,
+            hour,
+            bloodPressure,
+            pulse
+        )
+
+        GlobalScope.launch(Dispatchers.Main) {
+            val collectionRef = FirebaseFirestore.getInstance().collection("measurements")
+            val documentRef = collectionRef.document()
+
+            documentRef.set(measurment)
+                .addOnSuccessListener {
+                    Log.d(TAG, "Dokument dodany z ID: ${documentRef.id}")
+                    showNotification() // Wywołaj powiadomienie
+                }
+                .addOnFailureListener { e ->
+                    Log.w(TAG, "Wystąpił błąd", e)
+                }
+        }
+
+        openActivity(userID)
     }
 
     /**
@@ -192,4 +240,16 @@ class EnterMeasurment : AppCompatActivity() {
 
         datePickerDialog.show()
     }
+    /**
+     * Metoda do wyświetlenia Toast.
+     */
+    private fun showRedToast(message: String) {
+        val toast = Toast.makeText(this, message, Toast.LENGTH_SHORT)
+        toast.view?.setBackgroundColor(Color.RED)
+        val text = toast.view?.findViewById<TextView>(android.R.id.message)
+        text?.setTextColor(Color.WHITE)
+        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0)
+        toast.show()
+    }
+
 }
