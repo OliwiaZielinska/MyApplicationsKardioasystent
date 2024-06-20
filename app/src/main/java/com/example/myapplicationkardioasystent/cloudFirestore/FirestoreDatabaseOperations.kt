@@ -29,7 +29,7 @@ class FirestoreDatabaseOperations(private val db: FirebaseFirestore) : Firestore
             db.collection("users").document(userId).set(user).await()
         }catch (e: Exception) {
             // Dodawanie użytkownika błąd
-            Log.e("addUser", "An error occurred while adding a user: $e")
+            Log.e("addUser", "Błąd podczas dodawania użytkownika: $e")
         }
     }
 
@@ -63,7 +63,7 @@ class FirestoreDatabaseOperations(private val db: FirebaseFirestore) : Firestore
         try {
             db.collection("users").document(userId).set(updatedUser).await()
         } catch (e: Exception) {
-            Log.e("updateUser", "An error occurred while updating user data: $e")
+            Log.e("updateUser", "Błąd podczas aktualizacji danych użytkownika: $e")
         }
     }
     /**
@@ -86,21 +86,21 @@ class FirestoreDatabaseOperations(private val db: FirebaseFirestore) : Firestore
                         // Usuń każdy znaleziony dokument
                         document.reference.delete()
                             .addOnSuccessListener {
-                                Log.d(TAG, "DocumentSnapshot successfully deleted!")
+                                Log.d(TAG, "DocumentSnapshot usunięto poprawnie!")
                             }
                             .addOnFailureListener { e ->
-                                Log.w(TAG, "Error deleting document", e)
+                                Log.w(TAG, "Błąd podczas usuwania dokumentu", e)
                             }
                     }
                 }
                 .addOnFailureListener { exception ->
-                    Log.w(TAG, "Error getting documents: ", exception)
+                    Log.w(TAG, "Błąd podczas pobierania dokumentu: ", exception)
                 }
             db.collection("users").document(userId).delete().await()
             val user = FirebaseAuth.getInstance().currentUser
             user?.delete()
         } catch (e: Exception) {
-            Log.e("deleteUser", "An error occurred while deleting a user: $e")
+            Log.e("deleteUser", "Błąd podczas usuwania użytkownika: $e")
         }
     }
 
@@ -119,7 +119,7 @@ class FirestoreDatabaseOperations(private val db: FirebaseFirestore) : Firestore
             db.collection("measurments").document(userId).collection("measurment").document(measurmentID).set(measurment).await()
         }catch (e: Exception) {
             // Dodawanie użytkownika błąd
-            Log.e("addMeasurment", "An error occurred while adding a measurment: $e")
+            Log.e("addMeasurment", "Błąd podczas dodawania pomiaru: $e")
         }
     }
 

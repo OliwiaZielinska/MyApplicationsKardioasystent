@@ -105,7 +105,7 @@
         android:layout_width="215dp"
         android:layout_height="52dp"
         android:layout_marginTop="17dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="20dp"
         android:hint="HH:MM"
         android:inputType="time"
         android:textColor="#000000"
@@ -118,20 +118,40 @@
         app:layout_constraintTop_toBottomOf="@+id/dateOfMeasurementInputText" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/bloodPressureInputText"
-        android:layout_width="215dp"
+        android:id="@+id/systolicPressureInputText"
+        android:layout_width="80dp"
         android:layout_height="52dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="15dp"
-        android:hint="Ciśnienie"
+        android:layout_marginEnd="16dp"
+        android:hint="SYS"
         android:textColor="#000000"
         android:textColorHint="#000000"
         android:textColorLink="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/pulseInputText"
+        app:layout_constraintEnd_toStartOf="@+id/separatorTextView"
+        app:layout_constraintTop_toBottomOf="@+id/hourInputText" />
+
+    <TextView
+        android:id="@+id/separatorTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="24dp"
+        android:text="/"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/diastolicPressureInputText"
+        app:layout_constraintTop_toBottomOf="@+id/hourInputText" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/diastolicPressureInputText"
+        android:layout_width="80dp"
+        android:layout_height="52dp"
+        android:layout_marginEnd="30dp"
+        android:hint="DIA"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        android:textColorLink="#000000"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hourInputText"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/hourInputText" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/pulseInputText"
