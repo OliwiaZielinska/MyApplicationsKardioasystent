@@ -42,7 +42,7 @@ class MainViewApp : AppCompatActivity() {
 
         helloUserText = findViewById(R.id.helloUserText)
         // Ustaw tekst powitalny, wykorzystując wartość userID
-        helloUserText?.text = "Welcome ${uID}!"
+        helloUserText?.text = "Witaj ${uID}!"
 
         // Obsługa przycisku "Wprowadź wynik pomiaru"
         enterTheMeasurementResultButton.setOnClickListener {

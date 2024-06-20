@@ -39,7 +39,8 @@ import java.util.Locale
 class EnterMeasurment : AppCompatActivity() {
     private lateinit var dateOfMeasurementInputText: TextView
     private lateinit var hourInputText: TextView
-    private lateinit var bloodPressureInputText: TextInputEditText
+    private lateinit var systolicPressureInputText: TextInputEditText
+    private lateinit var diastolicPressureInputText: TextInputEditText
     private lateinit var pulseInputText: TextInputEditText
 
     @OptIn(DelicateCoroutinesApi::class)
@@ -52,7 +53,8 @@ class EnterMeasurment : AppCompatActivity() {
         // Inicjalizacja elementów interfejsu użytkownika
         dateOfMeasurementInputText = findViewById(R.id.dateOfMeasurementInputText)
         hourInputText = findViewById(R.id.hourInputText)
-        bloodPressureInputText = findViewById(R.id.bloodPressureInputText)
+        systolicPressureInputText = findViewById(R.id.systolicPressureInputText)
+        diastolicPressureInputText = findViewById(R.id.diastolicPressureInputText)
         pulseInputText = findViewById(R.id.pulseInputText)
 
         // Ustawienie dzisiejszej daty w polu tekstowym
@@ -79,10 +81,12 @@ class EnterMeasurment : AppCompatActivity() {
             val userID = intent.getStringExtra("userID").toString()
             val date = dateOfMeasurementInputText.text.toString()
             val hour = hourInputText.text.toString()
-            val bloodPressure = bloodPressureInputText.text.toString()
+            val systolicPressure = systolicPressureInputText.text.toString()
+            val diastolicPressure = diastolicPressureInputText.text.toString()
             val pulse = pulseInputText.text.toString()
 
-            if (bloodPressure.isNotEmpty() && pulse.isNotEmpty()) {
+            if (systolicPressure.isNotEmpty() && diastolicPressure.isNotEmpty() && pulse.isNotEmpty()) {
+                val bloodPressure = "$systolicPressure/$diastolicPressure"
                 val measurment = Measurment(
                     userID,
                     date,
