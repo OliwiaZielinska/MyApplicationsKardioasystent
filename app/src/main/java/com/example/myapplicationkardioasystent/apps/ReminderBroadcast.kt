@@ -15,7 +15,7 @@ import androidx.core.app.NotificationManagerCompat
 import com.example.myapplicationkardioasystent.R
 
 /**
- * BroadcastReceiver odpowiedzialny za wysyłanie powiadomień przypominających o sprawdzeniu wyników lotto.
+ * BroadcastReceiver odpowiedzialny za wysyłanie powiadomień.
  */
 class ReminderBroadcast : BroadcastReceiver() {
 
@@ -31,8 +31,8 @@ class ReminderBroadcast : BroadcastReceiver() {
         val notificationBuilder = NotificationCompat.Builder(context, "ChannelId")
         notificationBuilder
             .setSmallIcon(R.drawable.running_heart)
-            .setContentTitle("Lotto Game")
-            .setContentText("Remember to check your score")
+            .setContentTitle("KARDIOASYSTENT")
+            .setContentText("Wprowadzono wynik pomiaru")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
         // Utworzenie kanału powiadomień
@@ -51,4 +51,3 @@ class ReminderBroadcast : BroadcastReceiver() {
         manager.notify(200, notificationBuilder.build())
     }
 }
-
