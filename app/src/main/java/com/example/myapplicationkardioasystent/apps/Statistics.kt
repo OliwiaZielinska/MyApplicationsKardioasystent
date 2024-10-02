@@ -65,6 +65,11 @@ class Statistics : AppCompatActivity() {
         returnFromStatisticsButton.setOnClickListener {
             openMainActivity(userId.toString())
         }
+
+        val raportOfStatisticsButton = findViewById<Button>(R.id.raportOfStatisticsButton)
+        raportOfStatisticsButton.setOnClickListener {
+            openMainActivity(userId.toString())
+        }
     }
 
     /**
