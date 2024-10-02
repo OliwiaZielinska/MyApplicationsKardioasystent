@@ -6,11 +6,11 @@
     android:background="@drawable/background">
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="132dp"
-        android:text="TWOJE STATYSTYKI"
+        android:text="TWÓJ RAPORT"
         android:textAlignment="center"
         android:textColor="#E10A0A"
         android:textSize="22sp"
@@ -19,28 +19,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner
-        android:id="@+id/spinnerFilter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/textView5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:entries="@array/filter_options" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="244dp"
         android:layout_height="450dp"
         android:layout_marginTop="47dp"
-        app:layout_constraintBottom_toTopOf="@+id/returnFromStatisticsButton"
+        app:layout_constraintBottom_toTopOf="@+id/returnFromRaportsButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerFilter" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/returnFromStatisticsButton"
+        android:id="@+id/returnFromRaportsButton"
         android:layout_width="131dp"
         android:layout_height="54dp"
         android:layout_marginEnd="10dp"
@@ -56,13 +47,13 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/raportOfStatisticsButton"
+        android:id="@+id/sendRaportsButton"
         android:layout_width="131dp"
         android:layout_height="54dp"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="25dp"
         android:backgroundTint="#F69393"
-        android:text="RAPORT"
+        android:text="WYŚLIJ"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textStyle="bold"

@@ -68,7 +68,7 @@ class Statistics : AppCompatActivity() {
 
         val raportOfStatisticsButton = findViewById<Button>(R.id.raportOfStatisticsButton)
         raportOfStatisticsButton.setOnClickListener {
-            openMainActivity(userId.toString())
+            openRaportsActivity(userId.toString())
         }
     }
 
@@ -160,6 +160,15 @@ class Statistics : AppCompatActivity() {
      */
     private fun openMainActivity(userID : String) {
         val intent = Intent(this, MainViewApp::class.java)
+        intent.putExtra("uID", userID)
+        startActivity(intent)
+    }
+
+    /**
+     * Otwiera layout raportów.
+     */
+    private fun openRaportsActivity(userID : String) {
+        val intent = Intent(this, Raports::class.java)
         intent.putExtra("uID", userID)
         startActivity(intent)
     }
