@@ -1,14 +1,18 @@
 package com.example.myapplicationkardioasystent.apps
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplicationkardioasystent.R
+import com.example.myapplicationkardioasystent.cloudFirestore.User
+import com.example.myapplicationkardioasystent.registation.Gender
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.components.LimitLine
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -17,6 +21,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Locale
 /**
  * Klasa Raports odpowiedzialna za wyświetlanie raportu pomiarów tętna użytkownika. Zawiera metody do pobierania danych z Firestore,
@@ -149,6 +154,31 @@ class Raports : AppCompatActivity() {
         legend.setDrawInside(false)
 
         lineChart.invalidate()
+
+        // Pobieramy dane użytkownika
+        getUserData { age, gender ->
+            if (age != -1 && gender != "unknown") {
+                val (lowerLimit, upperLimit) = calculatePulseLimits(age, gender)
+
+                // Tworzenie linii limitów
+                val lowerLimitLine = LimitLine(lowerLimit.toFloat())
+                lowerLimitLine.lineWidth = 2f
+                lowerLimitLine.lineColor = Color.RED
+                lowerLimitLine.textColor = Color.RED
+
+                val upperLimitLine = LimitLine(upperLimit.toFloat())
+                upperLimitLine.lineWidth = 2f
+                upperLimitLine.lineColor = Color.RED
+                upperLimitLine.textColor = Color.RED
+
+                // Dodanie linii limitów do osi Y
+                val yAxisLeft = lineChart.axisLeft
+                yAxisLeft.addLimitLine(lowerLimitLine)
+                yAxisLeft.addLimitLine(upperLimitLine)
+
+                lineChart.invalidate() // Odświeżenie wykresu
+            }
+        }
     }
     /**
      * Metoda do otwierania aktywności głównej.
@@ -160,4 +190,49 @@ class Raports : AppCompatActivity() {
         intent.putExtra("uID", userID)
         startActivity(intent)
     }
+
+    /**
+     * Metoda do liczenia limitów tętna na podstawie wieku i płci.
+     */
+    private fun calculatePulseLimits(age: Int, gender: String): Pair<Int, Int> {
+        val pulseRange = when (age) {
+            in 18..25 -> if (gender == Gender.MALE.toString()) 62 to 73 else 64 to 80
+            in 26..35 -> if (gender == Gender.MALE.toString()) 62 to 73 else 64 to 81
+            in 36..45 -> if (gender == Gender.MALE.toString()) 63 to 75 else 65 to 82
+            in 46..55 -> if (gender == Gender.MALE.toString()) 64 to 76 else 66 to 83
+            in 56..65 -> if (gender == Gender.MALE.toString()) 62 to 75 else 64 to 82
+            else -> if (gender == Gender.MALE.toString()) 62 to 73 else 64 to 81
+        }
+        return pulseRange
+    }
+
+    /**
+     * Metoda pobierająca dane o użytkowniku
+     */
+    private fun getUserData(callback: (Int, String) -> Unit) {
+        val userId = FirebaseAuth.getInstance().currentUser?.email
+        if (userId != null) {
+            db.collection("users").document(userId).get()
+                .addOnSuccessListener { document ->
+                    val currentUser = document.toObject(User::class.java)
+                    if (currentUser != null) {
+                        val birthYear = currentUser.yearOfBirth.toIntOrNull()
+                        val gender = currentUser.sex
+                        if (birthYear != null && gender != null) {
+                            val currentYear = Calendar.getInstance().get(Calendar.YEAR)
+                            val age = currentYear - birthYear
+                            callback(age, gender)
+                        } else {
+                            callback(-1, "unknown")
+                        }
+                    }
+                }
+                .addOnFailureListener {
+                    callback(-1, "unknown")
+                }
+        } else {
+            callback(-1, "unknown")
+        }
+    }
 }
+
