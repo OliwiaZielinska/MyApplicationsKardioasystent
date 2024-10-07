@@ -95,8 +95,16 @@ class Raports : AppCompatActivity() {
         val entries = mutableListOf<Entry>()
         val sortedDates = avgPulsePerDay.keys.sortedBy { dateFormat.parse(it) }
 
-        // Zbieranie wartości pulsu
-        val pulseValues = avgPulsePerDay.values.map { it.toFloat() }
+        // Ustalanie daty sprzed 30 dni
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_YEAR, -30)
+        val date30DaysAgo = calendar.time
+
+        // Filtrowanie wyników z ostatnich 30 dni
+        val filteredDates = sortedDates.filter { dateFormat.parse(it)?.after(date30DaysAgo) == true }
+
+        // Zbieranie wartości pulsu z przefiltrowanych wyników
+        val pulseValues = filteredDates.map { avgPulsePerDay[it]?.toFloat() ?: 0f }
 
         // Obliczanie minimalnej, maksymalnej oraz średniej wartości
         val minPulse = pulseValues.minOrNull() ?: 0f
@@ -104,16 +112,23 @@ class Raports : AppCompatActivity() {
         val avgPulse = if (pulseValues.isNotEmpty()) pulseValues.average().toFloat() else 0f
 
         // Wyświetlanie wartości w TextView
-        minPulseTextView.text = "Minimalne HR: %.2f".format(minPulse)
-        maxPulseTextView.text = "Maksymalne HR: %.2f".format(maxPulse)
-        avgPulseTextView.text = "Średnie HR: %.2f".format(avgPulse)
+        minPulseTextView.text = "%.2f".format(minPulse)
+        maxPulseTextView.text = "%.2f".format(maxPulse)
+        avgPulseTextView.text = "%.2f".format(avgPulse)
 
-        sortedDates.forEachIndexed { index, date ->
+        filteredDates.forEachIndexed { index, date ->
             val avgPulseForDate = avgPulsePerDay[date] ?: 0.0
             entries.add(Entry(index.toFloat(), avgPulseForDate.toFloat()))
         }
 
+        // Tworzenie LineDataSet z ciemnoszarym kolorem
         val lineDataSet = LineDataSet(entries, "Średnie tętno")
+        lineDataSet.color = Color.DKGRAY  // Ciemny szary kolor
+        lineDataSet.setCircleColor(Color.DKGRAY)  // Kolor kółek na punktach
+        lineDataSet.lineWidth = 2f
+        lineDataSet.circleRadius = 3f
+        lineDataSet.setDrawValues(false)
+
         val lineData = LineData(lineDataSet)
         lineChart.data = lineData
 
@@ -123,8 +138,8 @@ class Raports : AppCompatActivity() {
         xAxis.valueFormatter = object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String {
                 val index = value.toInt()
-                return if (index >= 0 && index < sortedDates.size) {
-                    displayFormat.format(dateFormat.parse(sortedDates[index])!!)
+                return if (index >= 0 && index < filteredDates.size) {
+                    displayFormat.format(dateFormat.parse(filteredDates[index])!!)
                 } else {
                     ""
                 }
@@ -132,7 +147,7 @@ class Raports : AppCompatActivity() {
         }
         xAxis.granularity = 1f
         xAxis.labelRotationAngle = -30f
-        xAxis.setLabelCount(sortedDates.size / 2, true)
+        xAxis.setLabelCount(filteredDates.size / 2, true)
 
         lineChart.setExtraOffsets(10f, 10f, 10f, 20f)
 
@@ -161,12 +176,12 @@ class Raports : AppCompatActivity() {
                 val (lowerLimit, upperLimit) = calculatePulseLimits(age, gender)
 
                 // Tworzenie linii limitów
-                val lowerLimitLine = LimitLine(lowerLimit.toFloat())
+                val lowerLimitLine = LimitLine(lowerLimit.toFloat(), "Dolna granica normy")
                 lowerLimitLine.lineWidth = 2f
                 lowerLimitLine.lineColor = Color.RED
                 lowerLimitLine.textColor = Color.RED
 
-                val upperLimitLine = LimitLine(upperLimit.toFloat())
+                val upperLimitLine = LimitLine(upperLimit.toFloat(), "Górna granica normy")
                 upperLimitLine.lineWidth = 2f
                 upperLimitLine.lineColor = Color.RED
                 upperLimitLine.textColor = Color.RED
@@ -176,7 +191,17 @@ class Raports : AppCompatActivity() {
                 yAxisLeft.addLimitLine(lowerLimitLine)
                 yAxisLeft.addLimitLine(upperLimitLine)
 
-                lineChart.invalidate() // Odświeżenie wykresu
+                // Obliczanie procentu wyników w normie
+                val inRangeCount = pulseValues.count { it >= lowerLimit && it <= upperLimit }
+                val totalCount = pulseValues.size
+                val percentageInRange = if (totalCount > 0) (inRangeCount.toFloat() / totalCount) * 100 else 0f
+
+                // Znalezienie widoku TextView i ustawienie wartości procentowej
+                val percentageTextView = findViewById<TextView>(R.id.percentageInRangeTextView)
+                percentageTextView.text = "%.2f%%".format(percentageInRange)
+
+                // Odświeżenie wykresu
+                lineChart.invalidate()
             }
         }
     }
