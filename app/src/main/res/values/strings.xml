@@ -28,4 +28,5 @@
     </string-array>
     <string name="channel_name">Powiadomienia o Pomiarach</string>
     <string name="channel_description">Powiadomienia o nowych pomiarach</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

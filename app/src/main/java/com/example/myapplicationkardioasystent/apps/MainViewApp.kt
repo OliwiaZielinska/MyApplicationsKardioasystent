@@ -1,4 +1,5 @@
 package com.example.myapplicationkardioasystent.apps
+
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,79 +10,91 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplicationkardioasystent.R
 import com.example.myapplicationkardioasystent.login.MainActivity
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.firestore.FirebaseFirestore
 
 /**
  *  Główna aktywność aplikacji, wyświetlająca interfejs użytkownika.
- *  Umożliwia nawigację do różnych funkcji aplikacji.
+ *  Umożliwia nawigację do różnych funkcji aplikacji oraz wyświetlenie mapy.
  */
-class MainViewApp : AppCompatActivity() {
+class MainViewApp : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var enterTheMeasurementResultButton: Button
     private lateinit var statisticsButton: Button
     private lateinit var settingsButton: Button
     private lateinit var healthGuideButton: Button
-    private var helloUserText: TextView? = null
     private lateinit var logOutButton: Button
     private lateinit var calendarView: CalendarView
+    private lateinit var helloUserText: TextView
     private lateinit var measurementResultsText: TextView
+    private lateinit var mMap: GoogleMap
     private val db = FirebaseFirestore.getInstance()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_view_app)
 
+        // Odczytanie UID użytkownika
         val uID = intent.getStringExtra("uID")
 
+        // Inicjalizacja widoków
         enterTheMeasurementResultButton = findViewById(R.id.enterTheMeasurementResultButton)
         statisticsButton = findViewById(R.id.statisticsButton)
         settingsButton = findViewById(R.id.settingsButton)
         healthGuideButton = findViewById(R.id.healthGuideButton)
         logOutButton = findViewById(R.id.logOutButton)
-
         helloUserText = findViewById(R.id.helloUserText)
-        // Ustaw tekst powitalny, wykorzystując wartość userID
-        helloUserText?.text = "Witaj ${uID}!"
+        calendarView = findViewById(R.id.calendarView)
 
-        // Obsługa przycisku "Wprowadź wynik pomiaru"
+        // Powitanie użytkownika
+        helloUserText.text = "Witaj ${uID}!"
+
+        // Obsługa przycisków
         enterTheMeasurementResultButton.setOnClickListener {
             openActivity(uID.toString())
         }
-
-
-        // Obsługa przycisku "Statystyki"
         statisticsButton.setOnClickListener {
             openActivityStatistics(uID.toString())
         }
-
-        // Obsługa przycisku "Ustawienia"
         settingsButton.setOnClickListener {
             openActivitySettings(uID.toString())
         }
-
-        // Obsługa przycisku "Poradnik zdrowia"
         healthGuideButton.setOnClickListener {
             openActivityHealthAdvices(uID.toString())
         }
-
-        // Obsługa przycisku "Wyloguj się"
         logOutButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         }
-        calendarView = findViewById(R.id.calendarView)
+
+        // Obsługa kalendarza
         calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
-            val selectedDate =
-                "${year}-${String.format("%02d", month + 1)}-${String.format("%02d", dayOfMonth)}"
+            val selectedDate = "${year}-${String.format("%02d", month + 1)}-${String.format("%02d", dayOfMonth)}"
             fetchMeasurementResults(selectedDate)
         }
+
+        // Inicjalizacja fragmentu mapy
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
     }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
+
+        // Dodanie markera w Warszawie i przesunięcie kamery
+        val warsaw = LatLng(52.2297, 21.0122)
+        mMap.addMarker(MarkerOptions().position(warsaw).title("Marker in Warsaw"))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(warsaw, 10f))
+    }
+
     /**
      * Pobiera wyniki pomiarów dla określonej daty z bazy danych i wyświetla je w oknie dialogowym.
-     *
-     * @param date Data, dla której mają być pobrane wyniki pomiarów.
      */
     private fun fetchMeasurementResults(date: String) {
         val uID = intent.getStringExtra("uID") ?: return
@@ -93,7 +106,7 @@ class MainViewApp : AppCompatActivity() {
                 val results = StringBuilder()
                 val measurementCount = documents.size()
 
-                //wiadomość dla użytkownika w zależności od liczby pomiarów
+                // Wiadomość dla użytkownika w zależności od liczby pomiarów
                 when {
                     measurementCount >= 3 -> results.append("Jesteś wzorowym użytkownikiem, wymagana ilość pomiarów została osiągnięta :)\n\n")
                     measurementCount == 2 -> results.append("Wykonano 2 z 3 wymaganych pomiarów, brakuje 1 pomiaru.\n\n")
@@ -115,11 +128,9 @@ class MainViewApp : AppCompatActivity() {
                 showDialog("Błąd", "Błąd podczas pobierania wyników")
             }
     }
+
     /**
      * Wyświetla dialog z określonym tytułem i treścią.
-     *
-     * @param title Tytuł dialogu.
-     * @param message Treść dialogu.
      */
     private fun showDialog(title: String, message: String) {
         val builder = AlertDialog.Builder(this)
@@ -129,15 +140,15 @@ class MainViewApp : AppCompatActivity() {
         builder.show()
     }
 
-
     /**
      * Metoda do otwarcia aktywności wprowadzania wyniku pomiaru.
      */
-    private fun openActivity(userID : String) {
+    private fun openActivity(userID: String) {
         val intent = Intent(this, EnterMeasurment::class.java)
         intent.putExtra("userID", userID)
         startActivity(intent)
     }
+
     /**
      * Metoda do otwarcia aktywności poradnika zdrowia.
      */
@@ -146,16 +157,18 @@ class MainViewApp : AppCompatActivity() {
         intent.putExtra("userID", userID)
         startActivity(intent)
     }
+
     /**
-     * Metoda do otwarcia aktywności związanej ze zmianą ustawień dotyczących przyjmowanych leków.
+     * Metoda do otwarcia aktywności ustawień.
      */
     private fun openActivitySettings(userID: String) {
         val intent = Intent(this, Settings::class.java)
         intent.putExtra("userID", userID)
         startActivity(intent)
     }
+
     /**
-     * Metoda do otwarcia aktywności związanej z wyświetleniem statystyk zalogowanego użytkownika.
+     * Metoda do otwarcia aktywności statystyk.
      */
     private fun openActivityStatistics(userID: String) {
         val intent = Intent(this, Statistics::class.java)
