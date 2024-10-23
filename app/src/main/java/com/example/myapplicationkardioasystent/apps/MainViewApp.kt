@@ -52,7 +52,7 @@ class MainViewApp : AppCompatActivity(){
         mapsButton = findViewById(R.id.mapsButton)
 
         //powitanie użytkownika
-        helloUserText.text = "Witaj ${uID}!"
+        helloUserText.text = "WITAJ ${uID}!"
 
         //przypisanie obsługi zdarzeń do przycisków
         enterTheMeasurementResultButton.setOnClickListener {
