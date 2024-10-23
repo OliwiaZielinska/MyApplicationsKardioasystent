@@ -70,7 +70,7 @@ class Maps : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
         typeSpinner = findViewById(R.id.typeSpinner) // Inicjalizacja spinnera
 
         // Inicjalizacja spinnera
-        val types = arrayOf("Apteka", "Kardiolog", "Szpital")
+        val types = arrayOf("Apteka", "Lekarz", "Szpital")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, types)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         typeSpinner.adapter = adapter
@@ -85,7 +85,7 @@ class Maps : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
             val selectedType = typeSpinner.selectedItem.toString()
             when (selectedType) {
                 "Apteka" -> findNearbyPlaces("pharmacy") //wyszukiwanie aptek
-                "Kardiolog" -> findNearbyPlaces("cardiologist") //wyszukiwanie kardiologów
+                "Lekarz" -> findNearbyPlaces("doctor") //wyszukiwanie lekarzy
                 "Szpital" -> findNearbyPlaces("hospital") //wyszukiwanie szpitali
                 else -> Toast.makeText(this, "Wybierz typ miejsca", Toast.LENGTH_SHORT).show()
             }
@@ -94,7 +94,7 @@ class Maps : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
     /**
      * Metoda do wyszukiwania pobliskich miejsc według podanego typu.
      *
-     * @param type Typ miejsca do wyszukiwania (np. apteka, kardiolog, szpital)
+     * @param type Typ miejsca do wyszukiwania (np. apteka, lekarz, szpital)
      */
     private fun findNearbyPlaces(type: String) {
         val apiKey = getApiKeyFromManifest()
