@@ -8,8 +8,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.EditText
+import android.widget.SeekBar
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -29,6 +30,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
 import org.json.JSONException
 import org.json.JSONObject
+
 /**
  * Klasa Maps reprezentuje ekran z mapą oraz obsługuje interakcje związane z lokalizacją.
  */
@@ -40,9 +42,11 @@ class Maps : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
 
 
     private lateinit var returnFromMapsButton: Button //przycisk do powrotu do głównej aktywności
-    private lateinit var searchEditText: EditText //pole wyszukiwania
     private lateinit var searchButton: Button //przycisk wyszukiwania
-    private lateinit var typeSpinner: Spinner //spinner wyboru typu miejsca (kardiolog/apteka/szpital)
+    private lateinit var typeSpinner: Spinner //spinner wyboru typu miejsca (lekarz/apteka/szpital)
+    private lateinit var distanceSeekBar: SeekBar
+    private lateinit var distanceTextView: TextView
+    private var searchRadius = 5000 //początkowy promień wyszukiwania (5 km)
 
     companion object {
         private const val LOCATION_REQUEST_CODE = 1 //kod żądania uprawnień do lokalizacji
@@ -65,7 +69,6 @@ class Maps : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         //inicjalizacja elementów UI
         returnFromMapsButton = findViewById(R.id.returnFromMapsButton)
-        searchEditText = findViewById(R.id.searchEditText) // Inicjalizacja EditText
         searchButton = findViewById(R.id.searchButton) // Inicjalizacja przycisku
         typeSpinner = findViewById(R.id.typeSpinner) // Inicjalizacja spinnera
 
@@ -79,7 +82,27 @@ class Maps : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
         returnFromMapsButton.setOnClickListener {
             openMainActivity(userId.toString()) //powrót do głównej aktywności
         }
+        //inicjalizacja suwaka i TextView do wyświetlania wybranej odległości
+        distanceSeekBar = findViewById(R.id.distanceSeekBar)
+        distanceTextView = findViewById(R.id.distanceTextView)
 
+        //tablica dostępnych promieni
+        val distanceValues = arrayOf(5000, 10000, 20000, 30000, 40000, 50000, 100000)
+        val distanceLabels = arrayOf("5 km", "10 km", "20 km", "30 km", "40 km", "50 km", "100 km")
+
+        //obsługa zmiany wartości suwaka
+        distanceSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                searchRadius = distanceValues[progress] // Zaktualizowanie promienia wyszukiwania
+                distanceTextView.text = "Odległość: ${distanceLabels[progress]}"
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            }
+        })
         //ustawienie listenera dla przycisku wyszukiwania
         searchButton.setOnClickListener {
             val selectedType = typeSpinner.selectedItem.toString()
@@ -90,6 +113,7 @@ class Maps : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
                 else -> Toast.makeText(this, "Wybierz typ miejsca", Toast.LENGTH_SHORT).show()
             }
         }
+
     }
     /**
      * Metoda do wyszukiwania pobliskich miejsc według podanego typu.
@@ -100,8 +124,8 @@ class Maps : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
         val apiKey = getApiKeyFromManifest()
         if (apiKey != null) {
             val locationString = "${lastLocation.latitude},${lastLocation.longitude}"
-            val radius = 20000 // promień wyszukiwania w metrach (20 km)
-            val url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$locationString&radius=$radius&type=$type&key=$apiKey"
+            val url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$locationString&radius=$searchRadius&type=$type&key=$apiKey"
+
 
             // Żądanie HTTP do Google Places API
             val request = object : StringRequest(
