@@ -222,7 +222,69 @@ class Maps : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
 
                 // przesunięcie kamery mapy na bieżącą lokalizację
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLong, 13f))
+
+                // Automatyczne wyszukiwanie najbliższych miejsc
+                findSingleNearbyPlace("pharmacy") // wyszukiwanie najbliższej apteki
+                findSingleNearbyPlace("doctor")   // wyszukiwanie najbliższego lekarza
+                findSingleNearbyPlace("hospital") // wyszukiwanie najbliższego szpitala
             }
+        }
+    }
+    /**
+     * Metoda do wyszukiwania najbliższego miejsca według podanego typu.
+     *
+     * @param type Typ miejsca do wyszukiwania (np. apteka, lekarz, szpital)
+     */
+    private fun findSingleNearbyPlace(type: String) {
+        val apiKey = getApiKeyFromManifest()
+        if (apiKey != null) {
+            val locationString = "${lastLocation.latitude},${lastLocation.longitude}"
+            val url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$locationString&radius=5000&type=$type&key=$apiKey"
+
+            // Żądanie HTTP do Google Places API
+            val request = object : StringRequest(
+                Method.GET, url,
+                Response.Listener { response ->
+                    try {
+                        // Parsowanie odpowiedzi JSON
+                        val jsonObject = JSONObject(response)
+                        val results = jsonObject.getJSONArray("results")
+
+                        // Sprawdzenie, czy są jakieś wyniki
+                        if (results.length() > 0) {
+                            val place = results.getJSONObject(0) // pobranie najbliższego miejsca
+                            val latLng = place.getJSONObject("geometry").getJSONObject("location")
+                            val lat = latLng.getDouble("lat")
+                            val lng = latLng.getDouble("lng")
+
+                            // Ustawianie tytułu markera w zależności od typu miejsca
+                            val markerTitle = when (type) {
+                                "pharmacy" -> "Najbliższa apteka"
+                                "doctor" -> "Najbliższy lekarz"
+                                "hospital" -> "Najbliższy szpital"
+                                else -> "Najbliższe miejsce"
+                            }
+
+                            // Dodanie markera na mapie dla najbliższego miejsca
+                            mMap.addMarker(
+                                MarkerOptions()
+                                    .position(LatLng(lat, lng))
+                                    .title(markerTitle) // ustawienie odpowiedniego tytułu markera
+                            )
+                        }
+                    } catch (e: JSONException) {
+                        e.printStackTrace() // obsługa błędów parsowania JSON
+                    }
+                },
+                Response.ErrorListener { error ->
+                    // obsługa błędów związanych z żądaniem HTTP
+                    Log.e("MapsActivity", "Błąd podczas wyszukiwania: ${error.message}")
+                }) {}
+
+            // Dodanie żądania do kolejki sieciowej Volley
+            Volley.newRequestQueue(this).add(request)
+        } else {
+            Log.e("MapsActivity", "Brak klucza API w AndroidManifest.xml")
         }
     }
     /**
