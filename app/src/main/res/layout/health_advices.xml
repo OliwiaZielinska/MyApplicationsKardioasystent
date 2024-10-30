@@ -21,53 +21,54 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="351dp"
-        android:layout_height="91dp"
-        android:layout_marginTop="16dp"
+
+    <Button
+        android:id="@+id/drawAdviceButton"
+        android:layout_width="240dp"
+        android:layout_height="68dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginBottom="116dp"
+        android:backgroundTint="#A1F43636"
+        android:text="Wylosuj radę na dziś"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/backGuideButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/adviceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:srcCompat="@drawable/palenie" />
+        app:layout_constraintTop_toBottomOf="@+id/drawAdviceButton" />
 
     <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="348dp"
-        android:layout_height="91dp"
-        android:layout_marginTop="12dp"
+        android:id="@+id/imageView"
+        android:layout_width="411dp"
+        android:layout_height="409dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6"
-        app:srcCompat="@drawable/alkohol" />
 
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="381dp"
-        android:layout_height="91dp"
-        android:layout_marginTop="14dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:srcCompat="@drawable/sen" />
-
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="391dp"
-        android:layout_height="97dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/backGuideButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5"
-        app:layout_constraintVertical_bias="0.028"
-        app:srcCompat="@drawable/woda" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.544"
+        app:srcCompat="@drawable/kostka" />
 
     <Button
         android:id="@+id/backGuideButton"
         android:layout_width="165dp"
         android:layout_height="57dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="4dp"
         android:backgroundTint="#F69393"
         android:text="POWRÓT"
         android:textColor="#FFFFFF"
