@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="colorSnackBarSuccess">#03A9F4</color>
     <color name="colorSnackBarError">#EB1B63</color>
+    <color name="back_color">#363342</color>
+    <color name="edt_back_color">#414051</color>
 </resources>
