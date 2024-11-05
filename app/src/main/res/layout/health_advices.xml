@@ -27,9 +27,9 @@
         android:layout_width="240dp"
         android:layout_height="68dp"
         android:layout_marginTop="13dp"
-        android:layout_marginBottom="116dp"
+        android:layout_marginBottom="139dp"
         android:backgroundTint="#A1F43636"
-        android:text="Wylosuj radę na dziś"
+        android:text="Wylosuj kolejną radę"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="@+id/backGuideButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,26 +42,29 @@
         android:id="@+id/adviceTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:layout_marginBottom="70dp"
         android:text=""
         android:textAlignment="center"
         android:textColor="#FFFFFF"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/drawAdviceButton" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="411dp"
         android:layout_height="409dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
 
-        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.544"
         app:srcCompat="@drawable/kostka" />
 
     <Button
