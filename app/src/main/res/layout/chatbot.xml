@@ -8,13 +8,13 @@
 
     <ScrollView
         android:layout_width="406dp"
-        android:layout_height="417dp"
+        android:layout_height="400dp"
         android:layout_above="@id/idTILQuery"
         android:layout_alignParentTop="true"
         android:layout_marginStart="5dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginBottom="135dp"
+        android:layout_marginBottom="68dp"
         android:padding="5dp">
 
         <LinearLayout
@@ -30,6 +30,7 @@
                 android:layout_marginTop="30dp"
                 android:padding="4dp"
                 android:text="PYTANIE"
+                android:textAlignment="center"
                 android:textColor="@color/quantum_googredA700"
                 android:textSize="17sp"
                 android:textStyle="bold" />
@@ -42,6 +43,7 @@
                 android:layout_marginTop="5dp"
                 android:padding="4dp"
                 android:text="ODPOWIEDŹ"
+                android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
         </LinearLayout>
