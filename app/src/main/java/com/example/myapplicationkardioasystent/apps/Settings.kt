@@ -49,7 +49,7 @@ class Settings : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings)
 
-        val uID = intent.getStringExtra("uID")
+        val uID = intent.getStringExtra("userID").toString()
 
         editSettingsTakNieSwitch = findViewById(R.id.editSettingsTakNieSwitch)
         editNameSettingsInput = findViewById(R.id.editNameSettingsInput)
@@ -100,6 +100,7 @@ class Settings : BaseActivity() {
                                         editMorningInputValue,
                                         editAfternoonInputValue,
                                         editNightInputValue,
+                                        uID
                                     )
 
                                     // Anulowanie wszystkich istniejących powiadomień
@@ -192,9 +193,11 @@ class Settings : BaseActivity() {
         timeOfTakingMedication: String,
         morningMeasurement: String,
         middayMeasurement: String,
-        eveningMeasurement: String
+        eveningMeasurement: String,
+        userId: String
     ) {
         val intent = Intent(this, MainViewApp::class.java)
+        intent.putExtra("uID", userId)
         intent.putExtra("question", question)
         intent.putExtra("drugsName", drugsName)
         intent.putExtra("timeOfTakingMedication", timeOfTakingMedication)
