@@ -29,9 +29,10 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="30dp"
                 android:padding="4dp"
-                android:text="Pytanie"
-                android:textColor="@color/black"
-                android:textSize="17sp" />
+                android:text="PYTANIE"
+                android:textColor="@color/quantum_googredA700"
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
             <!-- text view for displaying response -->
             <TextView
@@ -40,7 +41,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
                 android:padding="4dp"
-                android:text="Odpowiedź"
+                android:text="ODPOWIEDŹ"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
         </LinearLayout>
