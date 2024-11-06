@@ -1,4 +1,5 @@
 package com.example.myapplicationkardioasystent
+
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -30,6 +31,12 @@ class Chatbot : AppCompatActivity() {
     private lateinit var idTVQuestion: TextView
     private lateinit var etQuestion: TextInputEditText
     private lateinit var backIntoRaports: Button
+
+    // Przechowywane wartości tętna
+    private var minPulse: String? = null
+    private var maxPulse: String? = null
+    private var avgPulse: String? = null
+
     /**
      * Metoda wykonywana podczas tworzenia aktywności.
      * Inicjalizuje widoki, pobiera dane użytkownika i dane z Firestore oraz wywołuje metodę do utworzenia chata.
@@ -38,17 +45,23 @@ class Chatbot : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.chatbot)
 
-        etQuestion=findViewById(R.id.etQuestion)
-        idTVQuestion=findViewById(R.id.idTVQuestion)
-        txtResponse=findViewById(R.id.txtResponse)
-        backIntoRaports=findViewById(R.id.backIntoRaports)
+        etQuestion = findViewById(R.id.etQuestion)
+        idTVQuestion = findViewById(R.id.idTVQuestion)
+        txtResponse = findViewById(R.id.txtResponse)
+        backIntoRaports = findViewById(R.id.backIntoRaports)
         val userId = FirebaseAuth.getInstance().currentUser!!.email
+        // Pobranie wartości tętna z Intent
+        minPulse = intent.getStringExtra("minPulse")
+        maxPulse = intent.getStringExtra("maxPulse")
+        avgPulse = intent.getStringExtra("avgPulse")
 
-        // Nasłuchiwanie aż użytkownik kliknie przycisk "Wyślij"
+        // Wprowadzenie domyślnego pytania do pola tekstowego zawierającego wartości tętna
+        etQuestion.setText("Czy następujące wyniki pomiarów tętna: minimalne tętno: $minPulse, maksymalne tętno: $maxPulse, średnie tętno: $avgPulse są dobre? Jeśli nie, co mogę zrobić, aby poprawić swoje zdrowie?")
+
+        // Nasłuchiwanie kliknięcia przycisku "Wyślij"
         etQuestion.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
-
             if (actionId == EditorInfo.IME_ACTION_SEND) {
-                txtResponse.text = "Proszę czekać.."
+                txtResponse.text = "Proszę czekać..."
 
                 // Usunięcie zbędnych spacji na początku i końcu pytania
                 val question = etQuestion.text.toString().trim()
@@ -66,7 +79,7 @@ class Chatbot : AppCompatActivity() {
             false
         })
 
-        // Obsługa przycisku powrót
+        // Obsługa przycisku powrotu
         backIntoRaports.setOnClickListener {
             openRaportsView(userId.toString())
         }

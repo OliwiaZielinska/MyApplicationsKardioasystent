@@ -223,13 +223,16 @@ class Raports : AppCompatActivity() {
     }
 
     /**
-     * Metoda do otwierania aktywności związanej z chatem.
+     * Metoda do otwierania aktywności związanej z chatem i przekazywania wartości tętna.
      *
      * @param userID identyfikator użytkownika, który jest przekazywany do głównej aktywności.
      */
     private fun openMainActivity2(userID: String) {
         val intent = Intent(this, Chatbot::class.java)
         intent.putExtra("uID", userID)
+        intent.putExtra("minPulse", minPulseTextView.text.toString())
+        intent.putExtra("maxPulse", maxPulseTextView.text.toString())
+        intent.putExtra("avgPulse", avgPulseTextView.text.toString())
         startActivity(intent)
     }
 
