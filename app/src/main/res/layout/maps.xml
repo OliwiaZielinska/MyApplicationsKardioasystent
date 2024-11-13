@@ -20,12 +20,6 @@
         app:layout_constraintVertical_bias="0.639"
         tools:context=".Maps" />
 
-    <!-- Spinner wyboru typu miejsca -->
-    <!-- Przycisk wyszukiwania -->
-    <!-- Suwak odległości -->
-
-    <!-- Tekst informujący o wybranym promieniu -->
-
     <Spinner
         android:id="@+id/typeSpinner"
         android:layout_width="168dp"
@@ -74,21 +68,40 @@
         android:layout_marginTop="8dp"
         android:text="Odległość: 5 km"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/distanceSeekBar"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/distanceSeekBar" />
+
     <Button
         android:id="@+id/returnFromMapsButton"
         android:layout_width="131dp"
         android:layout_height="54dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="580dp"
+        android:layout_marginBottom="30dp"
         android:backgroundTint="#F69393"
         android:text="POWRÓT"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/navigationButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/map" />
 
+    <Button
+        android:id="@+id/navigationButton"
+        android:layout_width="131dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="580dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="30dp"
+        android:backgroundTint="#F69393"
+        android:text="NAWIGUJ"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/map" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,7 +22,7 @@
     <string name="err_msg_enter_evening_pulse">Proszę wprowadzić wieczorny pomiar pulsu</string>
     <string name="login_successfull">Zalogowano pomyślnie</string>
     <string-array name="filter_options">
-        <item>Tydzień</item>
+        <item>Tydzień</item>"
         <item>Miesiąc</item>
         <item>Rok</item>
     </string-array>
