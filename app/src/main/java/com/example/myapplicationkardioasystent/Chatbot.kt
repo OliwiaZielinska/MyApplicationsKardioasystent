@@ -69,9 +69,9 @@ class Chatbot : AppCompatActivity() {
         avgDia = intent.getStringExtra("avgDia")
 
         // Wprowadzenie domyślnego pytania do pola tekstowego zawierającego wartości tętna i ciśnienia
-        etQuestion.setText("Czy następujące wyniki pomiarów tętna: minimalne tętno: $minPulse, maksymalne tętno: $maxPulse, średnie tętno: $avgPulse są dobre?\n " +
-                "Czy ciśnienie skurczowe o wartościach: minimalne: $minSys, maksymalne: $maxSys, średnie: $avgSys jest prawidłowe?\n"+
-                "Podobnie, czy ciśnienie rozkurczowe minimalne: $minDia, maksymalne: $maxDia, średnie: $avgDia są w normie?\n"+
+        etQuestion.setText("Czy następujące wyniki pomiarów tętna: minimalne tętno: $minPulse, maksymalne tętno: $maxPulse, średnie tętno: $avgPulse są dobre? " +
+                "Czy ciśnienie skurczowe o wartościach: minimalne: $minSys, maksymalne: $maxSys, średnie: $avgSys jest prawidłowe? "+
+                "Podobnie, czy ciśnienie rozkurczowe minimalne: $minDia, maksymalne: $maxDia, średnie: $avgDia są w normie? "+
                 "Jeśli nie, co mogę zrobić, aby poprawić swoje zdrowie?")
 
         // Nasłuchiwanie kliknięcia przycisku "Wyślij"
