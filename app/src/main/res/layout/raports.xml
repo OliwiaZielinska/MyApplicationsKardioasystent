@@ -21,17 +21,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Tabelka z wynikami -->
+
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/lineChart"
         android:layout_width="232dp"
         android:layout_height="358dp"
-        android:layout_marginBottom="164dp"
-        app:layout_constraintBottom_toTopOf="@+id/sendRaportsButton"
+        android:layout_marginBottom="212dp"
+        app:layout_constraintBottom_toBottomOf="@+id/returnFromRaportsButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Tabelka z wynikami -->
     <TableLayout
         android:id="@+id/pulseStatsTable"
         android:layout_width="wrap_content"
@@ -42,13 +43,15 @@
         app:layout_constraintTop_toBottomOf="@id/lineChart">
 
         <TableRow>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
                 android:text="Min HR:"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginEnd="16dp" />
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/minPulseTextView"
                 android:layout_width="wrap_content"
@@ -58,13 +61,15 @@
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
                 android:text="Max HR:"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginEnd="16dp" />
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/maxPulseTextView"
                 android:layout_width="wrap_content"
@@ -74,13 +79,15 @@
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
                 android:text="Średnia HR:"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginEnd="16dp" />
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/avgPulseTextView"
                 android:layout_width="wrap_content"
@@ -90,13 +97,15 @@
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
                 android:text="Wyników w normie:"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginEnd="16dp" />
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/percentageInRangeTextView"
                 android:layout_width="wrap_content"
@@ -105,12 +114,12 @@
                 android:textSize="18sp" />
         </TableRow>
     </TableLayout>
+
     <Button
         android:id="@+id/returnFromRaportsButton"
         android:layout_width="131dp"
         android:layout_height="54dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="10dp"
         android:backgroundTint="#F69393"
         android:text="POWRÓT"
         android:textAlignment="center"
@@ -118,23 +127,6 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.866"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/sendRaportsButton"
-        android:layout_width="131dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="12dp"
-        android:backgroundTint="#F69393"
-        android:text="WYŚLIJ"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.188"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button

@@ -1,11 +1,13 @@
 package com.example.myapplicationkardioasystent.apps
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplicationkardioasystent.Chatbot
 import com.example.myapplicationkardioasystent.R
 import com.example.myapplicationkardioasystent.cloudFirestore.User
 import com.example.myapplicationkardioasystent.registation.Gender
@@ -38,6 +40,7 @@ class RaportPressure : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     private val displayFormat = SimpleDateFormat("dd.MM", Locale.getDefault())
+
     /**
      * Metoda wywoływana podczas tworzenia aktywności.
      * Inicjalizuje widoki, pobiera dane z Firestore, a następnie wyświetla je na wykresie.
@@ -55,6 +58,9 @@ class RaportPressure : AppCompatActivity() {
         avgDiastolicTextView = findViewById(R.id.averageDiastolicTextView)
         avgSystolicTextView = findViewById(R.id.averageSystolicTextView)
         val userId = FirebaseAuth.getInstance().currentUser!!.email
+        val minPulse = intent.getStringExtra("minPulse")
+        val maxPulse = intent.getStringExtra("maxPulse")
+        val avgPulse = intent.getStringExtra("avgPulse")
 
         // Pobieranie danych z Firestore
         db.collection("measurements")
@@ -91,6 +97,11 @@ class RaportPressure : AppCompatActivity() {
 
                 // Wyświetlanie średnich na wykresie
                 displayPressureChart(avgSystolicPerDay, avgDiastolicPerDay)
+
+                val sendRaportsButton = findViewById<Button>(R.id.sendRaportsButton)
+                sendRaportsButton.setOnClickListener {
+                    openMainActivity2(userId.toString(), minPulse.toString(), maxPulse.toString(), avgPulse.toString())
+                }
             }
             .addOnFailureListener { exception ->
                 Toast.makeText(this, "Błąd: $exception", Toast.LENGTH_SHORT).show()
@@ -311,5 +322,25 @@ class RaportPressure : AppCompatActivity() {
         } else {
             callback(-1, "unknown")
         }
+    }
+
+    /**
+     * Metoda do przechodzenia do raportu ciśnienia.
+     *
+     * @param userID identyfikator użytkownika, który jest przekazywany do głównej aktywności.
+     */
+    private fun openMainActivity2(userID: String, minPulse: String, maxPulse: String, avgPulse: String) {
+        val intent = Intent(this, Chatbot::class.java)
+        intent.putExtra("uID", userID)
+        intent.putExtra("minPulse", minPulse)
+        intent.putExtra("maxPulse", maxPulse)
+        intent.putExtra("avgPulse", avgPulse)
+        intent.putExtra("minSys", minSystolicTextView.text.toString())
+        intent.putExtra("maxSys", maxSystolicTextView.text.toString())
+        intent.putExtra("avgSys", avgSystolicTextView.text.toString())
+        intent.putExtra("minDia", minDiastolicTextView.text.toString())
+        intent.putExtra("maxDia", maxDiastolicTextView.text.toString())
+        intent.putExtra("avgDia", avgDiastolicTextView.text.toString())
+        startActivity(intent)
     }
 }

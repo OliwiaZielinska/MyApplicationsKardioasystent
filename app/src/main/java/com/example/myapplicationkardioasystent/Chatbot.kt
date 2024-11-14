@@ -36,6 +36,12 @@ class Chatbot : AppCompatActivity() {
     private var minPulse: String? = null
     private var maxPulse: String? = null
     private var avgPulse: String? = null
+    private var minSys: String? = null
+    private var maxSys: String? = null
+    private var avgSys: String? = null
+    private var minDia: String? = null
+    private var maxDia: String? = null
+    private var avgDia: String? = null
 
     /**
      * Metoda wykonywana podczas tworzenia aktywności.
@@ -50,13 +56,23 @@ class Chatbot : AppCompatActivity() {
         txtResponse = findViewById(R.id.txtResponse)
         backIntoRaports = findViewById(R.id.backIntoRaports)
         val userId = FirebaseAuth.getInstance().currentUser!!.email
-        // Pobranie wartości tętna z Intent
+
+        // Pobranie wartości tętna i ciśnienia z Intent
         minPulse = intent.getStringExtra("minPulse")
         maxPulse = intent.getStringExtra("maxPulse")
         avgPulse = intent.getStringExtra("avgPulse")
+        minSys = intent.getStringExtra("minSys")
+        maxSys = intent.getStringExtra("maxSys")
+        avgSys = intent.getStringExtra("avgSys")
+        minDia = intent.getStringExtra("minDia")
+        maxDia = intent.getStringExtra("maxDia")
+        avgDia = intent.getStringExtra("avgDia")
 
-        // Wprowadzenie domyślnego pytania do pola tekstowego zawierającego wartości tętna
-        etQuestion.setText("Czy następujące wyniki pomiarów tętna: minimalne tętno: $minPulse, maksymalne tętno: $maxPulse, średnie tętno: $avgPulse są dobre? Jeśli nie, co mogę zrobić, aby poprawić swoje zdrowie?")
+        // Wprowadzenie domyślnego pytania do pola tekstowego zawierającego wartości tętna i ciśnienia
+        etQuestion.setText("Czy następujące wyniki pomiarów tętna: minimalne tętno: $minPulse, maksymalne tętno: $maxPulse, średnie tętno: $avgPulse są dobre?\n " +
+                "Czy ciśnienie skurczowe o wartościach: minimalne: $minSys, maksymalne: $maxSys, średnie: $avgSys jest prawidłowe?\n"+
+                "Podobnie, czy ciśnienie rozkurczowe minimalne: $minDia, maksymalne: $maxDia, średnie: $avgDia są w normie?\n"+
+                "Jeśli nie, co mogę zrobić, aby poprawić swoje zdrowie?")
 
         // Nasłuchiwanie kliknięcia przycisku "Wyślij"
         etQuestion.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->

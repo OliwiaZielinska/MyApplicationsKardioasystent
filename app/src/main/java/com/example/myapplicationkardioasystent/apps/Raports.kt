@@ -7,7 +7,6 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplicationkardioasystent.Chatbot
 import com.example.myapplicationkardioasystent.R
 import com.example.myapplicationkardioasystent.cloudFirestore.User
 import com.example.myapplicationkardioasystent.registation.Gender
@@ -59,6 +58,9 @@ class Raports : AppCompatActivity() {
             } else {
                 // Jeśli to drugie kliknięcie, przechodzimy do raportu ciśnienia
                 val intent = Intent(this, RaportPressure::class.java)
+                intent.putExtra("minPulse", minPulseTextView.text.toString())
+                intent.putExtra("maxPulse", maxPulseTextView.text.toString())
+                intent.putExtra("avgPulse", avgPulseTextView.text.toString())
                 startActivity(intent)
             }
         }
@@ -103,11 +105,6 @@ class Raports : AppCompatActivity() {
         val returnFromRaportsButton = findViewById<Button>(R.id.returnFromRaportsButton)
         returnFromRaportsButton.setOnClickListener {
             openMainActivity(userId.toString())
-        }
-
-        val sendRaportsButton = findViewById<Button>(R.id.sendRaportsButton)
-        sendRaportsButton.setOnClickListener {
-            openMainActivity2(userId.toString())
         }
     }
     /**
@@ -230,28 +227,13 @@ class Raports : AppCompatActivity() {
         }
     }
     /**
-     * Metoda do otwierania aktywności głównej.
+     * Metoda do przechodzenia do okna głównego aplikacji.
      *
      * @param userID identyfikator użytkownika, który jest przekazywany do głównej aktywności.
      */
     private fun openMainActivity(userID: String) {
         val intent = Intent(this, MainViewApp::class.java)
         intent.putExtra("uID", userID)
-        startActivity(intent)
-    }
-
-
-    /**
-     * Metoda do otwierania aktywności związanej z chatem i przekazywania wartości tętna.
-     *
-     * @param userID identyfikator użytkownika, który jest przekazywany do głównej aktywności.
-     */
-    private fun openMainActivity2(userID: String) {
-        val intent = Intent(this, Chatbot::class.java)
-        intent.putExtra("uID", userID)
-        intent.putExtra("minPulse", minPulseTextView.text.toString())
-        intent.putExtra("maxPulse", maxPulseTextView.text.toString())
-        intent.putExtra("avgPulse", avgPulseTextView.text.toString())
         startActivity(intent)
     }
 
