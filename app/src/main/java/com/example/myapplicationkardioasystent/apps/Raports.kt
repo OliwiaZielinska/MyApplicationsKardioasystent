@@ -24,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+
 /**
  * Klasa Raports odpowiedzialna za wyświetlanie raportu pomiarów tętna użytkownika. Zawiera metody do pobierania danych z Firestore,
  * wyświetlania wykresu oraz obliczania statystyk tętna w ostatnich 30 dniach.
@@ -37,6 +38,7 @@ class Raports : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     private val displayFormat = SimpleDateFormat("dd.MM", Locale.getDefault())
+    private var isFirstClick = true
     /**
      * Metoda wykonywana podczas tworzenia aktywności.
      * Inicjalizuje widoki, pobiera dane użytkownika i dane z Firestore oraz wywołuje metodę do wyświetlania wykresu.
@@ -44,6 +46,22 @@ class Raports : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.raports)
+
+        // Inicjalizacja przycisku
+        val rightArrowButton = findViewById<Button>(R.id.rightArrowButton)
+
+        // Ustawienie nasłuchiwania na kliknięcie przycisku
+        rightArrowButton.setOnClickListener {
+            if (isFirstClick) {
+                // Jeśli to pierwsze kliknięcie, wyświetlamy komunikat i ustawiamy flagę
+                Toast.makeText(this, "Kliknij ponownie, aby przejść do raportu ciśnienia", Toast.LENGTH_SHORT).show()
+                isFirstClick = false
+            } else {
+                // Jeśli to drugie kliknięcie, przechodzimy do raportu ciśnienia
+                val intent = Intent(this, RaportPressure::class.java)
+                startActivity(intent)
+            }
+        }
 
         lineChart = findViewById(R.id.lineChart)
         minPulseTextView = findViewById(R.id.minPulseTextView)
@@ -221,6 +239,7 @@ class Raports : AppCompatActivity() {
         intent.putExtra("uID", userID)
         startActivity(intent)
     }
+
 
     /**
      * Metoda do otwierania aktywności związanej z chatem i przekazywania wartości tętna.
