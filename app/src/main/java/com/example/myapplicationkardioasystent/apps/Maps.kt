@@ -301,7 +301,7 @@ class Maps : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
      */
     override fun onMarkerClick(marker: Marker): Boolean {
         destinationLatLng = marker.position
-        Toast.makeText(this, "Wybrano miejsce: ${marker.title}. Kliknij 'Nawiguj' aby rozpocząć nawigację.", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Wybrano miejsce: ${marker.title}. Kliknij NAWIGUJ, aby rozpocząć nawigację.", Toast.LENGTH_SHORT).show()
         return false
     }
 
@@ -320,7 +320,7 @@ class Maps : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
                 Toast.makeText(this, "Zainstaluj aplikację Google Maps, aby korzystać z nawigacji.", Toast.LENGTH_SHORT).show()
             }
         } else {
-            Toast.makeText(this, "Wybierz najpierw miejsce, klikając na pineskę.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Wybierz najpierw miejsce, klikając na pinezkę.", Toast.LENGTH_SHORT).show()
         }
     }
     /**
