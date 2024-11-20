@@ -20,7 +20,7 @@ import com.example.myapplicationkardioasystent.R
 class ReminderBroadcast : BroadcastReceiver() {
 
     /**
-     *
+     * Obsługuje zdarzenia odbierane przez BroadcastReceiver i wyświetla powiadomienie w systemie.
      * @param context Kontekst aplikacji.
      * @param intent Intent, który spowodował wywołanie odbiornika.
      */

@@ -46,6 +46,7 @@ class Chatbot : AppCompatActivity() {
     /**
      * Metoda wykonywana podczas tworzenia aktywności.
      * Inicjalizuje widoki, pobiera dane użytkownika i dane z Firestore oraz wywołuje metodę do utworzenia chata.
+     * @param savedInstanceState Zapisany stan instancji aktywności, jeśli jest dostępny.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,7 +104,6 @@ class Chatbot : AppCompatActivity() {
 
     /**
      * Metoda do obsługi przycisku "POWRÓT" umożliwiającego wrócenie do okna Raports.
-     *
      * @param userID identyfikator użytkownika, który jest przekazywany do głównej aktywności.
      */
     private fun openRaportsView(userID: String) {
@@ -114,7 +114,6 @@ class Chatbot : AppCompatActivity() {
 
     /**
      * Metoda do uzyskiwania odpowiedzi od sztucznej inteligencji ChatGPT.
-     *
      * @param question pytanie użytkownika, na które chce on uzyskać odpowiedź
      * @param callback funkcja zwrotna zwierająca odpowiedź na zadane pytanie
      */
@@ -152,7 +151,11 @@ class Chatbot : AppCompatActivity() {
                     txtResponse.text = "Błąd sieci: ${e.message}"
                 }
             }
-
+            /**
+             * Obsługuje odpowiedź na żądanie HTTP.
+             * @param call Obiekt `Call`, który zawiera dane o wysłanym żądaniu.
+             * @param response Obiekt `Response`, który zawiera odpowiedź z serwera.
+             */
             override fun onResponse(call: Call, response: Response) {
                 if (!response.isSuccessful) {
                     Log.e("error", "Nieoczekiwany kod odpowiedzi: ${response.code}")

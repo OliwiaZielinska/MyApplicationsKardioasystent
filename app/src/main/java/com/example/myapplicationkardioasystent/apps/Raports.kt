@@ -41,6 +41,7 @@ class Raports : AppCompatActivity() {
     /**
      * Metoda wykonywana podczas tworzenia aktywności.
      * Inicjalizuje widoki, pobiera dane użytkownika i dane z Firestore oraz wywołuje metodę do wyświetlania wykresu.
+     * @param savedInstanceState Zapisany stan aktywności, jeśli jest dostępny.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,7 +110,6 @@ class Raports : AppCompatActivity() {
     }
     /**
      * Metoda do wyświetlania wykresu średnich wartości tętna.
-     *
      * @param avgPulsePerDay Mapa z datami jako klucze i średnimi wartościami tętna jako wartości.
      */
     private fun displayChart(avgPulsePerDay: Map<String, Double>) {
@@ -228,7 +228,6 @@ class Raports : AppCompatActivity() {
     }
     /**
      * Metoda do przechodzenia do okna głównego aplikacji.
-     *
      * @param userID identyfikator użytkownika, który jest przekazywany do głównej aktywności.
      */
     private fun openMainActivity(userID: String) {
@@ -239,6 +238,9 @@ class Raports : AppCompatActivity() {
 
     /**
      * Metoda do liczenia limitów tętna na podstawie wieku i płci.
+     * @param age Wiek użytkownika (liczba całkowita).
+     * @param gender Płeć użytkownika (String).
+     * @return Para (`Pair`) reprezentująca minimalną i maksymalną wartość tętna dla podanych parametrów.
      */
     private fun calculatePulseLimits(age: Int, gender: String): Pair<Int, Int> {
         val pulseRange = when (age) {
@@ -254,6 +256,8 @@ class Raports : AppCompatActivity() {
 
     /**
      * Metoda pobierająca dane o użytkowniku
+     * @param callback Funkcja zwrotna, która zostanie wywołana po pomyślnym pobraniu danych.
+     *                 Przyjmuje dwa argumenty: wiek (`Int`) oraz płeć użytkownika (`String`).
      */
     private fun getUserData(callback: (Int, String) -> Unit) {
         val userId = FirebaseAuth.getInstance().currentUser?.email

@@ -25,7 +25,6 @@ import com.example.myapplicationkardioasystent.R
 import com.example.myapplicationkardioasystent.cloudFirestore.Measurment
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -48,8 +47,11 @@ class EnterMeasurment : AppCompatActivity() {
     private var lastSystolicPressure = ""
     private var lastDiastolicPressure = ""
     private var lastPulse = ""
-
-    @OptIn(DelicateCoroutinesApi::class)
+/**
+ * Metoda wywoływana podczas tworzenia aktywności. Inicjalizuje interfejs użytkownika, ustawia bieżącą datę i godzinę w odpowiednich polach,
+ * oraz obsługuje interakcje użytkownika, takie jak otwieranie dialogów wyboru daty i godziny czy zapis wyników pomiarów.
+ * @param savedInstanceState Zapisany stan aktywności, jeśli jest dostępny.
+ */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.enter_measurment_app)
@@ -92,7 +94,7 @@ class EnterMeasurment : AppCompatActivity() {
             val pulse = pulseInputText.text.toString()
 
             if (systolicPressure.isNotEmpty() && diastolicPressure.isNotEmpty() && pulse.isNotEmpty()) {
-                // sprawdzenie czy wartości cisnienia i pulsu nie są ujemne
+                // sprawdzenie czy wartości ciśnienia i pulsu nie są ujemne
                 val systolicPressureValue = systolicPressure.toInt()
                 val diastolicPressureValue = diastolicPressure.toInt()
                 val pulseValue = pulse.toInt()
@@ -201,6 +203,7 @@ class EnterMeasurment : AppCompatActivity() {
 
     /**
      * Metoda do otwarcia głównego widoku aplikacji.
+     * @param userID Identyfikator użytkownika, który zostaje przekazany do aktywności `MainViewApp`.
      */
     private fun openActivity(userID: String) {
         val intent = Intent(this, MainViewApp::class.java)
@@ -242,6 +245,7 @@ class EnterMeasurment : AppCompatActivity() {
     }
     /**
      * Metoda do wyświetlenia Toast.
+     * @param message Tekst komunikatu, który ma zostać wyświetlony.
      */
     private fun showRedToast(message: String) {
         val toast = Toast.makeText(this, message, Toast.LENGTH_SHORT)

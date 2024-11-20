@@ -11,7 +11,10 @@ import com.example.myapplicationkardioasystent.registation.MainActivityRegistrat
  * Umożliwia przejście do ekranu logowannia lub rejestracji.
  */
 class MainActivity : AppCompatActivity() {
-
+    /**
+     * Inicjalizuje widok aktywności głównej oraz ustawia akcje dla przycisków i elementów interfejsu.
+     * @param savedInstanceState Obiekt, który zawiera dane zapisane w poprzednim stanie aktywności.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main1)

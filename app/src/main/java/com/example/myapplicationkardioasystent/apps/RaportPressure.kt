@@ -44,6 +44,7 @@ class RaportPressure : AppCompatActivity() {
     /**
      * Metoda wywoływana podczas tworzenia aktywności.
      * Inicjalizuje widoki, pobiera dane z Firestore, a następnie wyświetla je na wykresie.
+     * @param savedInstanceState Zapisany stan aktywności, jeśli jest dostępny.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -114,6 +115,8 @@ class RaportPressure : AppCompatActivity() {
     /**
      * Metoda wyświetlająca wykres ciśnienia.
      * Na wykresie prezentowane są średnie wartości ciśnienia skurczowego i rozkurczowego w ciągu ostatnich 30 dni.
+     * @param avgSystolicPerDay Mapa, w której kluczem jest data (String), a wartością średnie ciśnienie skurczowe (Float) w danym dniu.
+     * @param avgDiastolicPerDay Mapa, w której kluczem jest data (String), a wartością średnie ciśnienie rozkurczowe (Float) w danym dniu.
      */
     private fun displayPressureChart(
         avgSystolicPerDay: Map<String, Float>,
@@ -281,7 +284,6 @@ class RaportPressure : AppCompatActivity() {
 
     /**
      * Funkcja obliczająca limity ciśnienia rozkurczowego w zależności od wieku i płci.
-     *
      * @param age Wiek użytkownika.
      * @param gender Płeć użytkownika.
      * @return Para wartości (limit górny, limit dolny) ciśnienia.
@@ -295,7 +297,6 @@ class RaportPressure : AppCompatActivity() {
     }
     /**
      * Funkcja pobierająca dane użytkownika z Firestore.
-     *
      * @param callback Funkcja zwrotna, która zwraca dane użytkownika (wiek, płeć).
      */
     private fun getUserData(callback: (Int, String) -> Unit) {
@@ -326,8 +327,10 @@ class RaportPressure : AppCompatActivity() {
 
     /**
      * Metoda do przechodzenia do raportu ciśnienia.
-     *
      * @param userID identyfikator użytkownika, który jest przekazywany do głównej aktywności.
+     * @param minPulse Minimalna wartość pulsu, przekazywana jako parametr do nowej aktywności.
+     * @param maxPulse Maksymalna wartość pulsu, przekazywana jako parametr do nowej aktywności.
+     * @param avgPulse Średnia wartość pulsu, przekazywana jako parametr do nowej aktywności.
      */
     private fun openMainActivity2(userID: String, minPulse: String, maxPulse: String, avgPulse: String) {
         val intent = Intent(this, Chatbot::class.java)

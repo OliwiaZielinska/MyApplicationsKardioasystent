@@ -39,7 +39,6 @@ class Maps : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
     private lateinit var mMap: GoogleMap    //obiekt map
     private lateinit var fusedLocationClient: FusedLocationProviderClient   //klient do uzyskiwania lokalizacji
     private lateinit var lastLocation: Location //ostatnia znaleziona lokalizacja użytkownika
-
     private lateinit var returnFromMapsButton: Button   //przycisk do powrotu do głównej aktywności
     private lateinit var navigationButton: Button   //przycisk do przejścia do map Google i nawigacji
     private lateinit var searchButton: Button //przycisk wyszukiwania
@@ -47,8 +46,7 @@ class Maps : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
     private lateinit var distanceSeekBar: SeekBar
     private lateinit var distanceTextView: TextView
     private var searchRadius = 5000 //początkowy promień wyszukiwania (5 km)
-
-    private var destinationLatLng: LatLng? = null // Przechowywanie wybranego miejsca
+    private var destinationLatLng: LatLng? = null //przechowywanie wybranego miejsca
 
     companion object {
         private const val LOCATION_REQUEST_CODE = 1 //kod żądania uprawnień do lokalizacji
@@ -121,7 +119,6 @@ class Maps : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
 
     /**
      * Metoda do wyszukiwania pobliskich miejsc według podanego typu.
-     *
      * @param type Typ miejsca do wyszukiwania (np. apteka, lekarz, szpital)
      */
     private fun findNearbyPlaces(type: String) {
@@ -171,7 +168,6 @@ class Maps : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
     }
     /**
      * Metoda do pobierania klucza API z manifestu aplikacji.
-     *
      * @return Klucz API, lub null, jeśli nie został znaleziony.
      */
     private fun getApiKeyFromManifest(): String? {
@@ -188,7 +184,6 @@ class Maps : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
     /**
      * Metoda wywoływana, gdy mapa jest gotowa do użycia.
      * Ustawia przyciski powiększania oraz listener'a dla markerów.
-     *
      * @param googleMap Obiekt mapy, który jest gotowy do użycia.
      */
     override fun onMapReady(googleMap: GoogleMap) {
@@ -231,7 +226,6 @@ class Maps : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
     }
     /**
      * Metoda do wyszukiwania najbliższego miejsca według podanego typu.
-     *
      * @param type Typ miejsca do wyszukiwania (np. apteka, lekarz, szpital)
      */
     private fun findSingleNearbyPlace(type: String) {
@@ -286,7 +280,6 @@ class Maps : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
     }
     /**
      * Metoda do dodawania markera na mapie dla podanej lokalizacji.
-     *
      * @param location Lokalizacja, dla której ma zostać dodany marker.
      */
     private fun placeMarkerOnMap(location: LatLng) {
@@ -296,7 +289,6 @@ class Maps : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
 
     /**
      * Metoda wywoływana, gdy kliknięto na marker.
-     *
      * @param marker Marker, który został kliknięty.
      */
     override fun onMarkerClick(marker: Marker): Boolean {
@@ -325,7 +317,6 @@ class Maps : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
     }
     /**
      * Metoda do otwierania głównej aktywności.
-     *
      * @param userID ID użytkownika do przekazania do nowej aktywności.
      */
     private fun openMainActivity(userID: String) {

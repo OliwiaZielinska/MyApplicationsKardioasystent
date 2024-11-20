@@ -8,14 +8,12 @@ import androidx.work.WorkerParameters
 import com.example.myapplicationkardioasystent.R
 /**
  * Worker odpowiadający za wysyłanie powiadomień związanych z pomiarami ciśnienia krwi i pulsu.
- *
  * @param context Kontekst aplikacji.
  * @param params Parametry pracy dla workera.
  */
 class NotificationWorker(context: Context, params: WorkerParameters) : Worker(context, params) {
     /**
      * Metoda doWork() wykonuje zadanie workera, czyli wysyłanie powiadomienia.
-     *
      * @return Wynik pracy workera.
      */
     override fun doWork(): Result {
@@ -25,7 +23,6 @@ class NotificationWorker(context: Context, params: WorkerParameters) : Worker(co
     }
     /**
      * Metoda sendNotification() wysyła powiadomienie o zadanym komunikacie.
-     *
      * @param message Treść powiadomienia.
      */
     private fun sendNotification(message: String) {

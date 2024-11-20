@@ -30,7 +30,11 @@ class Statistics : AppCompatActivity() {
     private val filteredMeasurementList = mutableListOf<Measurment>()
     private lateinit var adapter: MeasurementAdapter
     private lateinit var spinnerFilter: Spinner
-
+    /**
+     * Inicjalizuje widok statystyk oraz ustawia dane dla listy pomiarów i filtra.
+     * Wywołuje funkcję odpowiedzialną za wczytanie danych pomiarów i ich filtrowanie.
+     * @param savedInstanceState Obiekt przechowujący stan aktywności, przekazany podczas jej tworzenia.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.statistics)
@@ -106,6 +110,8 @@ class Statistics : AppCompatActivity() {
 
     /**
      * Filtruje dane pomiarowe na podstawie wybranego kryterium.
+     * @param filter Kryterium, na podstawie którego dane mają zostać przefiltrowane.
+     *               Może to być np. "Tydzień", "Miesiąc" lub "Rok".
      */
     private fun filterData(filter: String) {
         val calendar = Calendar.getInstance()
@@ -157,6 +163,7 @@ class Statistics : AppCompatActivity() {
 
     /**
      * Otwiera główną aktywność aplikacji.
+     * @param userID Identyfikator użytkownika, który jest przekazywany do głównej aktywności.
      */
     private fun openMainActivity(userID : String) {
         val intent = Intent(this, MainViewApp::class.java)
@@ -166,6 +173,7 @@ class Statistics : AppCompatActivity() {
 
     /**
      * Otwiera layout raportów.
+     * @param userID Identyfikator użytkownika, który jest przekazywany do głównej aktywności.
      */
     private fun openRaportsActivity(userID : String) {
         val intent = Intent(this, Raports::class.java)

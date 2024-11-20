@@ -8,7 +8,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.work.Data
-import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.myapplicationkardioasystent.R
@@ -42,7 +41,6 @@ class MainActivityRegistration2 : BaseActivity() {
 
     /**
      * Metoda wywoływana przy tworzeniu aktywności.
-     *
      * @param savedInstanceState Zapisany stan instancji aktywności.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,7 +90,6 @@ class MainActivityRegistration2 : BaseActivity() {
 
     /**
      * Metoda wyświetlająca TimePickerDialog i ustawiająca wybrany czas w TextView.
-     *
      * @param textView TextView, który ma być zaktualizowany.
      */
     private fun showTimePickerDialog(textView: TextView) {
@@ -110,7 +107,6 @@ class MainActivityRegistration2 : BaseActivity() {
 
     /**
      * Metoda walidująca wprowadzone dane rejestracyjne.
-     *
      * @return True, jeśli dane są poprawne; w przeciwnym razie false.
      */
     private fun validateRegisterDetails(): Boolean {
@@ -146,7 +142,6 @@ class MainActivityRegistration2 : BaseActivity() {
 
     /**
      * Metoda rejestracji użytkownika.
-     *
      * @param name Imię użytkownika.
      * @param surname Nazwisko użytkownika.
      * @param sex Płeć użytkownika.
@@ -215,27 +210,7 @@ class MainActivityRegistration2 : BaseActivity() {
     }
 
     /**
-     * Metoda planująca jednorazowe powiadomienie.
-     *
-     * @param time Czas planowanego powiadomienia.
-     * @param message Wiadomość powiadomienia.
-     */
-    private fun scheduleNotification(time: String, message: String) {
-        val delay = calculateDelay(time)
-        if (delay > 0) {
-            val data = Data.Builder().putString("message", message).build()
-            val notificationWork = OneTimeWorkRequestBuilder<NotificationWorker>()
-                .setInitialDelay(delay, TimeUnit.MILLISECONDS)
-                .setInputData(data)
-                .build()
-            WorkManager.getInstance(this).enqueue(notificationWork)
-        } else {
-        }
-    }
-
-    /**
      * Metoda obliczająca opóźnienie dla planowanego powiadomienia.
-     *
      * @param time Czas planowanego powiadomienia.
      * @return Opóźnienie w milisekundach.
      */
@@ -257,7 +232,6 @@ class MainActivityRegistration2 : BaseActivity() {
 
     /**
      * Metoda planująca codzienne powiadomienia.
-     *
      * @param time Czas planowanych powiadomień.
      * @param message Wiadomość powiadomienia.
      */
@@ -273,7 +247,6 @@ class MainActivityRegistration2 : BaseActivity() {
 
     /**
      * Metoda haszująca hasło użytkownika.
-     *
      * @param password Hasło do zahashowania.
      * @return Zahashowane hasło.
      */

@@ -22,7 +22,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <!-- text view for displaying question -->
             <TextView
                 android:id="@+id/idTVQuestion"
                 android:layout_width="match_parent"
@@ -35,7 +34,6 @@
                 android:textSize="17sp"
                 android:textStyle="bold" />
 
-            <!-- text view for displaying response -->
             <TextView
                 android:id="@+id/txtResponse"
                 android:layout_width="match_parent"
@@ -50,7 +48,6 @@
 
     </ScrollView>
 
-    <!-- text field for asking question -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/idTILQuery"
         android:layout_width="match_parent"

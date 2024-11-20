@@ -26,7 +26,6 @@ class MainViewApp : AppCompatActivity(){
     private lateinit var logOutButton: Button
     private lateinit var calendarView: CalendarView
     private lateinit var helloUserText: TextView
-    private lateinit var measurementResultsText: TextView
     private lateinit var mapsButton: Button
     private val db = FirebaseFirestore.getInstance() //inicjalizacja Firestore
 
@@ -88,7 +87,6 @@ class MainViewApp : AppCompatActivity(){
     /**
      * Pobiera wyniki pomiarów dla określonej daty z bazy danych Firestore
      * i wyświetla je w oknie dialogowym.
-     *
      * @param date Wybrana data w formacie "yyyy-MM-dd", dla której pobierane są pomiary.
      */
     private fun fetchMeasurementResults(date: String) {
@@ -126,7 +124,6 @@ class MainViewApp : AppCompatActivity(){
 
     /**
      * Wyświetla okno dialogowe z podanym tytułem i treścią.
-     *
      * @param title Tytuł dialogu.
      * @param message Treść dialogu.
      */
@@ -140,7 +137,6 @@ class MainViewApp : AppCompatActivity(){
 
     /**
      * Otwiera aktywność wprowadzania wyników pomiaru.
-     *
      * @param userID ID użytkownika przekazywane do nowej aktywności.
      */
     private fun openActivity(userID: String) {
@@ -151,7 +147,6 @@ class MainViewApp : AppCompatActivity(){
 
     /**
      * Otwiera aktywność map.
-     *
      * @param userID ID użytkownika przekazywane do nowej aktywności.
      */
     private fun openActivityMaps(userID: String) {
@@ -162,7 +157,6 @@ class MainViewApp : AppCompatActivity(){
 
     /**
      * Otwiera aktywność poradnika zdrowotnego.
-     *
      * @param userID ID użytkownika przekazywane do nowej aktywności.
      */
     private fun openActivityHealthAdvices(userID: String) {
@@ -173,7 +167,6 @@ class MainViewApp : AppCompatActivity(){
 
     /**
      * Otwiera aktywność ustawień.
-     *
      * @param userID ID użytkownika przekazywane do nowej aktywności.
      */
     private fun openActivitySettings(userID: String) {
@@ -184,7 +177,6 @@ class MainViewApp : AppCompatActivity(){
 
     /**
      * Otwiera aktywność statystyk.
-     *
      * @param userID ID użytkownika przekazywane do nowej aktywności.
      */
     private fun openActivityStatistics(userID: String) {

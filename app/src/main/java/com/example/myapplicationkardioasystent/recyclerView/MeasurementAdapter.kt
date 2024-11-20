@@ -17,7 +17,6 @@ import java.util.Calendar
 
 /**
  * Adapter RecyclerView odpowiedzialny za wyświetlanie pomiarów użytkownika.
- *
  * @property measurements Lista pomiarów do wyświetlenia.
  * @property intent Intent zawierający dodatkowe informacje, takie jak identyfikator użytkownika.
  */
@@ -25,7 +24,6 @@ class MeasurementAdapter(val measurements: MutableList<Measurment>, val intent: 
 
     /**
      * ViewHolder do przechowywania widoków elementów pomiarów.
-     *
      * @param itemView Widok pojedynczego elementu pomiaru.
      */
     class MeasurementViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -36,14 +34,23 @@ class MeasurementAdapter(val measurements: MutableList<Measurment>, val intent: 
         val imageViewPulse: ImageView = itemView.findViewById(R.id.imageViewPulse)
         val imageViewBloodPressure: ImageView = itemView.findViewById(R.id.imageViewBloodPressure)
     }
-
+    /**
+     * Tworzy nowy widok pojedynczego elementu pomiaru w RecyclerView.
+     * @param parent Widok rodzica, do którego nowy widok będzie dołączony.
+     * @param viewType Typ widoku, który jest używany w przypadku, gdy RecyclerView ma różne typy widoków.
+     * @return Zwraca nowy obiekt `MeasurementViewHolder`, który zawiera widok pojedynczego elementu.
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MeasurementViewHolder {
         // Tworzenie nowego widoku pojedynczego elementu pomiaru.
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.measurment_item, parent, false)
         return MeasurementViewHolder(itemView)
     }
-
+    /**
+     * Wiąże dane pomiaru z odpowiednim widokiem (ViewHolder) w RecyclerView.
+     * @param holder ViewHolder, który zawiera widoki pojedynczego elementu w RecyclerView.
+     * @param position Pozycja elementu w danych, które są wyświetlane w RecyclerView.
+     */
     override fun onBindViewHolder(holder: MeasurementViewHolder, position: Int) {
         // Wiązanie danych pomiaru z widokiem ViewHoldera.
         val currentMeasurement = measurements[position]
@@ -110,13 +117,19 @@ class MeasurementAdapter(val measurements: MutableList<Measurment>, val intent: 
         }
     }
 
-
+    /**
+     * Zwraca liczbę elementów (pomiarów), które należą do bieżącego użytkownika.
+     * @return Liczba elementów w zbiorze danych, które należą do bieżącego użytkownika.
+     */
     override fun getItemCount(): Int {
         // Zwrócenie liczby pomiarów należących do bieżącego użytkownika.
         return measurements.count { it.userID == intent.getStringExtra("userID").toString() }
     }
 
-
+    /**
+     * Oblicza wiek użytkownika oraz jego płeć na podstawie danych zapisanych w bazie danych Firebase.
+     * @param callback Funkcja, która otrzymuje dwa parametry: `Int` - wiek użytkownika. String` - płeć użytkownika.
+     */
     private fun calculateAgeAndGender(callback: (Int, String) -> Unit) {
         val db = FirebaseFirestore.getInstance()
         val userId = FirebaseAuth.getInstance().currentUser?.email

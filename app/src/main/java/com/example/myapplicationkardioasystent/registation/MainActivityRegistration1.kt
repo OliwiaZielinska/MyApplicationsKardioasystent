@@ -15,7 +15,6 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.myapplicationkardioasystent.R
 import com.example.myapplicationkardioasystent.apps.NotificationWorker
-import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 import java.util.concurrent.TimeUnit
@@ -39,6 +38,7 @@ class MainActivityRegistration1 : BaseActivity() {
 
     /**
      * Metoda wywoływana podczas tworzenia aktywności.
+     * @param savedInstanceState Zapisany stan aktywności, jeśli jest dostępny.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,7 +101,6 @@ class MainActivityRegistration1 : BaseActivity() {
 
     /**
      * Metoda walidująca wprowadzone dane rejestracyjne.
-     *
      * @return `true`, jeśli dane są poprawne, w przeciwnym razie `false`.
      */
     private fun validateRegisterDetails(): Boolean {
@@ -126,12 +125,6 @@ class MainActivityRegistration1 : BaseActivity() {
         if (TextUtils.isEmpty(sexString)) {
             showErrorSnackBar(getString(R.string.err_msg_enter_gender), true)
             return false
-        }
-
-        val sex = when (sexString) {
-            "Mężczyzna" -> Gender.MALE
-            "Kobieta" -> Gender.FEMALE
-            else -> Gender.OTHER
         }
 
         if (TextUtils.isEmpty(yearOfBirth)) {
@@ -186,7 +179,6 @@ class MainActivityRegistration1 : BaseActivity() {
      * @return Obliczone opóźnienie w milisekundach.
      */
     private fun calculateInitialDelay(time: String): Long {
-        val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
         val targetTime = Calendar.getInstance().apply {
             val timeParts = time.split(":").map { it.toInt() }
             set(Calendar.HOUR_OF_DAY, timeParts[0])

@@ -19,7 +19,10 @@ open class ActivityMainLogin : BaseActivity(){
     private var loginEmailInput: EditText? = null
     private var loginPasswordInput: EditText? = null
     private var loginLogInButton: Button? = null
-
+    /**
+     * Inicjalizuje widok logowania i ustawia obsługę zdarzeń dla przycisku logowania.
+     * @param savedInstanceState Obiekt, który zawiera dane zapisane w poprzednim stanie aktywności.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_login)
@@ -28,7 +31,7 @@ open class ActivityMainLogin : BaseActivity(){
         loginPasswordInput = findViewById(R.id.LoginPasswordInput)
         loginLogInButton = findViewById(R.id.LoginLogInButton)
 
-        // Setting click listener to this class
+        //ustawienie listenera kliknięcia na przycisk logowania w tej klasie
         loginLogInButton?.setOnClickListener{
             logInRegisteredUser()
         }
@@ -77,9 +80,11 @@ open class ActivityMainLogin : BaseActivity(){
         }
     }
 
-    // Przejście do aktywności głównej
+    /**
+     * Przechodzi do głównej aktywności aplikacji po zalogowaniu użytkownika.
+     * @param email Adres e-mail użytkownika, który jest przekazywany do tej funkcji.
+     */
     open fun goToMainActivity(email: String) {
-        val user = FirebaseAuth.getInstance().currentUser
 
         //Przekazanie wartości uid
         val intent = Intent(this, MainViewApp::class.java)

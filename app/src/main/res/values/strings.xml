@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">My Application KARDIOASYSTENT</string>
-    <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">Pierwszy Fragment</string>
     <string name="second_fragment_label">Drugi Fragment</string>
     <string name="next">Dalej</string>

@@ -44,6 +44,7 @@ class Settings : BaseActivity() {
 
     /**
      * Metoda wywoływana podczas tworzenia aktywności.
+     * @param savedInstanceState Zapisany stan aktywności, jeśli jest dostępny.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -152,7 +153,6 @@ class Settings : BaseActivity() {
 
     /**
      * Metoda wyświetlająca dialog wyboru czasu.
-     *
      * @param textView Pole tekstowe, które zostanie zaktualizowane wybraną wartością czasu.
      */
     private fun showTimePickerDialog(textView: TextView) {
@@ -179,13 +179,13 @@ class Settings : BaseActivity() {
 
     /**
      * Metoda otwierająca główną aktywność aplikacji z przekazanymi danymi.
-     *
      * @param question Czy użytkownik ma pytanie.
      * @param drugsName Nazwa leku.
      * @param timeOfTakingMedication Czas przyjmowania leku.
      * @param morningMeasurement Pomiar rano.
      * @param middayMeasurement Pomiar w południe.
      * @param eveningMeasurement Pomiar wieczorem.
+     * @param userId Identyfikator użytkownika, który jest przekazywany do nowej aktywności.
      */
     private fun openActivity(
         question: String,
@@ -238,7 +238,6 @@ class Settings : BaseActivity() {
 
     /**
      * Metoda planująca codzienne powiadomienia.
-     *
      * @param time Godzina, o której mają zostać zaplanowane powiadomienia.
      * @param message Treść powiadomienia.
      */
@@ -261,7 +260,6 @@ class Settings : BaseActivity() {
 
     /**
      * Metoda obliczająca opóźnienie dla harmonogramu powiadomień.
-     *
      * @param time Docelowa godzina powiadomienia.
      * @return Obliczone opóźnienie w milisekundach.
      */
