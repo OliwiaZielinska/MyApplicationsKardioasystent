@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.DatePickerDialog
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.app.TimePickerDialog
 import android.content.ContentValues.TAG
 import android.content.Context
@@ -184,15 +185,33 @@ class EnterMeasurment : AppCompatActivity() {
     }
 
     /**
-     * Metoda do wyświetlania powiadomień.
+     * Metoda do wyświetlania powiadomień z akcją przekierowującą do widoku statystyk.
+     * Powiadomienie jest wyświetlane po dodaniu nowego pomiaru i zawiera przycisk,
+     * który pozwala użytkownikowi przejść do klasy `Statistics`.
      */
     private fun showNotification() {
+        val intent = Intent(this, Statistics::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+
+        // Utworzenie PendingIntent do wywołania po kliknięciu powiadomienia
+        val pendingIntent = PendingIntent.getActivity(
+            this,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        // Konfiguracja powiadomienia
         val builder = NotificationCompat.Builder(this, "ChannelId")
             .setSmallIcon(R.drawable.running_heart)
             .setContentTitle("Powiadomienie")
-            .setContentText("Twój pomiar został pomyślnie dodany.")
+            .setContentText("Twój pomiar został pomyślnie dodany. Kliknij, aby zobaczyć statystyki.")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
 
+        // Wyświetlenie powiadomienia
         with(NotificationManagerCompat.from(this)) {
             if (ActivityCompat.checkSelfPermission(this@EnterMeasurment, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                 return
